@@ -1,13 +1,14 @@
 extends KinematicBody2D
 
 var SPEED = 250
-var ACCELERATION = 500
+var ACCELERATION = 700
 var GRAVITY = 3000
 
 var velocity = Vector2()
 
 
 onready var sprite = $Sprite
+onready var collisionshape2D = $CollisionShape2D
 onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
@@ -18,40 +19,97 @@ func _ready(): # cuando inicia el juego
 	
 func _physics_process(delta): # por frame
 	
+# TODO
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	var move_input = Input.get_axis("move_left", "move_right")
 	
+	# movimiento horizontal
 	velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
 	
+	# gravedad
 	velocity.y += GRAVITY * delta
+
+
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = -4 * SPEED
 	
-	# Animation
-	
-	# si no está saltando/en el aire
+# PISO
 	if is_on_floor():
+		# salto
+		if Input.is_action_just_pressed("jump"):
+			velocity.y = -4 * SPEED
+	
+		# Animaciones
 		if abs(velocity.x) > 10:
 			playback.travel("run")
 		else:
 			playback.travel("idle")
+		
 	
-	# cuando está saltando/en el aire
-	else:
-		pass
-		#if velocity.y > 0:
-		#	playback.travel("fall")
-		#else:
-		#	playback.travel("jump")
-	
-	# ataque 1
-	if Input.is_action_just_pressed("attack1"):
-		playback.travel("attack 1")
-	
+# MURO
+	var move_input2 = Input.get_axis("move_up", "move_down")
+	var up_down = 0
+
+	if is_on_wall():
+		velocity.y = GRAVITY * 0.25 - 30
+		
+		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
+			up_down = 0
+			
+			
+		if Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
+			up_down = SPEED * 1.5
+		
+		# movimiento vertical
+		velocity.y = move_toward(velocity.y, move_input2 * up_down, ACCELERATION)
+		
+		########## FALTA ##########
+		
+		# wall jumps
+		if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
+			pass
+		
+		if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
+			pass
+		
+		# wall dash
+		var fwall = 0
+		if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("jump"):
+			if sprite.flip_h == true:
+				fwall = 500
+			else:
+				fwall = -500			
+			velocity.x = velocity.x + fwall
+			velocity.y = velocity.y - 1000
+		
+		
+		else:
+			playback.travel("idle")
+			
+		
+		########## FALTA ##########
+
+# TODO
+	var dash = 10
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
 		sprite.flip_h = false
+	
 	if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
 		sprite.flip_h = true
+	
+	# ataque 1
+	if Input.is_action_just_pressed("attack1") and not is_on_wall():
+		if sprite.flip_h == true:
+			dash = -20
+		else:
+			dash = 20
+		
+		playback.travel("attack 1")
+		velocity.y = velocity.y - 500
+		velocity.x = velocity.x +  dash * SPEED
+	
+	
+		
+
+
