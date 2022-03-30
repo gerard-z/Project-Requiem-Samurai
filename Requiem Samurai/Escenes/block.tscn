@@ -6,6 +6,7 @@
 extents = Vector2( 26, 341.5 )
 
 [node name="StaticBody2D" type="StaticBody2D"]
+position = Vector2( 123, 301 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -11, 26.5 )

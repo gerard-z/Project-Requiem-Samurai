@@ -47,21 +47,22 @@ func _physics_process(delta): # por frame
 		
 	
 # MURO
-	var move_input2 = Input.get_axis("move_up", "move_down")
+	var move_vertical = Input.get_axis("move_up", "move_down")
 	var up_down = 0
 
 	if is_on_wall():
-		velocity.y = GRAVITY * 0.25 - 30
+		velocity.y = GRAVITY * 0.25
 		
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
 			up_down = 0
+			velocity.y = 0
 			
 			
 		if Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
 			up_down = SPEED * 1.5
 		
 		# movimiento vertical
-		velocity.y = move_toward(velocity.y, move_input2 * up_down, ACCELERATION)
+		velocity.y = move_toward(velocity.y, move_vertical * up_down, ACCELERATION)
 		
 		########## FALTA ##########
 		
@@ -74,13 +75,13 @@ func _physics_process(delta): # por frame
 		
 		# wall dash
 		var fwall = 0
-		if Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump"):
 			if sprite.flip_h == true:
 				fwall = 500
 			else:
 				fwall = -500			
 			velocity.x = velocity.x + fwall
-			velocity.y = velocity.y - 1000
+			velocity.y = -4 * SPEED
 		
 		
 		else:
