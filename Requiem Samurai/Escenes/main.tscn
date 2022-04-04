@@ -36,5 +36,5 @@ position = Vector2( 1667, 883 )
 position = Vector2( 647, 894 )
 
 [node name="idle" parent="." instance=ExtResource( 2 )]
-position = Vector2( 605, 362 )
+position = Vector2( 241, 516 )
 scale = Vector2( 2.5, 2.5 )
