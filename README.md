@@ -19,11 +19,11 @@ PC, Xbox, PS
 ## Integrantes
 Gerard Cathalifaud S.
 
+Hugo Cortés A.
+
 Matías Mancilla L.
 
 Felipe Olivares E.
-
-Hugo Cortés A.
 
 ## HITO 1 (Solo para ver):
 https://1drv.ms/w/s!AgWXZeWs6SDM7RIN16cR73ac7M0I?e=vCDppe
