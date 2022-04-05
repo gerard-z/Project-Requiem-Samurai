@@ -12,10 +12,12 @@ onready var collisionshape2D = $CollisionShape2D
 onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
+onready var meleArea = $"Mele Colision"
 	
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
+	meleArea.connect("body_entered", self, "_on_body_entered")
 	
 func _physics_process(delta): # por frame
 	
@@ -110,7 +112,7 @@ func _physics_process(delta): # por frame
 		velocity.y = velocity.y - 500
 		velocity.x = velocity.x +  dash * SPEED
 	
-	
-		
+func _on_body_entered(body: Node2D):
+	body.take_damage(self)
 
 

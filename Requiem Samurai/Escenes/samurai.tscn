@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/Samurai/run.png" type="Texture" id=2]
 [ext_resource path="res://assets/Samurai/idle.png" type="Texture" id=3]
@@ -71,6 +71,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Vector2( 1.024, 1 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("../Mele Colision/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "attack 1"
@@ -111,6 +123,18 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 4 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Mele Colision/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -255,8 +279,14 @@ graph_offset = Vector2( -350.533, 46.7842 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
-[node name="idle" type="KinematicBody2D"]
+[sub_resource type="CapsuleShape2D" id=17]
+radius = 33.0
+height = 34.0
+
+[node name="Samuria" type="KinematicBody2D"]
 position = Vector2( 30, 11 )
+collision_layer = 2
+collision_mask = 7
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -279,9 +309,18 @@ anims/run = SubResource( 7 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 5 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 6 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 1.5, 1.5 )
+
+[node name="Mele Colision" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mele Colision"]
+position = Vector2( 37, -29 )
+rotation = 1.5708
+shape = SubResource( 17 )
+disabled = true
