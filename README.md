@@ -8,7 +8,7 @@ videojuego del curso de taller de videojuegos.
 Temática principal consiste en samurais vs demonios.
 
 ## Mecánica innovadora
-
+La mecánica consite en la batalla por medio de trazados que deje tanto el personaje como la espada, a través de dibujos simples o complejos, realizará distintas acciones o combos relacionados al combate.
 
 ## Motor gráfico
 Godot
@@ -20,3 +20,6 @@ PC, Xbox, PS
 Gerard Cathalifaud S.
 Matías Mancilla L.
 Felipe Olivares E.
+
+## HITO 1 (Solo para ver):
+https://1drv.ms/w/s!AgWXZeWs6SDM7RIN16cR73ac7M0I?e=vCDppe
