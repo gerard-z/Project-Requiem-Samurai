@@ -5,9 +5,13 @@
 [ext_resource path="res://Scripts/player.gd" type="Script" id=4]
 [ext_resource path="res://assets/Samurai/attack1.png" type="Texture" id=5]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 11.0
+[sub_resource type="CapsuleShape2D" id=17]
+radius = 33.0
 height = 26.0
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 12.6953
+height = 24.6094
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -48,36 +52,12 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../CollisionShape2D:position")
+tracks/3/path = NodePath("../Mele Colision/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -24 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("../CollisionShape2D:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1.024, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("../Mele Colision/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -177,30 +157,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [ ExtResource( 3 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("../CollisionShape2D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -24 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("../CollisionShape2D:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1.009, 1 ) ]
-}
 
 [sub_resource type="Animation" id=7]
 resource_name = "run"
@@ -279,28 +235,42 @@ graph_offset = Vector2( -350.533, 46.7842 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
-[sub_resource type="CapsuleShape2D" id=17]
-radius = 33.0
-height = 34.0
-
 [node name="Samuria" type="KinematicBody2D"]
-position = Vector2( 30, 11 )
 collision_layer = 2
 collision_mask = 7
 script = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -24 )
-scale = Vector2( 1.024, 1 )
-shape = SubResource( 1 )
+[node name="Pivot" type="Node2D" parent="."]
+scale = Vector2( -1, 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="Pivot"]
 position = Vector2( -1, -28 )
 texture = ExtResource( 3 )
 hframes = 4
 
+[node name="Mele Colision" type="Area2D" parent="Pivot"]
+collision_layer = 0
+collision_mask = 4
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Mele Colision"]
+position = Vector2( 45, -30 )
+rotation = 1.5708
+shape = SubResource( 17 )
+disabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -24 )
+scale = Vector2( 1.024, 1 )
+shape = SubResource( 1 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Sprite")
+root_node = NodePath("../Pivot/Sprite")
 anims/RESET = SubResource( 2 )
 "anims/attack 1" = SubResource( 11 )
 anims/idle = SubResource( 3 )
@@ -313,14 +283,3 @@ parameters/playback = SubResource( 6 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 1.5, 1.5 )
-
-[node name="Mele Colision" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mele Colision"]
-position = Vector2( 37, -29 )
-rotation = 1.5708
-shape = SubResource( 17 )
-disabled = true

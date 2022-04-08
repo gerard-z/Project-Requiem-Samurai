@@ -6,13 +6,13 @@ var GRAVITY = 3000
 
 var velocity = Vector2()
 
-
-onready var sprite = $Sprite
+onready var pivote = $Pivot
+onready var sprite = $Pivot/Sprite
 onready var collisionshape2D = $CollisionShape2D
 onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
-onready var meleArea = $"Mele Colision"
+onready var meleArea = $Pivot/"Mele Colision"
 	
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
@@ -78,7 +78,7 @@ func _physics_process(delta): # por frame
 		# wall dash
 		var fwall = 0
 		if Input.is_action_just_pressed("jump"):
-			if sprite.flip_h == true:
+			if pivote.scale.x<0:
 				fwall = 500
 			else:
 				fwall = -500			
@@ -96,14 +96,14 @@ func _physics_process(delta): # por frame
 	var dash = 10
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
-		sprite.flip_h = false
+		pivote.scale.x = 1
 	
 	if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
-		sprite.flip_h = true
+		pivote.scale.x = -1
 	
 	# ataque 1
 	if Input.is_action_just_pressed("attack1") and not is_on_wall():
-		if sprite.flip_h == true:
+		if pivote.scale.x<0:
 			dash = -20
 		else:
 			dash = 20
