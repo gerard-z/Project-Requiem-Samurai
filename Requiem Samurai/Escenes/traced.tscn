@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Scripts/traced.gd" type="Script" id=1]
 
-
 [node name="Traza" type="Line2D"]
 script = ExtResource( 1 )
 

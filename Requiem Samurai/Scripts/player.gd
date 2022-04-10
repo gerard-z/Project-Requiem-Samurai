@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-var SPEED = 250
-var ACCELERATION = 700
-var GRAVITY = 3000
+export var SPEED = 250
+export var ACCELERATION = 700
+export var GRAVITY = 3000
 var up_down
 
 var velocity = Vector2()
@@ -28,7 +28,8 @@ func _physics_process(delta): # por frame
 	var move_input = Input.get_axis("move_left", "move_right")
 	
 	# movimiento horizontal
-	velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
+	#velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
+	velocity.x = move_input * SPEED
 	
 	# gravedad
 	velocity.y += GRAVITY * delta
@@ -65,7 +66,7 @@ func _physics_process(delta): # por frame
 			up_down = 1
 
 		# movimiento vertical
-		velocity.y = move_toward(velocity.y, up_down * 100, GRAVITY)
+		#velocity.y = move_toward(velocity.y, up_down * 100, GRAVITY)
 
 		########## FALTA ##########
 
