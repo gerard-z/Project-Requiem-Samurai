@@ -18,6 +18,7 @@ func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
 	meleArea.connect("body_entered", self, "_on_body_entered")
+
 	
 func _physics_process(delta): # por frame
 	
@@ -33,13 +34,14 @@ func _physics_process(delta): # por frame
 	velocity.y += GRAVITY * delta
 
 
-	
+
 	
 # PISO
 	if is_on_floor():
 		# salto
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = -4 * SPEED
+			
 	
 		# Animaciones
 		if abs(velocity.x) > 10:
@@ -53,35 +55,24 @@ func _physics_process(delta): # por frame
 	var up_down = 0
 
 	if is_on_wall():
-		velocity.y = GRAVITY * 0.25
+		velocity.y = SPEED * 0.15
 		
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
-			up_down = 0
 			velocity.y = 0
 			
 			
 		if Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
-			up_down = SPEED * 1.5
-		
-		# movimiento vertical
-		velocity.y = move_toward(velocity.y, move_vertical * up_down, ACCELERATION)
-		
-		########## FALTA ##########
-		
-		# wall jumps
-		if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
-			pass
-		
-		if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
-			pass
+			up_down = 20
+			velocity.y = velocity.y * (1.2 + up_down)
+
 		
 		# wall dash
 		var fwall = 0
 		if Input.is_action_just_pressed("jump"):
 			if pivote.scale.x<0:
-				fwall = 500
+				fwall = 800
 			else:
-				fwall = -500			
+				fwall = -800			
 			velocity.x = velocity.x + fwall
 			velocity.y = -4 * SPEED
 		
@@ -90,7 +81,7 @@ func _physics_process(delta): # por frame
 			playback.travel("idle")
 			
 		
-		########## FALTA ##########
+
 
 # TODO
 	var dash = 10
@@ -104,13 +95,20 @@ func _physics_process(delta): # por frame
 	# ataque 1
 	if Input.is_action_just_pressed("attack1") and not is_on_wall():
 		if pivote.scale.x<0:
-			dash = -20
+			dash = -23
 		else:
-			dash = 20
+			dash = 23
 		
 		playback.travel("attack 1")
 		velocity.y = velocity.y - 500
 		velocity.x = velocity.x +  dash * SPEED
+	
+	# animacion caida y salto
+	if velocity.y > 365:
+		playback.travel("fall")
+	if velocity.y < -365 and not Input.is_action_just_pressed("attack1"):
+		playback.travel("jump")
+
 	
 func _on_body_entered(body: Node2D):
 	body.take_damage(self)
