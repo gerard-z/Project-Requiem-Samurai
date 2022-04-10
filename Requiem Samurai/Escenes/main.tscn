@@ -16,7 +16,7 @@ rotation = 1.5708
 scale = Vector2( 1, 3.408 )
 
 [node name="StaticBody2D4" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1325, 573 )
+position = Vector2( 1320, 576 )
 rotation = -1.56702
 
 [node name="StaticBody2D9" parent="." instance=ExtResource( 1 )]
@@ -30,7 +30,7 @@ rotation = 3.14159
 scale = Vector2( 2.293, 2.293 )
 
 [node name="StaticBody2D11" parent="StaticBody2D11" instance=ExtResource( 1 )]
-position = Vector2( -289.141, 167.902 )
+position = Vector2( -286.524, 165.286 )
 rotation = -3.14159
 
 [node name="StaticBody2D6" parent="." instance=ExtResource( 1 )]

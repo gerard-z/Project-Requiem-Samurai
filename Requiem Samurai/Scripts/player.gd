@@ -47,7 +47,10 @@ func _physics_process(delta): # por frame
 		if abs(velocity.x) > 10:
 			playback.travel("run")
 		else:
-			playback.travel("idle")
+			if is_on_wall():
+				playback.travel("idle wall")
+			else:
+				playback.travel("idle")
 		
 	
 # MURO
@@ -78,7 +81,10 @@ func _physics_process(delta): # por frame
 		
 		
 		else:
-			playback.travel("idle")
+			if is_on_wall():
+				playback.travel("idle wall")
+			else:
+				playback.travel("idle")
 			
 		
 
@@ -105,7 +111,10 @@ func _physics_process(delta): # por frame
 	
 	# animacion caida y salto
 	if velocity.y > 365:
-		playback.travel("fall")
+		if is_on_wall():
+			playback.travel("fall wall")
+		else:
+			playback.travel("fall")
 	if velocity.y < -365 and not Input.is_action_just_pressed("attack1"):
 		playback.travel("jump")
 
