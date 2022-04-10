@@ -10,8 +10,8 @@ radius = 33.0
 height = 26.0
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 12.6953
-height = 24.6094
+radius = 11.7187
+height = 30.5156
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -265,7 +265,7 @@ __meta__ = {
 }
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -24 )
+position = Vector2( 0, -27 )
 scale = Vector2( 1.024, 1 )
 shape = SubResource( 1 )
 
