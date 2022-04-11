@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
-var SPEED = 250
-var ACCELERATION = 700
-var GRAVITY = 3000
+export var SPEED = 250
+export var ACCELERATION = 700
+export var GRAVITY = 3000
+var up_down
 
 var velocity = Vector2()
 
@@ -28,7 +29,8 @@ func _physics_process(delta): # por frame
 	var move_input = Input.get_axis("move_left", "move_right")
 	
 	# movimiento horizontal
-	velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
+	#velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
+	velocity.x = move_input * SPEED
 	
 	# gravedad
 	velocity.y += GRAVITY * delta
@@ -44,7 +46,7 @@ func _physics_process(delta): # por frame
 			
 	
 		# Animaciones
-		if abs(velocity.x) > 10:
+		if abs(velocity.x) > 1:
 			playback.travel("run")
 		else:
 			if is_on_wall():
@@ -54,21 +56,33 @@ func _physics_process(delta): # por frame
 		
 	
 # MURO
-	var move_vertical = Input.get_axis("move_up", "move_down")
-	var up_down = 0
-
 	if is_on_wall():
-		velocity.y = SPEED * 0.15
-		
+
+		#	#		#velocity.y = GRAVITY * 0.25
+		print("pared")
+
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
 			velocity.y = 0
-			
-			
-		if Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
-			up_down = 20
-			velocity.y = velocity.y * (1.2 + up_down)
 
-		
+
+		elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
+			up_down = 4
+		else:
+			up_down = 1
+
+		# movimiento vertical
+		#velocity.y = move_toward(velocity.y, up_down * 100, GRAVITY)
+
+		########## FALTA ##########
+
+		# wall jumps
+		if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
+			pass
+
+		if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
+			pass
+
+
 		# wall dash
 		var fwall = 0
 		if Input.is_action_just_pressed("jump"):
@@ -78,8 +92,8 @@ func _physics_process(delta): # por frame
 				fwall = -800			
 			velocity.x = velocity.x + fwall
 			velocity.y = -4 * SPEED
-		
-		
+
+
 		else:
 			if is_on_wall():
 				playback.travel("idle wall")
@@ -87,7 +101,6 @@ func _physics_process(delta): # por frame
 				playback.travel("idle")
 			
 		
-
 
 # TODO
 	var dash = 10

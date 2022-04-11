@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Escenes/traced.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/traced.gd" type="Script" id=1]
 
 [node name="Traza" type="Line2D"]
 script = ExtResource( 1 )
