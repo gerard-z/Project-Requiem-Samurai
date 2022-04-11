@@ -19,6 +19,7 @@ func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
 	meleArea.connect("body_entered", self, "_on_body_entered")
+
 	
 func _physics_process(delta): # por frame
 	
@@ -35,28 +36,32 @@ func _physics_process(delta): # por frame
 	velocity.y += GRAVITY * delta
 
 
-	
+
 	
 # PISO
 	if is_on_floor():
 		# salto
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = -4 * SPEED
+			
 	
 		# Animaciones
 		if abs(velocity.x) > 1:
 			playback.travel("run")
 		else:
-			playback.travel("idle")
+			if is_on_wall():
+				playback.travel("idle wall")
+			else:
+				playback.travel("idle")
 		
 	
 # MURO
 	if is_on_wall():
+
 		#	#		#velocity.y = GRAVITY * 0.25
 		print("pared")
 
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
-			up_down = 0
 			velocity.y = 0
 
 
@@ -77,21 +82,25 @@ func _physics_process(delta): # por frame
 		if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
 			pass
 
+
 		# wall dash
 		var fwall = 0
 		if Input.is_action_just_pressed("jump"):
 			if pivote.scale.x<0:
-				fwall = 500
+				fwall = 800
 			else:
-				fwall = -500			
+				fwall = -800			
 			velocity.x = velocity.x + fwall
 			velocity.y = -4 * SPEED
 
 
 		else:
-			playback.travel("idle")
-
-		########## FALTA ##########
+			if is_on_wall():
+				playback.travel("idle wall")
+			else:
+				playback.travel("idle")
+			
+		
 
 # TODO
 	var dash = 10
@@ -105,13 +114,23 @@ func _physics_process(delta): # por frame
 	# ataque 1
 	if Input.is_action_just_pressed("attack1") and not is_on_wall():
 		if pivote.scale.x<0:
-			dash = -20
+			dash = -23
 		else:
-			dash = 20
+			dash = 23
 		
 		playback.travel("attack 1")
 		velocity.y = velocity.y - 500
 		velocity.x = velocity.x +  dash * SPEED
+	
+	# animacion caida y salto
+	if velocity.y > 365:
+		if is_on_wall():
+			playback.travel("fall wall")
+		else:
+			playback.travel("fall")
+	if velocity.y < -365 and not Input.is_action_just_pressed("attack1"):
+		playback.travel("jump")
+
 	
 func _on_body_entered(body: Node2D):
 	body.take_damage(self)
