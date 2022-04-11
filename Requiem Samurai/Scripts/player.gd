@@ -3,7 +3,9 @@ extends KinematicBody2D
 export var SPEED = 250
 export var ACCELERATION = 700
 export var GRAVITY = 3000
-var up_down
+export var DIR = 1
+var up_down = 1
+var hasAttacked = false
 
 var velocity = Vector2()
 
@@ -31,11 +33,8 @@ func _physics_process(delta): # por frame
 	# movimiento horizontal
 	#velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
 	velocity.x = move_input * SPEED
-	
-	# gravedad
-	velocity.y += GRAVITY * delta
 
-
+	up_down = 1
 
 	
 # PISO
@@ -43,35 +42,24 @@ func _physics_process(delta): # por frame
 		# salto
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = -4 * SPEED
-			
-	
-		# Animaciones
-		if abs(velocity.x) > 1:
-			playback.travel("run")
-		else:
-			if is_on_wall():
-				playback.travel("idle wall")
-			else:
-				playback.travel("idle")
 		
 	
 # MURO
-	if is_on_wall():
+	elif is_on_wall():
 
 		#	#		#velocity.y = GRAVITY * 0.25
-		print("pared")
 
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
 			velocity.y = 0
+			up_down = 0
 
 
 		elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
-			up_down = 4
-		else:
 			up_down = 1
+		elif velocity.y >0:
+			up_down = 0.25
 
-		# movimiento vertical
-		#velocity.y = move_toward(velocity.y, up_down * 100, GRAVITY)
+
 
 		########## FALTA ##########
 
@@ -86,22 +74,17 @@ func _physics_process(delta): # por frame
 		# wall dash
 		var fwall = 0
 		if Input.is_action_just_pressed("jump"):
+			up_down = 1
 			if pivote.scale.x<0:
 				fwall = 800
 			else:
 				fwall = -800			
 			velocity.x = velocity.x + fwall
 			velocity.y = -4 * SPEED
-
-
-		else:
-			if is_on_wall():
-				playback.travel("idle wall")
-			else:
-				playback.travel("idle")
 			
 		
-
+	# gravedad
+	velocity.y += GRAVITY * delta * DIR * up_down
 # TODO
 	var dash = 10
 	# voltear player al cambiar de dirección
@@ -111,25 +94,39 @@ func _physics_process(delta): # por frame
 	if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
 		pivote.scale.x = -1
 	
+	hasAttacked = false
 	# ataque 1
 	if Input.is_action_just_pressed("attack1") and not is_on_wall():
 		if pivote.scale.x<0:
-			dash = -23
+			dash = -40
 		else:
-			dash = 23
+			dash = 40
 		
-		playback.travel("attack 1")
-		velocity.y = velocity.y - 500
+		hasAttacked = true
 		velocity.x = velocity.x +  dash * SPEED
 	
-	# animacion caida y salto
-	if velocity.y > 365:
-		if is_on_wall():
-			playback.travel("fall wall")
+# ANIMACIONES	
+
+# Animaciones
+	if hasAttacked:
+		playback.travel("attack 1")
+	else:
+		if is_on_floor():
+			if abs(velocity.x) > 1:
+				playback.travel("run")
+			else:
+				playback.travel("idle")
+		
+		elif is_on_wall():
+			playback.travel("idle wall")
+			if velocity.y > 0:
+				playback.travel("fall wall")
 		else:
-			playback.travel("fall")
-	if velocity.y < -365 and not Input.is_action_just_pressed("attack1"):
-		playback.travel("jump")
+		# animacion caida y salto
+			if velocity.y > 0:
+				playback.travel("fall")
+			if velocity.y < -0:
+				playback.travel("jump")
 
 	
 func _on_body_entered(body: Node2D):
