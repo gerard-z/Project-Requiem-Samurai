@@ -617,7 +617,6 @@ graph_offset = Vector2( -595.211, 14.486 )
 collision_layer = 2
 collision_mask = 7
 script = ExtResource( 4 )
-DIR = 0
 
 [node name="Pivot" type="Node2D" parent="."]
 scale = Vector2( -1, 1 )

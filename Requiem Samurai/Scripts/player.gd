@@ -11,7 +11,7 @@ var velocity = Vector2()
 
 onready var pivote = $Pivot
 onready var sprite = $Pivot/Sprite
-onready var collisionshape2D = $CollisionShape2D
+onready var collisionshape2D = $Hitbox
 onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
