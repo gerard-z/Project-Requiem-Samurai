@@ -35,17 +35,19 @@ func _physics_process(delta): # por frame
 	velocity.x = move_input * SPEED
 
 	up_down = 1
-
+	
+	# gravedad
+	velocity.y += GRAVITY * delta * DIR
 	
 # PISO
-	if is_on_floor():
+	if is_on_floor() and not is_on_wall():
 		# salto
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = -4 * SPEED
 		
 	
 # MURO
-	elif is_on_wall():
+	elif is_on_wall() and not is_on_floor():
 
 		#	#		#velocity.y = GRAVITY * 0.25
 
@@ -55,20 +57,12 @@ func _physics_process(delta): # por frame
 
 
 		elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
-			up_down = 1
+			up_down = 300
 		elif velocity.y >0:
-			up_down = 0.25
+			up_down = 25
+		
+		velocity.y = up_down
 
-
-
-		########## FALTA ##########
-
-		# wall jumps
-		if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
-			pass
-
-		if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
-			pass
 
 
 		# wall dash
@@ -82,11 +76,10 @@ func _physics_process(delta): # por frame
 			velocity.x = velocity.x + fwall
 			velocity.y = -4 * SPEED
 			
-		
-	# gravedad
-	velocity.y += GRAVITY * delta * DIR * up_down
+
 # TODO
-	var dash = 10
+	var dash = 20000
+	var dirdash = 1
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
 		pivote.scale.x = 1
@@ -95,21 +88,23 @@ func _physics_process(delta): # por frame
 		pivote.scale.x = -1
 	
 	hasAttacked = false
-	# ataque 1
+	# ataque 1 + dash
 	if Input.is_action_just_pressed("attack1") and not is_on_wall():
-		if pivote.scale.x<0:
-			dash = -40
+		if pivote.scale.x < 0:
+			dirdash = -abs(dirdash)
 		else:
-			dash = 40
-		
+			dirdash = abs(dirdash)
 		hasAttacked = true
-		velocity.x = velocity.x +  dash * SPEED
+		
 	
 # ANIMACIONES	
 
 # Animaciones
 	if hasAttacked:
 		playback.travel("attack 1")
+		velocity.x =  dash * dirdash #dash
+
+		
 	else:
 		if is_on_floor():
 			if abs(velocity.x) > 1:
@@ -119,7 +114,7 @@ func _physics_process(delta): # por frame
 		
 		elif is_on_wall():
 			playback.travel("idle wall")
-			if velocity.y > 0:
+			if velocity.y > 100:
 				playback.travel("fall wall")
 		else:
 		# animacion caida y salto
