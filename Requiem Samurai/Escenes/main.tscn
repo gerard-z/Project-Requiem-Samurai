@@ -1037,7 +1037,7 @@ color_ramp = SubResource( 103 )
 
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
 position = Vector2( 343, 499 )
-scale = Vector2( -2.5, 2.5 )
+scale = Vector2( 2.5, 2.5 )
 collision_mask = 3
 
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
