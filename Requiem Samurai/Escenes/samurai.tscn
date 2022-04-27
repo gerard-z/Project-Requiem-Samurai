@@ -637,6 +637,7 @@ width = 50.0
 begin_cap_mode = 2
 end_cap_mode = 2
 
+
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
