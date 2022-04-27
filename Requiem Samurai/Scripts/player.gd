@@ -11,7 +11,7 @@ var velocity = Vector2()
 
 onready var pivote = $Pivot
 onready var sprite = $Pivot/Sprite
-onready var collisionshape2D = $CollisionShape2D
+onready var hitbox = $Hitbox
 onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
@@ -104,18 +104,18 @@ func _physics_process(delta): # por frame
 		playback.travel("attack 1")
 		velocity.x =  dash * dirdash #dash
 
-		
 	else:
-		if is_on_floor():
+		if is_on_wall():
+			playback.travel("idle wall")
+			if velocity.y > 100:
+				playback.travel("fall wall")
+		
+		elif is_on_floor():
 			if abs(velocity.x) > 1:
 				playback.travel("run")
 			else:
 				playback.travel("idle")
-		
-		elif is_on_wall():
-			playback.travel("idle wall")
-			if velocity.y > 100:
-				playback.travel("fall wall")
+				
 		else:
 		# animacion caida y salto
 			if velocity.y > 0:
