@@ -1064,8 +1064,9 @@ trailLenght = 10
 
 [node name="Particles2D" type="Particles2D" parent="."]
 pause_mode = 2
-position = Vector2( 784, 728 )
+position = Vector2( 280, -64 )
 amount = 2000
 lifetime = 7.0
 randomness = 0.03
+visibility_rect = Rect2( -500, -500, 3000, 3000 )
 process_material = SubResource( 104 )
