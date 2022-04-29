@@ -643,7 +643,6 @@ end_cap_mode = 2
 position = Vector2( 0, -28 )
 texture = ExtResource( 3 )
 hframes = 4
-frame = 3
 
 [node name="Mele Colision" type="Area2D" parent="Pivot"]
 collision_layer = 0

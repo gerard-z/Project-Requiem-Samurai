@@ -8,6 +8,8 @@ var dibujable = true
 
 var point
 
+export var Grid = 50
+
 var pointR = preload("res://Escenes/Point.tscn")
 
 func _ready():
@@ -20,6 +22,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("vertice"):
 		point = target.global_position
 		point.y = point.y - 48
+		
+		point.x = round(point.x/Grid)*Grid
+		point.y = round(point.y/Grid)*Grid
 		
 		var pointNew = pointR.instance()
 		get_node("Node2D").add_child(pointNew)
