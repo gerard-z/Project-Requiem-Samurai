@@ -117,9 +117,10 @@ static func _rectangulo(n1,n2,n3,n4):
 	var b = abs(n2.distance_to(n3))
 	
 	var ang1 = abs(round(rad2deg((n1-n2).angle_to(n3-n2))))
-	var ang2 = abs(round(rad2deg(n2.angle_to(n4))))
+	var ang2 = abs(round(rad2deg((-n4).angle_to(n3-n4))))
 	
-	if ang1 == 90 and ang2 == 90:
+	
+	if abs(ang1-90) < 30 and abs(ang2-90) < 30 :
 		area = a * b
 		w = true
 	

@@ -1016,9 +1016,6 @@ glow_hdr_threshold = 4.0
 glow_hdr_luminance_cap = 51.93
 glow_hdr_scale = 0.0
 glow_bicubic_upscale = true
-adjustment_enabled = true
-adjustment_contrast = 1.08
-adjustment_saturation = 1.07
 
 [node name="Node2D" type="Node2D"]
 
