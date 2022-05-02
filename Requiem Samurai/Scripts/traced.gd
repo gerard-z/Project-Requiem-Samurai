@@ -44,9 +44,41 @@ func _process(delta):
 		
 		yield(get_tree().create_timer(0.5), "timeout")
 		
+		# FIGURAS
+		var nodos = get_point_count() - 1
+		var area = 0
+		
+		if nodos == 3:
+			var n1 = get_point_position(0)
+			var n2 = get_point_position(1) - n1
+			var n3 = get_point_position(2) - n1
+			
+			n1 = Vector2(0,0)
+			
+			area = _triangulo(n1,n2,n3)
+			
+			print("Triángulo, área = ", area)
+		
+		elif nodos == 4:
+			var n1 = get_point_position(0)
+			var n2 = get_point_position(1) - n1
+			var n3 = get_point_position(2) - n1
+			var n4 = get_point_position(3) - n1
+			
+			n1 = Vector2(0,0)
+			
+			if _rectangulo(n1,n2,n3,n4)[0]:
+				area = _rectangulo(n1,n2,n3,n4)[1]
+				print("Rectángulo, área = ", area)
+				
+			elif _reloj(n1,n2,n3,n4)[0]:
+				area = _reloj(n1,n2,n3,n4)[1]
+				print("Reloj, area = ", area)
+		
+		# Borrar instancias
 		_delete_children($Node2D)
-#		playback.travel("None")
 		clear_points()
+		
 		sennal.visible = false
 		dibujable = true
 	
@@ -54,3 +86,66 @@ static func _delete_children(node):
 	for n in node.get_children():
 		node.remove_child(n)
 		n.queue_free()
+
+
+
+
+
+
+# FIGURAS 
+
+
+static func _triangulo(n1,n2,n3):
+	var base = abs(n1.distance_to(n2))
+	var angle = n2.angle_to(n3) 
+	var hip = abs(n1.distance_to(n3))
+	var alt = abs(hip * sin(angle))
+	
+	var area = round(base*alt/2)
+	
+	return area
+	
+	
+	
+
+static func _rectangulo(n1,n2,n3,n4):
+	var area = 0
+	
+	var w = false
+	
+	var a = abs(n1.distance_to(n2))
+	var b = abs(n2.distance_to(n3))
+	
+	var ang1 = abs(round(rad2deg((n1-n2).angle_to(n3-n2))))
+	var ang2 = abs(round(rad2deg(n2.angle_to(n4))))
+	
+	if ang1 == 90 and ang2 == 90:
+		area = a * b
+		w = true
+	
+	var ret = Vector2(w, area)
+	
+	return(ret)
+
+
+
+
+
+static func _reloj(n1,n2,n3,n4):
+	var area = 0
+	
+	var w = false
+	
+	var a = abs(n1.distance_to(n2))
+	var b = abs(n2.distance_to(n3))
+	
+	var ang1 = abs(round(rad2deg((n1-n2).angle_to(n3-n2))))
+	var ang2 = abs(round(rad2deg(n2.angle_to(n4))))
+	
+	if ang1 < 90 and ang2 < 90:
+		area = a * b # ver como calcular el área
+		w = true
+	
+	var ret = Vector2(w, area)
+	
+	return(ret)
