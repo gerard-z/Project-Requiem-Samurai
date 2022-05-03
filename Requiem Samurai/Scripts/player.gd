@@ -16,6 +16,8 @@ onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
 onready var meleArea = $Pivot/"Mele Colision"
+
+var fire = false
 	
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
@@ -24,6 +26,17 @@ func _ready(): # cuando inicia el juego
 
 	
 func _physics_process(delta): # por frame
+	
+	# mecánica innovadora
+	if Global.attack > 0:
+		$Pivot/Node2D.visible = true
+		$Pivot/Sprite2.visible = false
+		fire = true
+	
+	else:
+		$Pivot/Node2D.visible = false
+		$Pivot/Sprite2.visible = true	
+		fire = false
 	
 # TODO
 	velocity = move_and_slide(velocity, Vector2.UP)
@@ -96,6 +109,7 @@ func _physics_process(delta): # por frame
 			dirdash = abs(dirdash)
 		hasAttacked = true
 		
+		
 	
 # ANIMACIONES	
 
@@ -103,6 +117,8 @@ func _physics_process(delta): # por frame
 	if hasAttacked:
 		playback.travel("attack 1")
 		velocity.x =  dash * dirdash #dash
+		if fire == true:
+			Global.attack -= 1
 
 	else:
 		if is_on_wall():
