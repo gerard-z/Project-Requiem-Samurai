@@ -103,6 +103,7 @@ func _physics_process(delta): # por frame
 	hasAttacked = false
 	# ataque 1 + dash
 	if Input.is_action_just_pressed("attack1") and not is_on_wall():
+		velocity.y = 0
 		if pivote.scale.x < 0:
 			dirdash = -abs(dirdash)
 		else:
