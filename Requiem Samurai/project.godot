@@ -14,6 +14,10 @@ config/name="Samurai Requiem"
 run/main_scene="res://Escenes/MainMenu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Scripts/Global.gd"
+
 [importer_defaults]
 
 texture={
