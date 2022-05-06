@@ -17,6 +17,10 @@ onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
 onready var meleArea = $Pivot/"Mele Colision"
 
+onready var baseSprite = $Pivot/Sprite
+onready var AirSprite = $Pivot/SpriteAttackBasic
+onready var NodeSprite = $Pivot/Node2D
+
 var fire = false
 	
 func _ready(): # cuando inicia el juego
@@ -29,13 +33,13 @@ func _physics_process(delta): # por frame
 	
 	# mecánica innovadora
 	if Global.attack > 0:
-		$Pivot/Node2D.visible = true
-		$Pivot/Sprite2.visible = false
+		NodeSprite.visible = true
+		AirSprite.visible = false
 		fire = true
 	
 	else:
-		$Pivot/Node2D.visible = false
-		$Pivot/Sprite2.visible = true	
+		NodeSprite.visible = false
+		AirSprite.visible = true	
 		fire = false
 	
 # TODO
