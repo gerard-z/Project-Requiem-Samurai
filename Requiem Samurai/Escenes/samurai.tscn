@@ -905,6 +905,7 @@ parameters/playback = SubResource( 6 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+zoom = Vector2( 1.5, 1.5 )
 process_mode = 0
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -927,3 +928,4 @@ end_cap_mode = 2
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 12 )]
+visible = false

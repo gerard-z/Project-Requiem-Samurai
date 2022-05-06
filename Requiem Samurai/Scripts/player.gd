@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var SPEED = 250
+export var SPEED = 500
 export var ACCELERATION = 700
 export var GRAVITY = 3000
 export var DIR = 1
@@ -20,6 +20,7 @@ onready var meleArea = $Pivot/"Mele Colision"
 onready var baseSprite = $Pivot/Sprite
 onready var AirSprite = $Pivot/SpriteAttackBasic
 onready var NodeSprite = $Pivot/Node2D
+onready var camera = $Camera2D
 
 var fire = false
 	
@@ -60,7 +61,7 @@ func _physics_process(delta): # por frame
 	if is_on_floor() and not is_on_wall():
 		# salto
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -4 * SPEED
+			velocity.y = -2 * SPEED
 		
 	
 # MURO
@@ -91,7 +92,7 @@ func _physics_process(delta): # por frame
 			else:
 				fwall = -800			
 			velocity.x = velocity.x + fwall
-			velocity.y = -4 * SPEED
+			velocity.y = -2 * SPEED
 			
 
 # TODO
