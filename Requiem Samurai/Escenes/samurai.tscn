@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://assets/Samurai/Fall.png" type="Texture" id=1]
 [ext_resource path="res://assets/Samurai/Run-2.png" type="Texture" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://assets/Samurai/ataque/ataque sin fuego.png" type="Texture" id=10]
 [ext_resource path="res://assets/Samurai/ataque/aire.png" type="Texture" id=11]
 [ext_resource path="res://Escenes/pauseMenu.tscn" type="PackedScene" id=12]
+
+[sub_resource type="RectangleShape2D" id=67]
+extents = Vector2( 5, 22.5 )
 
 [sub_resource type="CapsuleShape2D" id=17]
 radius = 33.0
@@ -835,7 +838,7 @@ states/run/node = SubResource( 8 )
 states/run/position = Vector2( -104.561, -23.3334 )
 transitions = [ "idle", "run", SubResource( 9 ), "run", "idle", SubResource( 10 ), "run", "attack 1", SubResource( 13 ), "idle", "attack 1", SubResource( 14 ), "attack 1", "run", SubResource( 15 ), "attack 1", "idle", SubResource( 16 ), "run", "jump", SubResource( 22 ), "idle", "jump", SubResource( 23 ), "jump", "fall", SubResource( 24 ), "fall", "idle", SubResource( 25 ), "attack 1", "jump", SubResource( 26 ), "attack 1", "fall", SubResource( 27 ), "jump", "attack 1", SubResource( 28 ), "jump", "idle", SubResource( 29 ), "fall", "jump", SubResource( 30 ), "idle", "fall", SubResource( 31 ), "fall", "attack 1", SubResource( 32 ), "jump", "fall wall", SubResource( 37 ), "fall wall", "jump", SubResource( 38 ), "fall wall", "idle", SubResource( 39 ), "idle", "fall wall", SubResource( 40 ), "fall", "fall wall", SubResource( 41 ), "fall wall", "fall", SubResource( 42 ), "attack 1", "fall wall", SubResource( 43 ), "run", "fall wall", SubResource( 44 ), "idle wall", "idle", SubResource( 45 ), "idle", "idle wall", SubResource( 46 ), "jump", "idle wall", SubResource( 47 ), "idle wall", "jump", SubResource( 48 ), "idle wall", "attack 1", SubResource( 49 ), "attack 1", "idle wall", SubResource( 50 ), "fall wall", "attack 1", SubResource( 51 ), "fall wall", "run", SubResource( 52 ), "idle wall", "fall", SubResource( 53 ), "fall", "idle wall", SubResource( 54 ), "idle wall", "fall wall", SubResource( 55 ), "fall wall", "idle wall", SubResource( 56 ), "run", "fall", SubResource( 57 ), "fall", "run", SubResource( 58 ), "jump", "run", SubResource( 60 ), "idle wall", "run", SubResource( 61 ), "run", "idle wall", SubResource( 62 ) ]
 start_node = "idle"
-graph_offset = Vector2( -226.945, -100.514 )
+graph_offset = Vector2( -306.945, -87.514 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
@@ -877,6 +880,14 @@ visible = false
 modulate = Color( 4.68, 4.06, 3, 1 )
 texture = ExtResource( 6 )
 hframes = 4
+
+[node name="AgarreWall" type="Area2D" parent="Pivot"]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/AgarreWall"]
+position = Vector2( 8, -29.5 )
+shape = SubResource( 67 )
 
 [node name="Mele Colision" type="Area2D" parent="Pivot"]
 collision_layer = 0
@@ -960,3 +971,6 @@ size_flags_horizontal = 0
 custom_styles/fg = SubResource( 65 )
 custom_styles/bg = SubResource( 66 )
 value = 100.0
+
+[connection signal="body_entered" from="Pivot/AgarreWall" to="." method="_on_AgarreWall_body_entered"]
+[connection signal="body_exited" from="Pivot/AgarreWall" to="." method="_on_AgarreWall_body_exited"]

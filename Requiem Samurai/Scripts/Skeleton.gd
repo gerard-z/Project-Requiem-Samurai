@@ -71,3 +71,6 @@ func _on_DoDamage_body_entered(body):
 		buglequitavidaalesqueleto=1
 	elif body.has_method("take_damage"):
 		body.take_damage(5)
+
+func NotAgarrable():
+	pass

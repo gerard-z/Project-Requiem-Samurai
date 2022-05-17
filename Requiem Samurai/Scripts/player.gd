@@ -53,7 +53,9 @@ var cd_time2_stamina = 0
 var maxjumps=1
 var jump=0
 
-		
+
+var agarre=1
+var dirdash = 1
 		
 var fire = false
 	
@@ -77,6 +79,8 @@ func _stamina_recharge():
 		take_stamina(-10)
 		time1 = OS.get_unix_time()
 	
+	
+	
 
 func _physics_process(delta): # por frame
 	_stamina_recharge()
@@ -97,9 +101,9 @@ func _physics_process(delta): # por frame
 		AirSprite.visible = true	
 		fire = false
 
-#Time done for the Dash:
-	cd_time2_stamina=OS.get_unix_time()
-	if cd_time2_stamina-cd_time1_stamina>1:
+#Time for the Dash:
+	cd_time2_stamina=OS.get_system_time_msecs()
+	if cd_time2_stamina-cd_time1_stamina>600:
 		youcandothedash=0
 
 
@@ -111,16 +115,19 @@ func _physics_process(delta): # por frame
 	
 	# movimiento horizontal
 	#velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
-	velocity.x = move_input * SPEED
-
+	if is_on_floor():
+		velocity.x = move_input * SPEED
+	else:
+		velocity.x  = move_toward(velocity.x, move_input * SPEED, 12)
 	up_down = 1
 	
 	# gravedad
 	velocity.y += GRAVITY * delta * DIR
 	
+	
 # PISO
 	if is_on_floor() and not is_on_wall():
-		youcandothedash=0
+		#youcandothedash=0
 		jump=0
 		# salto
 		if Input.is_action_just_pressed("jump"):
@@ -128,7 +135,8 @@ func _physics_process(delta): # por frame
 
 	
 # MURO
-	elif is_on_wall() and not is_on_floor():
+
+	elif is_on_wall() and not is_on_floor() and agarre==1:
 		youcandothedash=0
 		jump=0
 		#	#		#velocity.y = GRAVITY * 0.25
@@ -136,7 +144,6 @@ func _physics_process(delta): # por frame
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
 			velocity.y = 0
 			up_down = 0
-
 
 		elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
 			up_down = 300
@@ -147,21 +154,21 @@ func _physics_process(delta): # por frame
 
 
 
-		# wall dash
+		# wall jump
 		var fwall = 0
 		if Input.is_action_just_pressed("jump"):
 			up_down = 1
 			if pivote.scale.x<0:
-				fwall = 800
+				fwall = 150
 			else:
-				fwall = -800			
-			velocity.x = velocity.x + fwall
+				fwall = -150			
+			velocity.x =  fwall
 			velocity.y = -4 * SPEED
 			
 
 # movimiento
-	var dash = 15000
-	var dirdash = 1
+	var dash = 1400
+
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
 		pivote.scale.x = 1
@@ -169,44 +176,57 @@ func _physics_process(delta): # por frame
 	if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
 		pivote.scale.x = -1
 	
+	
 	hasAttacked = false
 	# ataque 1 
 	if Input.is_action_just_pressed("attack1") and not is_on_wall():
 		hasAttacked = true
 	
+	
+	
+	
 	#sprint 
 	if Input.is_action_pressed("sprint") and is_on_floor() and stamina>0 and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")):
-		cd_time1_stamina = OS.get_unix_time()
+		cd_time1_stamina = OS.get_system_time_msecs()
 		if pivote.scale.x < 0:
 			dirdash = -abs(dirdash)
 		else:
 			dirdash = abs(dirdash)
-		velocity.x =   velocity.x*2 
+		velocity.x =   velocity.x*2.5
 		time1 = OS.get_unix_time()
 		take_stamina(0.3)		
 	
-	#dasheando
-	if Input.is_action_just_pressed("dash") and not is_on_wall():			
+	
+	
+	#dash
+	if Input.is_action_just_pressed("dash"):			
 		if stamina>=20 and youcandothedash==0:
 			youcandothedash=1
-			cd_time1_stamina = OS.get_unix_time()
+			cd_time1_stamina = OS.get_system_time_msecs()
 			if pivote.scale.x < 0:
 				dirdash = -abs(dirdash)
 			else:
 				dirdash = abs(dirdash)
-			velocity.x =  dash * dirdash #dash
+			velocity.y = 0
 			time1 = OS.get_unix_time()
-			take_stamina(10)
+			take_stamina(20)	
+
+	if cd_time2_stamina-cd_time1_stamina<100 and youcandothedash==1:
+		velocity.x =  dash * dirdash #dash		
+		velocity.y=0
 	
+	if cd_time2_stamina-cd_time1_stamina<120 and 100<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
+		velocity.x= (dash/2)*dirdash
+
+
+
 	#doble salto
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
-		if pivote.scale.x < 0:
-			dirdash = -abs(dirdash)
-		else:
-			dirdash = abs(dirdash)
-		velocity.x =  1000 * dirdash #dash
-		velocity.y = -1000
+		velocity.x = 300*move_input + abs(velocity.x)*move_input #dash
+		velocity.y = -4 * SPEED
+
+
 
 	
 # ANIMACIONES	
@@ -221,7 +241,7 @@ func _physics_process(delta): # por frame
 
 
 	else:
-		if is_on_wall():
+		if is_on_wall() and agarre==1:
 			playback.travel("idle wall")
 			if velocity.y > 100:
 				playback.travel("fall wall")
@@ -239,6 +259,9 @@ func _physics_process(delta): # por frame
 			if velocity.y < -0:
 				playback.travel("jump")
 
+
+
+
 func _set_health(value):
 	health= clamp(value, 0,max_health)
 	progress_bar.value = health
@@ -252,11 +275,23 @@ func take_stamina(value):
 	self.stamina -= value
 
 
+
 func take_damage(value):
 	print("samurai")
 	print(health," " ,health-value)
 	self.health -= value
 	time1h = OS.get_unix_time()
+	
+	#para simular un golpe
+	if self.velocity.x==0:
+		self.velocity.x=-800*pivote.scale.x
+	else:
+		self.velocity.x=-(self.velocity.x/self.velocity.x)*200
+	if self.velocity.y==0:
+		self.velocity.y=0
+	else:
+		self.velocity.y=-(self.velocity.y/self.velocity.y)*200
+
 
 
 
@@ -265,3 +300,15 @@ func _on_body_entered(body: Node2D):
 	body.take_damage(dmg)
 
 
+
+
+func _on_AgarreWall_body_entered(body):
+	if body.has_method("NotAgarrable"):
+		agarre=0
+
+
+
+
+func _on_AgarreWall_body_exited(body):
+	if body.has_method("NotAgarrable"):
+		agarre=1
