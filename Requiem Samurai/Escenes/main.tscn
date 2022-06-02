@@ -1029,7 +1029,6 @@ scale = Vector2( 2.5, 2.5 )
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
 position = Vector2( 509, 284 )
 scale = Vector2( -4, 4 )
-collision_layer = 28
 
 [node name="TileMap" type="TileMap" parent="."]
 modulate = Color( 3, 0.4, 0, 1 )

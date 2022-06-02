@@ -44,6 +44,26 @@ func _process(delta):
 	else:
 		sprite.modulate = Color(1, 1, 1, 1)
 	
+	#############################################
+	# solo para la demo
+	if health == 0:
+		self.visible = false
+		$Hitbox.disabled=true
+		$DoDamage/CollisionShape2D.disabled=true
+		GRAVITY = 0
+		
+		yield(get_tree().create_timer(5), "timeout")
+		
+		$Hitbox.disabled=false
+		$DoDamage/CollisionShape2D.disabled=false
+		GRAVITY = 400
+		self.visible = true
+		
+		health = 100
+	############################################
+
+
+	
 func _set_health(value):
 	health= clamp(value, 0,max_health)
 
@@ -57,6 +77,8 @@ func take_damage(dmg):
 		self.health -= dmg
 		hit = true
 		time1 = OS.get_unix_time()
+
+		
 
 
 #para hacerle daño al samurai

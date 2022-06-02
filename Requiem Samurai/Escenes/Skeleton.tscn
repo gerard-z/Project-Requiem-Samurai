@@ -209,7 +209,7 @@ transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8
 radius = 14.0
 
 [node name="Skeleton" type="KinematicBody2D" groups=["Enemy"]]
-collision_layer = 4
+collision_layer = 28
 collision_mask = 3
 script = ExtResource( 1 )
 
