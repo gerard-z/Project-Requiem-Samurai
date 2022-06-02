@@ -53,9 +53,10 @@ func take_damage(dmg):
 	print("esqueleto")
 	print(health," ",health-dmg)
 	
-	self.health -= dmg
-	hit = true
-	time1 = OS.get_unix_time()
+	if Global.ataqpyro > 0:
+		self.health -= dmg
+		hit = true
+		time1 = OS.get_unix_time()
 
 
 #para hacerle daño al samurai

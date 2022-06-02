@@ -13,8 +13,14 @@ func _physics_process(delta):
 			add_point(point)
 		else:
 			remove_point(0)
+			remove_point(0)
+			remove_point(0)
+			remove_point(0)
 	else:
 		add_point(point)
 	if points.size() > 100:
+		remove_point(0)
+		remove_point(0)
+		remove_point(0)
 		remove_point(0)
 	

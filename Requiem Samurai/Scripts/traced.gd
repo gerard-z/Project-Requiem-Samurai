@@ -46,8 +46,8 @@ func _process(delta):
 		add_point(point)	# se agrega punto actual en lista ***
 		
 	if get_point_count() > trailLenght-1:	# largo lista > largo def
-		remove_point(0)					# se borra de lista el primero
-	
+		remove_point(0)						# se borra de lista el primero
+		
 	if Input.is_action_just_pressed("activar"):	
 		add_point(get_point_position(0))
 		print("Cierre")
