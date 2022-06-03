@@ -28,6 +28,14 @@ func _ready():
 
 	
 func _physics_process(delta):
+	
+	#gravity power
+	if Global.gravitychange==-1:
+		GRAVITY = -400
+	if Global.gravitychange==1:
+		GRAVITY = 400
+
+
 	velocity = move_and_slide(velocity, Vector2.UP)
 	velocity.y += GRAVITY * delta
 	velocity.x = 0
@@ -89,11 +97,14 @@ func _on_body_entered(body : Node):
 
 
 var buglequitavidaalesqueleto = 0
+
 func _on_DoDamage_body_entered(body):
 	if buglequitavidaalesqueleto==0:
 		buglequitavidaalesqueleto=1
 	elif body.has_method("take_damage"):
-		body.take_damage(5)
+		body.take_damage(5,self)
+
+
 
 func NotAgarrable():
 	pass

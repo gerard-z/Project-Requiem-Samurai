@@ -1023,16 +1023,13 @@ adjustment_saturation = 1.07
 [node name="Node2D" type="Node2D"]
 
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
-position = Vector2( 320, 504 )
-scale = Vector2( 2.5, 2.5 )
+position = Vector2( 128, 136 )
 
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
-position = Vector2( 509, 284 )
-scale = Vector2( -4, 4 )
+position = Vector2( 178, 110 )
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["agarrables"]]
 modulate = Color( 3, 0.4, 0, 1 )
-scale = Vector2( 3, 3 )
 z_index = 10
 tile_set = SubResource( 99 )
 cell_size = Vector2( 16, 16 )
@@ -1043,7 +1040,7 @@ tile_data = PoolIntArray( -262148, 1, 720920, -262147, 1, 917522, -262146, 1, 91
 [node name="Traza" parent="." instance=ExtResource( 4 )]
 modulate = Color( 3, 3, 3, 1 )
 material = SubResource( 107 )
-width = 3.0
+width = 1.0
 default_color = Color( 1, 1, 1, 1 )
 gradient = SubResource( 101 )
 joint_mode = 2
@@ -1051,7 +1048,7 @@ begin_cap_mode = 2
 end_cap_mode = 2
 targetPath = NodePath("../Samurai")
 trailLenght = 10
-Grid = 70
+Grid = 40
 
 [node name="Particles2D" parent="." instance=ExtResource( 1 )]
 modulate = Color( 3, 3, 3, 1 )

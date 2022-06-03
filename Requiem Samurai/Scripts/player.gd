@@ -1,9 +1,13 @@
 extends KinematicBody2D
 
-export var SPEED = 250
-export var ACCELERATION = 700
-export var GRAVITY = 3000
+export var SPEED = 83
+export var ACCELERATION = 233
+export var gravity_effect = 1000
 export var DIR = 1
+
+export var rebote=800/(3)
+var GRAVITY=gravity_effect
+
 var up_down = 1
 var hasAttacked = false
 
@@ -21,19 +25,25 @@ onready var baseSprite = $Pivot/Sprite
 onready var AirSprite = $Pivot/SpriteAttackBasic
 onready var NodeSprite = $Pivot/Node2D
 
+
+
+
+
 #ataque basico
 var dmg =  1
+
 
 #vida
 var health = 100 setget _set_health
 var max_health= 100
-
 onready var progress_bar = $CanvasLayer/ProgressBar
+
 
 #stamina
 var stamina = 100 setget _set_stamina
 var max_stamina= 100
 onready var progress_bar2 = $CanvasLayer/ProgressBar2
+
 
 #CD for the regenerations of HP and Stamina 
 #stamina
@@ -48,22 +58,28 @@ var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
 
+var dash = 600
+var dashsentido = 1
 
 #doble salto
 var maxjumps=1
 var jump=0
 
 
-var agarre=1
+var agarre=0
 var dirdash = 1
 		
 var fire = false
 	
+	
+	
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
-
+	
 	meleArea.connect("body_entered", self, "_on_body_entered")
+
+
 
 	
 func _health_recharge():
@@ -82,7 +98,11 @@ func _stamina_recharge():
 	
 	
 
+
 func _physics_process(delta): # por frame
+	
+
+	
 	_stamina_recharge()
 	_health_recharge()
 	
@@ -101,15 +121,32 @@ func _physics_process(delta): # por frame
 		AirSprite.visible = true	
 		fire = false
 
+
+	#mecanica gravedad 
+	GRAVITY = gravity_effect*Global.gravitychange
+	scale.y= Global.gravitychange
+
+
+
+
+
+	#mecanica rectangulo
+	if Global.daishi == -1 and not agarre:
+		pivote.scale.x = pivote.scale.x*Global.daishi
+
+
+		
+
+
+		
 #Time for the Dash:
 	cd_time2_stamina=OS.get_system_time_msecs()
 	if cd_time2_stamina-cd_time1_stamina>600:
 		youcandothedash=0
 
-
 	
 # TODO
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(velocity, Vector2.UP*Global.gravitychange)
 	
 	var move_input = Input.get_axis("move_left", "move_right")
 	
@@ -127,19 +164,19 @@ func _physics_process(delta): # por frame
 	
 # PISO
 	if is_on_floor() and not is_on_wall():
-		#youcandothedash=0
+
 		jump=0
 		# salto
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -4 * SPEED
+			velocity.y = -4 * SPEED *Global.gravitychange
 
 	
 # MURO
 
-	elif is_on_wall() and not is_on_floor() and agarre==1:
+	elif is_on_wall() and not is_on_floor() and agarre:
 		youcandothedash=0
 		jump=0
-		#	#		#velocity.y = GRAVITY * 0.25
+
 
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
 			velocity.y = 0
@@ -167,14 +204,17 @@ func _physics_process(delta): # por frame
 			
 
 # movimiento
-	var dash = 1400
 
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
-		pivote.scale.x = 1
+		dashsentido=1
+		if Global.daishi==1:
+			pivote.scale.x = 1
 	
 	if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
-		pivote.scale.x = -1
+		dashsentido=-1
+		if Global.daishi==1:
+			pivote.scale.x = -1
 	
 	
 	hasAttacked = false
@@ -192,6 +232,7 @@ func _physics_process(delta): # por frame
 			dirdash = -abs(dirdash)
 		else:
 			dirdash = abs(dirdash)
+			
 		velocity.x =   velocity.x*2.5
 		time1 = OS.get_unix_time()
 		take_stamina(0.3)		
@@ -207,12 +248,17 @@ func _physics_process(delta): # por frame
 				dirdash = -abs(dirdash)
 			else:
 				dirdash = abs(dirdash)
+				
+			if Global.daishi==-1:
+				dirdash=dashsentido
+
+			
 			velocity.y = 0
 			time1 = OS.get_unix_time()
 			take_stamina(20)	
 
 	if cd_time2_stamina-cd_time1_stamina<100 and youcandothedash==1:
-		velocity.x =  dash * dirdash #dash		
+		velocity.x =  dash * dirdash #dash
 		velocity.y=0
 	
 	if cd_time2_stamina-cd_time1_stamina<120 and 100<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
@@ -241,7 +287,7 @@ func _physics_process(delta): # por frame
 
 
 	else:
-		if is_on_wall() and agarre==1:
+		if is_on_wall() and agarre:
 			playback.travel("idle wall")
 			if velocity.y > 100:
 				playback.travel("fall wall")
@@ -276,21 +322,18 @@ func take_stamina(value):
 
 
 
-func take_damage(value):
+func take_damage(value,body=null):
 	print("samurai")
 	print(health," " ,health-value)
 	self.health -= value
 	time1h = OS.get_unix_time()
 	
 	#para simular un golpe
-	if self.velocity.x==0:
-		self.velocity.x=-800*pivote.scale.x
-	else:
-		self.velocity.x=-(self.velocity.x/self.velocity.x)*200
-	if self.velocity.y==0:
-		self.velocity.y=0
-	else:
-		self.velocity.y=-(self.velocity.y/self.velocity.y)*200
+	if value>0:
+		velocity = -global_position.direction_to(body.global_position) * rebote
+		
+		if velocity.y>0:
+			velocity.y*=-1
 
 
 
@@ -303,12 +346,17 @@ func _on_body_entered(body: Node2D):
 
 
 func _on_AgarreWall_body_entered(body):
-	if body.has_method("NotAgarrable"):
-		agarre=0
+
+	agarre=body.is_in_group("agarrables")
+
 
 
 
 
 func _on_AgarreWall_body_exited(body):
-	if body.has_method("NotAgarrable"):
-		agarre=1
+	
+	agarre=false
+#
+	#else:
+	#	print(agarre)
+	#	agarre=0

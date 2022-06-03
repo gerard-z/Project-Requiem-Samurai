@@ -14,7 +14,7 @@
 [ext_resource path="res://Escenes/pauseMenu.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=67]
-extents = Vector2( 5, 22.5 )
+extents = Vector2( 4, 11 )
 
 [sub_resource type="CapsuleShape2D" id=17]
 radius = 33.0
@@ -855,25 +855,25 @@ bg_color = Color( 0.792157, 0.827451, 0.0862745, 1 )
 bg_color = Color( 0.435294, 0.435294, 0.156863, 1 )
 
 [node name="Samuria" type="KinematicBody2D"]
+position = Vector2( 0, -27 )
 collision_layer = 18
 collision_mask = 7
 script = ExtResource( 4 )
+rebote = 400
 
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
-position = Vector2( 0, -28 )
+position = Vector2( 0, -1 )
 texture = ExtResource( 3 )
 hframes = 4
 
 [node name="SpriteAttackBasic" type="Sprite" parent="Pivot"]
 modulate = Color( 2.5, 2.5, 2.5, 1 )
-position = Vector2( 0, -28 )
 texture = ExtResource( 11 )
 hframes = 4
 
 [node name="Node2D" type="Node2D" parent="Pivot"]
-position = Vector2( 0, -28 )
 
 [node name="SpriteAttackEspecial" type="Sprite" parent="Pivot/Node2D"]
 visible = false
@@ -881,12 +881,12 @@ modulate = Color( 4.68, 4.06, 3, 1 )
 texture = ExtResource( 6 )
 hframes = 4
 
-[node name="AgarreWall" type="Area2D" parent="Pivot"]
+[node name="AgarreWall" type="Area2D" parent="Pivot" groups=["agarrables"]]
 collision_layer = 0
 collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/AgarreWall"]
-position = Vector2( 8, -29.5 )
+position = Vector2( 8, -11 )
 shape = SubResource( 67 )
 
 [node name="Mele Colision" type="Area2D" parent="Pivot"]
@@ -897,7 +897,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Mele Colision"]
-position = Vector2( 45, -30 )
+position = Vector2( 45, -2 )
 rotation = 1.5708
 shape = SubResource( 17 )
 disabled = true
@@ -906,8 +906,10 @@ __meta__ = {
 }
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -27 )
 shape = SubResource( 18 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Pivot/Sprite")
@@ -927,21 +929,29 @@ parameters/playback = SubResource( 6 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+zoom = Vector2( 0.5, 0.5 )
 process_mode = 0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Node2D" type="Node2D" parent="."]
 modulate = Color( 1, 1, 39.21, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="trailpos" type="Position2D" parent="Node2D"]
-position = Vector2( 0, -24 )
+position = Vector2( 0, 4 )
 z_index = -5
 
 [node name="trail" parent="Node2D/trailpos" instance=ExtResource( 9 )]
-modulate = Color( 5.56863, 1.4902, 0, 1 )
+modulate = Color( 5.56863, 1.4902, 0, 0.905882 )
 show_behind_parent = true
 z_index = -5
 points = PoolVector2Array( 4.76837e-07, 0 )
-width = 40.0
+width = 9.0
 default_color = Color( 0.4, 0.501961, 1, 1 )
 begin_cap_mode = 2
 end_cap_mode = 2
