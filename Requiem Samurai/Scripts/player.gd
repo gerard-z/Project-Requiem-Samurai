@@ -1,9 +1,10 @@
 extends KinematicBody2D
 
-export var SPEED = 250
+export var SPEED = 400 # Incremento velocidad 250 -> 400
 export var ACCELERATION = 700
 export var GRAVITY = 3000
 export var DIR = 1
+export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3
 var up_down = 1
 var hasAttacked = false
 
@@ -131,7 +132,7 @@ func _physics_process(delta): # por frame
 		jump=0
 		# salto
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -4 * SPEED
+			velocity.y = AERIAL_COEFICIENT * SPEED
 
 	
 # MURO
@@ -163,11 +164,11 @@ func _physics_process(delta): # por frame
 			else:
 				fwall = -150			
 			velocity.x =  fwall
-			velocity.y = -4 * SPEED
+			velocity.y = AERIAL_COEFICIENT * SPEED
 			
 
 # movimiento
-	var dash = 1400
+	var dash = 2000 # Incremento dash 1400 -> 2000
 
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
@@ -224,7 +225,7 @@ func _physics_process(delta): # por frame
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
 		velocity.x = 300*move_input + abs(velocity.x)*move_input #dash
-		velocity.y = -4 * SPEED
+		velocity.y = AERIAL_COEFICIENT * SPEED
 
 
 
