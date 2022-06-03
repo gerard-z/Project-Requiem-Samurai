@@ -5,7 +5,8 @@ export var ACCELERATION = 233
 export var gravity_effect = 1000
 export var DIR = 1
 
-export var rebote=800/(3)
+
+export var rebote=270
 var GRAVITY=gravity_effect
 
 var up_down = 1
@@ -26,20 +27,24 @@ onready var AirSprite = $Pivot/SpriteAttackBasic
 onready var NodeSprite = $Pivot/Node2D
 
 
-
-
+#movement
+var res_air_move = 5
+var jump_air_y = 4
 
 #ataque basico
 var dmg =  1
 var time1at = 0
 var time2at = 0
 var puedeatacar = 1
+var fix_atq_pyro = 1
+
 
 
 #vida
 var health = 100 setget _set_health
 var max_health= 100
 onready var progress_bar = $CanvasLayer/ProgressBar
+
 
 
 #stamina
@@ -56,22 +61,28 @@ var time2 = 0
 var time1h = 0
 var time2h = 0
 
+
+
+
 #CD of dash!
 var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
 
-var dash = 600
+var dash = 500
 var dashsentido = 1
+var dirdash = 1
+
+
 
 #doble salto
 var maxjumps=1
 var jump=0
 
 
+
 var agarre=0
-var dirdash = 1
-		
+
 var fire = false
 	
 	
@@ -101,9 +112,9 @@ func _stamina_recharge():
 func _attack_recharge():
 	time2at = OS.get_system_time_msecs()
 	var time_elapsed = time2at- time1at
-	if time_elapsed >= 800:
+	if time_elapsed >= 820:
 		puedeatacar=1
-		time1at = OS.get_system_time_msecs()
+		
 	
 
 
@@ -122,8 +133,9 @@ func _physics_process(delta): # por frame
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true
+		
 	
-	if Global.ataqpyro+1==0:
+	if Global.ataqpyro+1<=0:
 		dmg=1
 		NodeSprite.visible = false
 		AirSprite.visible = true	
@@ -131,14 +143,13 @@ func _physics_process(delta): # por frame
 
 
 	#mecanica gravedad 
+	#cambia la gravedad
 	GRAVITY = gravity_effect*Global.gravitychange
 	scale.y= Global.gravitychange
 
-
-
-
-
+	
 	#mecanica rectangulo
+	#daishi style
 	if Global.daishi == -1 and not agarre:
 		pivote.scale.x = pivote.scale.x*Global.daishi
 
@@ -147,10 +158,7 @@ func _physics_process(delta): # por frame
 
 
 		
-#Time for the Dash:
-	cd_time2_stamina=OS.get_system_time_msecs()
-	if cd_time2_stamina-cd_time1_stamina>600:
-		youcandothedash=0
+
 
 	
 # TODO
@@ -163,7 +171,7 @@ func _physics_process(delta): # por frame
 	if is_on_floor():
 		velocity.x = move_input * SPEED
 	else:
-		velocity.x  = move_toward(velocity.x, move_input * SPEED, 12)
+		velocity.x  = move_toward(velocity.x, move_input * SPEED, res_air_move)
 	up_down = 1
 	
 	# gravedad
@@ -176,24 +184,26 @@ func _physics_process(delta): # por frame
 		jump=0
 		# salto
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = -4 * SPEED *Global.gravitychange
+			velocity.y = -jump_air_y * SPEED *Global.gravitychange
 
 	
 # MURO
 
+	#agarrado
 	elif is_on_wall() and not is_on_floor() and agarre:
 		youcandothedash=0
 		jump=0
 
-
+		#WALLse mantiene
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
 			velocity.y = 0
 			up_down = 0
-
+		
+		#WALL baja
 		elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
-			up_down = 300
+			up_down = SPEED
 		elif velocity.y >0:
-			up_down = 25
+			up_down = SPEED/3
 		
 		velocity.y = up_down
 
@@ -204,11 +214,11 @@ func _physics_process(delta): # por frame
 		if Input.is_action_just_pressed("jump"):
 			up_down = 1
 			if pivote.scale.x<0:
-				fwall = 150
+				fwall = SPEED/2
 			else:
-				fwall = -150			
+				fwall = -SPEED/2			
 			velocity.x =  fwall
-			velocity.y = -4 * SPEED
+			velocity.y = -3 * SPEED
 			
 
 # movimiento
@@ -225,11 +235,23 @@ func _physics_process(delta): # por frame
 			pivote.scale.x = -1
 	
 	
+	
+	
 	hasAttacked = false
 	# ataque 1 
 	if Input.is_action_just_pressed("attack1") and not is_on_wall() and puedeatacar==1:
 		hasAttacked = true
 		puedeatacar=0
+		time1at = OS.get_system_time_msecs()
+
+		
+	
+	
+	
+	#Time for the Dash:
+	cd_time2_stamina=OS.get_system_time_msecs()
+	if cd_time2_stamina-cd_time1_stamina>600:
+		youcandothedash=0
 	
 	
 	
@@ -264,11 +286,13 @@ func _physics_process(delta): # por frame
 			velocity.y = 0
 			time1 = OS.get_unix_time()
 			take_stamina(20)	
-
+	
+	
+	#en el dash
 	if cd_time2_stamina-cd_time1_stamina<100 and youcandothedash==1:
 		velocity.x =  dash * dirdash #dash
 		velocity.y=0
-	
+	#luego de terminarlo
 	if cd_time2_stamina-cd_time1_stamina<120 and 100<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
 		velocity.x= (dash/2)*dirdash
 
@@ -277,8 +301,8 @@ func _physics_process(delta): # por frame
 	#doble salto
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
-		velocity.x = 300*move_input + abs(velocity.x)*move_input #dash
-		velocity.y = -4 * SPEED * Global.gravitychange
+		velocity.x = SPEED *move_input + abs(velocity.x)*move_input #dash
+		velocity.y = -jump_air_y * SPEED * Global.gravitychange
 
 
 
@@ -286,10 +310,17 @@ func _physics_process(delta): # por frame
 # ANIMACIONES	
 
 # Animaciones
+	#el ataque
 	if hasAttacked:
 		playback.travel("attack 1")
-		if fire == true:
-			Global.ataqpyro -= 1
+		if fire==true:
+			if Global.ataqpyro<=1:
+				Global.ataqpyro -= 1
+			elif Global.daishi==-1:
+				Global.ataqpyro-=2
+			else: Global.ataqpyro -= 1
+
+	
 
 			
 
@@ -312,6 +343,8 @@ func _physics_process(delta): # por frame
 				playback.travel("fall")
 			if velocity.y < -0:
 				playback.travel("jump")
+
+
 
 
 
@@ -344,22 +377,15 @@ func take_damage(value,body=null):
 			velocity.y*=-1
 
 
-
-
 #para hacerle daño
 func _on_body_entered(body: Node2D):
 	body.take_damage(dmg)
 
 
-
-
+#agarres
 func _on_AgarreWall_body_entered(body):
 
 	agarre=body.is_in_group("agarrables")
-
-
-
-
 
 func _on_AgarreWall_body_exited(body):
 	

@@ -1026,7 +1026,8 @@ adjustment_saturation = 1.07
 position = Vector2( 128, 136 )
 
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
-position = Vector2( 178, 110 )
+position = Vector2( 204, 120 )
+scale = Vector2( -1, 1 )
 
 [node name="TileMap" type="TileMap" parent="." groups=["agarrables"]]
 modulate = Color( 3, 0.4, 0, 1 )

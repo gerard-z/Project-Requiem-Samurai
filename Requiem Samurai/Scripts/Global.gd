@@ -26,7 +26,13 @@ func _process(delta): #tiempo => frames
 		print(figure, " ", area)
 		
 		if figure == 1:		#triangulo
-			ataqpyro = 5
+			if ataqpyro<0:
+				ataqpyro = 3
+			else:
+				ataqpyro+=3
+				if ataqpyro>=6:
+					ataqpyro=6
+
 			
 			print("attack = ", ataqpyro)
 		

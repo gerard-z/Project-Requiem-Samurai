@@ -6,6 +6,7 @@ onready var sprite = $Sprite
 
 
 var GRAVITY = 400
+export var gravity_effect = 1000
 var ACCELERATION = 200
 var SPEED = 50
 var hit = false
@@ -29,16 +30,27 @@ func _ready():
 	
 func _physics_process(delta):
 	
-	#gravity power
-	if Global.gravitychange==-1:
-		GRAVITY = -400
-	if Global.gravitychange==1:
-		GRAVITY = 400
+	##para la demo
+	if health==0:
+		GRAVITY=0
+	else:
+		GRAVITY = gravity_effect*Global.gravitychange
+		scale.y= -Global.gravitychange
+	 ##para la demo se elimina el if 
 
-
-	velocity = move_and_slide(velocity, Vector2.UP)
+	move_and_slide(velocity, Vector2.UP*Global.gravitychange)
+	if is_on_floor():
+		velocity.y=0
 	velocity.y += GRAVITY * delta
+	
 	velocity.x = 0
+
+
+#####
+#para la demo
+var time1demo =0
+
+#####
 
 
 func _process(delta):
@@ -54,20 +66,19 @@ func _process(delta):
 	
 	#############################################
 	# solo para la demo
+
 	if health == 0:
+
 		self.visible = false
 		$Hitbox.disabled=true
 		$DoDamage/CollisionShape2D.disabled=true
-		GRAVITY = 0
+		time1demo = OS.get_unix_time()
+		if time1demo-time1>= 4:
+			$Hitbox.disabled=false
+			$DoDamage/CollisionShape2D.disabled=false
+			self.visible = true
 		
-		yield(get_tree().create_timer(5), "timeout")
-		
-		$Hitbox.disabled=false
-		$DoDamage/CollisionShape2D.disabled=false
-		GRAVITY = 400
-		self.visible = true
-		
-		health = 100
+			health = 100
 	############################################
 
 
