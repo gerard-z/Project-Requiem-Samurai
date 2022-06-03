@@ -31,6 +31,9 @@ onready var NodeSprite = $Pivot/Node2D
 
 #ataque basico
 var dmg =  1
+var time1at = 0
+var time2at = 0
+var puedeatacar = 1
 
 
 #vida
@@ -95,14 +98,19 @@ func _stamina_recharge():
 		take_stamina(-10)
 		time1 = OS.get_unix_time()
 	
-	
+func _attack_recharge():
+	time2at = OS.get_system_time_msecs()
+	var time_elapsed = time2at- time1at
+	if time_elapsed >= 800:
+		puedeatacar=1
+		time1at = OS.get_system_time_msecs()
 	
 
 
 func _physics_process(delta): # por frame
 	
 
-	
+	_attack_recharge()
 	_stamina_recharge()
 	_health_recharge()
 	
@@ -219,9 +227,9 @@ func _physics_process(delta): # por frame
 	
 	hasAttacked = false
 	# ataque 1 
-	if Input.is_action_just_pressed("attack1") and not is_on_wall():
+	if Input.is_action_just_pressed("attack1") and not is_on_wall() and puedeatacar==1:
 		hasAttacked = true
-	
+		puedeatacar=0
 	
 	
 	

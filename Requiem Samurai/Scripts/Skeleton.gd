@@ -76,7 +76,7 @@ func _set_health(value):
 	health= clamp(value, 0,max_health)
 
 
-func take_damage(dmg):
+func take_damage(dmg,body=null):
 	
 	print("esqueleto")
 	print(health," ",health-dmg)
