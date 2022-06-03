@@ -1055,7 +1055,7 @@ Grid = 70
 
 [node name="Particles2D" parent="." instance=ExtResource( 1 )]
 modulate = Color( 3, 3, 3, 1 )
-position = Vector2( 288, -760 )
+position = Vector2( 418, -573 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 108 )
