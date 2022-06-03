@@ -270,7 +270,7 @@ func _physics_process(delta): # por frame
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
 		velocity.x = 300*move_input + abs(velocity.x)*move_input #dash
-		velocity.y = -4 * SPEED
+		velocity.y = -4 * SPEED * Global.gravitychange
 
 
 
