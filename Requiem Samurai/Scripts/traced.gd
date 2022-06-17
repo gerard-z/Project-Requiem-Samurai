@@ -34,7 +34,7 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("vertice"):
 		point = target.global_position
-		point.y = point.y - 48
+		point.y = point.y
 		
 		point.x = round(point.x/Grid)*Grid
 		point.y = round(point.y/Grid)*Grid

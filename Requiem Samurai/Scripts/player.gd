@@ -1,10 +1,13 @@
 extends KinematicBody2D
 
-export var SPEED = 400 # Incremento velocidad 250 -> 400
-export var ACCELERATION = 700
-export var GRAVITY = 3000
+export var SPEED = 400 # 83 -> 400
+export var ACCELERATION = 700 # 233 -> 700
+export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
-export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3
+export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3 #no está en la versión development
+export var rebote=270
+var GRAVITY=gravity_effect
+
 var up_down = 1
 var hasAttacked = false
 
@@ -22,19 +25,32 @@ onready var baseSprite = $Pivot/Sprite
 onready var AirSprite = $Pivot/SpriteAttackBasic
 onready var NodeSprite = $Pivot/Node2D
 
+
+#movement
+var res_air_move = 5
+var jump_air_y = 4
+
 #ataque basico
 var dmg =  1
+var time1at = 0
+var time2at = 0
+var puedeatacar = 1
+var fix_atq_pyro = 1
+
+
 
 #vida
 var health = 100 setget _set_health
 var max_health= 100
-
 onready var progress_bar = $CanvasLayer/ProgressBar
+
+
 
 #stamina
 var stamina = 100 setget _set_stamina
 var max_stamina= 100
 onready var progress_bar2 = $CanvasLayer/ProgressBar2
+
 
 #CD for the regenerations of HP and Stamina 
 #stamina
@@ -44,10 +60,18 @@ var time2 = 0
 var time1h = 0
 var time2h = 0
 
+
+
+
 #CD of dash!
 var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
+
+var dash = 500
+var dashsentido = 1
+var dirdash = 1
+
 
 
 #doble salto
@@ -55,16 +79,20 @@ var maxjumps=1
 var jump=0
 
 
-var agarre=1
-var dirdash = 1
-		
+
+var agarre=0
+
 var fire = false
+	
+	
 	
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
-
+	
 	meleArea.connect("body_entered", self, "_on_body_entered")
+
+
 
 	
 func _health_recharge():
@@ -80,10 +108,19 @@ func _stamina_recharge():
 		take_stamina(-10)
 		time1 = OS.get_unix_time()
 	
-	
+func _attack_recharge():
+	time2at = OS.get_system_time_msecs()
+	var time_elapsed = time2at- time1at
+	if time_elapsed >= 820:
+		puedeatacar=1
+		
 	
 
+
 func _physics_process(delta): # por frame
+	
+
+	_attack_recharge()
 	_stamina_recharge()
 	_health_recharge()
 	
@@ -95,22 +132,36 @@ func _physics_process(delta): # por frame
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true
+		
 	
-	if Global.ataqpyro+1==0:
+	if Global.ataqpyro+1<=0:
 		dmg=1
 		NodeSprite.visible = false
 		AirSprite.visible = true	
 		fire = false
 
-#Time for the Dash:
-	cd_time2_stamina=OS.get_system_time_msecs()
-	if cd_time2_stamina-cd_time1_stamina>600:
-		youcandothedash=0
+
+	#mecanica gravedad 
+	#cambia la gravedad
+	GRAVITY = gravity_effect*Global.gravitychange
+	scale.y= Global.gravitychange
+
+	
+	#mecanica rectangulo
+	#daishi style
+	if Global.daishi == -1 and not agarre:
+		pivote.scale.x = pivote.scale.x*Global.daishi
+
+
+		
+
+
+		
 
 
 	
 # TODO
-	velocity = move_and_slide(velocity, Vector2.UP)
+	velocity = move_and_slide(velocity, Vector2.UP*Global.gravitychange)
 	
 	var move_input = Input.get_axis("move_left", "move_right")
 	
@@ -119,7 +170,7 @@ func _physics_process(delta): # por frame
 	if is_on_floor():
 		velocity.x = move_input * SPEED
 	else:
-		velocity.x  = move_toward(velocity.x, move_input * SPEED, 12)
+		velocity.x  = move_toward(velocity.x, move_input * SPEED, res_air_move)
 	up_down = 1
 	
 	# gravedad
@@ -128,28 +179,29 @@ func _physics_process(delta): # por frame
 	
 # PISO
 	if is_on_floor() and not is_on_wall():
-		#youcandothedash=0
+
 		jump=0
 		# salto
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = AERIAL_COEFICIENT * SPEED
-
+			velocity.y = -jump_air_y * SPEED *Global.gravitychange
 	
 # MURO
 
-	elif is_on_wall() and not is_on_floor() and agarre==1:
+	#agarrado
+	elif is_on_wall() and not is_on_floor() and agarre:
 		youcandothedash=0
 		jump=0
-		#	#		#velocity.y = GRAVITY * 0.25
 
+		#WALLse mantiene
 		if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
 			velocity.y = 0
 			up_down = 0
-
+		
+		#WALL baja
 		elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
-			up_down = 300
+			up_down = SPEED
 		elif velocity.y >0:
-			up_down = 25
+			up_down = SPEED/3
 		
 		velocity.y = up_down
 
@@ -160,29 +212,44 @@ func _physics_process(delta): # por frame
 		if Input.is_action_just_pressed("jump"):
 			up_down = 1
 			if pivote.scale.x<0:
-				fwall = 150
+				fwall = SPEED/2
 			else:
-				fwall = -150			
+				fwall = -SPEED/2			
 			velocity.x =  fwall
-			velocity.y = AERIAL_COEFICIENT * SPEED
+			velocity.y = -3 * SPEED # level tenia el coeff
 			
-
 # movimiento
 	var dash = 2000 # Incremento dash 1400 -> 2000
 
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
-		pivote.scale.x = 1
+		dashsentido=1
+		if Global.daishi==1:
+			pivote.scale.x = 1
 	
 	if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
-		pivote.scale.x = -1
+		dashsentido=-1
+		if Global.daishi==1:
+			pivote.scale.x = -1
+	
+	
 	
 	
 	hasAttacked = false
 	# ataque 1 
-	if Input.is_action_just_pressed("attack1") and not is_on_wall():
+	if Input.is_action_just_pressed("attack1") and not is_on_wall() and puedeatacar==1:
 		hasAttacked = true
+		puedeatacar=0
+		time1at = OS.get_system_time_msecs()
+
+		
 	
+	
+	
+	#Time for the Dash:
+	cd_time2_stamina=OS.get_system_time_msecs()
+	if cd_time2_stamina-cd_time1_stamina>600:
+		youcandothedash=0
 	
 	
 	
@@ -193,6 +260,7 @@ func _physics_process(delta): # por frame
 			dirdash = -abs(dirdash)
 		else:
 			dirdash = abs(dirdash)
+			
 		velocity.x =   velocity.x*2.5
 		time1 = OS.get_unix_time()
 		take_stamina(0.3)		
@@ -208,14 +276,21 @@ func _physics_process(delta): # por frame
 				dirdash = -abs(dirdash)
 			else:
 				dirdash = abs(dirdash)
+				
+			if Global.daishi==-1:
+				dirdash=dashsentido
+
+			
 			velocity.y = 0
 			time1 = OS.get_unix_time()
 			take_stamina(20)	
-
-	if cd_time2_stamina-cd_time1_stamina<100 and youcandothedash==1:
-		velocity.x =  dash * dirdash #dash		
-		velocity.y=0
 	
+	
+	#en el dash
+	if cd_time2_stamina-cd_time1_stamina<100 and youcandothedash==1:
+		velocity.x =  dash * dirdash #dash
+		velocity.y=0
+	#luego de terminarlo
 	if cd_time2_stamina-cd_time1_stamina<120 and 100<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
 		velocity.x= (dash/2)*dirdash
 
@@ -224,25 +299,30 @@ func _physics_process(delta): # por frame
 	#doble salto
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
-		velocity.x = 300*move_input + abs(velocity.x)*move_input #dash
-		velocity.y = AERIAL_COEFICIENT * SPEED
+		velocity.x = SPEED *move_input + abs(velocity.x)*move_input #dash
+		velocity.y = -jump_air_y * SPEED * Global.gravitychange #coef del level
 
 
-
-	
 # ANIMACIONES	
 
 # Animaciones
+	#el ataque
 	if hasAttacked:
 		playback.travel("attack 1")
-		if fire == true:
-			Global.ataqpyro -= 1
+		if fire==true:
+			if Global.ataqpyro<=1:
+				Global.ataqpyro -= 1
+			elif Global.daishi==-1:
+				Global.ataqpyro-=2
+			else: Global.ataqpyro -= 1
+
+	
 
 			
 
 
 	else:
-		if is_on_wall() and agarre==1:
+		if is_on_wall() and agarre:
 			playback.travel("idle wall")
 			if velocity.y > 100:
 				playback.travel("fall wall")
@@ -263,6 +343,8 @@ func _physics_process(delta): # por frame
 
 
 
+
+
 func _set_health(value):
 	health= clamp(value, 0,max_health)
 	progress_bar.value = health
@@ -277,23 +359,18 @@ func take_stamina(value):
 
 
 
-func take_damage(value):
+func take_damage(value,body=null):
 	print("samurai")
 	print(health," " ,health-value)
 	self.health -= value
 	time1h = OS.get_unix_time()
 	
 	#para simular un golpe
-	if self.velocity.x==0:
-		self.velocity.x=-800*pivote.scale.x
-	else:
-		self.velocity.x=-(self.velocity.x/self.velocity.x)*200
-	if self.velocity.y==0:
-		self.velocity.y=0
-	else:
-		self.velocity.y=-(self.velocity.y/self.velocity.y)*200
-
-
+	if value>0:
+		velocity = -global_position.direction_to(body.global_position) * rebote
+		
+		if velocity.y>0:
+			velocity.y*=-1
 
 
 #para hacerle daño
@@ -301,15 +378,15 @@ func _on_body_entered(body: Node2D):
 	body.take_damage(dmg)
 
 
-
-
+#agarres
 func _on_AgarreWall_body_entered(body):
-	if body.has_method("NotAgarrable"):
-		agarre=0
 
-
-
+	agarre=body.is_in_group("agarrables")
 
 func _on_AgarreWall_body_exited(body):
-	if body.has_method("NotAgarrable"):
-		agarre=1
+	
+	agarre=false
+#
+	#else:
+	#	print(agarre)
+	#	agarre=0
