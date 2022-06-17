@@ -35,7 +35,7 @@ func _physics_process(delta):
 		GRAVITY=0
 	else:
 		GRAVITY = gravity_effect*Global.gravitychange
-		scale.y= -Global.gravitychange
+		scale.y= Global.gravitychange
 	 ##para la demo se elimina el if 
 
 	move_and_slide(velocity, Vector2.UP*Global.gravitychange)

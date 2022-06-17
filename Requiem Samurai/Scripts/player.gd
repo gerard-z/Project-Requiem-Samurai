@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var SPEED = 400 # 83 -> 400
+export var SPEED = 200 # 83 -> 400
 export var ACCELERATION = 700 # 233 -> 700
 export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
@@ -68,7 +68,7 @@ var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
 
-var dash = 500
+var dash = 1250
 var dashsentido = 1
 var dirdash = 1
 
@@ -153,13 +153,6 @@ func _physics_process(delta): # por frame
 		pivote.scale.x = pivote.scale.x*Global.daishi
 
 
-		
-
-
-		
-
-
-	
 # TODO
 	velocity = move_and_slide(velocity, Vector2.UP*Global.gravitychange)
 	
@@ -216,11 +209,9 @@ func _physics_process(delta): # por frame
 			else:
 				fwall = -SPEED/2			
 			velocity.x =  fwall
-			velocity.y = -3 * SPEED # level tenia el coeff
+			velocity.y = -jump_air_y * SPEED # level tenia el coeff
 			
-# movimiento
-	var dash = 2000 # Incremento dash 1400 -> 2000
-
+#Movimiento
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
 		dashsentido=1

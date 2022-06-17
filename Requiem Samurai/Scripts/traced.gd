@@ -8,6 +8,7 @@ export var trailLenght = 0				# largo trazado, n° vértices
 var dibujable = true	
 
 var point
+var information: Vector2
 
 export var Grid = 50
 
@@ -34,7 +35,6 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("vertice"):
 		point = target.global_position
-		point.y = point.y
 		
 		point.x = round(point.x/Grid)*Grid
 		point.y = round(point.y/Grid)*Grid
@@ -83,15 +83,18 @@ func _process(delta):
 			
 			n1 = Vector2(0,0)
 			
-			if _rectangulo(n1,n2,n3,n4)[0]:
-				area = _rectangulo(n1,n2,n3,n4)[1]
+			information = _rectangulo(n1,n2,n3,n4)
+			if information[0]:
+				area = information[1]
 				figure = 2
 				print("Rectángulo, área = ", area)
-				
-			elif _reloj(n1,n2,n3,n4)[0]:
-				area = _reloj(n1,n2,n3,n4)[1]
-				figure = 3
-				print("Reloj, area = ", area)
+			
+			else:
+				information = _reloj(n1,n2,n3,n4)
+				if information[0]:
+					area = information[1]
+					figure = 3
+					print("Reloj, area = ", area)
 		
 		# Borrar instancias
 		_delete_children($Node2D)
@@ -117,14 +120,13 @@ static func _delete_children(node):
 # FIGURAS 
 
 static func _triangulo(n1,n2,n3):
-	var base = abs(n1.distance_to(n2))
-	var angle = n2.angle_to(n3) 
-	var hip = abs(n1.distance_to(n3))
-	var alt = abs(hip * sin(angle))
+	var lado1 = n2.length()
+	var lado2 = n3.length()
+	var lado3 = n3.distance_to(n2)
+	var semiperimetro = (lado1+ lado2+ lado3)/2
+	var squaredArea = semiperimetro*(semiperimetro-lado1)*(semiperimetro-lado2)*(semiperimetro-lado3)
 	
-	var area = round(base*alt/2)
-	
-	return area
+	return sqrt(squaredArea)
 	
 		
 	

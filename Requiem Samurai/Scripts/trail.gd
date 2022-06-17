@@ -20,6 +20,4 @@ func _physics_process(delta):
 	while points.size() > 23:
 		remove_point(0)
 		remove_point(0)
-		remove_point(0)
-		remove_point(0)
-		remove_point(0)
+
