@@ -1,11 +1,10 @@
 extends KinematicBody2D
 
-export var SPEED = 83
-export var ACCELERATION = 233
-export var gravity_effect = 1000
+export var SPEED = 200 # 83 -> 400
+export var ACCELERATION = 700 # 233 -> 700
+export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
-
-
+export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3 #no está en la versión development
 export var rebote=270
 var GRAVITY=gravity_effect
 
@@ -69,7 +68,7 @@ var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
 
-var dash = 500
+var dash = 1250
 var dashsentido = 1
 var dirdash = 1
 
@@ -154,13 +153,6 @@ func _physics_process(delta): # por frame
 		pivote.scale.x = pivote.scale.x*Global.daishi
 
 
-		
-
-
-		
-
-
-	
 # TODO
 	velocity = move_and_slide(velocity, Vector2.UP*Global.gravitychange)
 	
@@ -185,7 +177,6 @@ func _physics_process(delta): # por frame
 		# salto
 		if Input.is_action_just_pressed("jump"):
 			velocity.y = -jump_air_y * SPEED *Global.gravitychange
-
 	
 # MURO
 
@@ -218,11 +209,9 @@ func _physics_process(delta): # por frame
 			else:
 				fwall = -SPEED/2			
 			velocity.x =  fwall
-			velocity.y = -3 * SPEED
+			velocity.y = -jump_air_y * SPEED # level tenia el coeff
 			
-
-# movimiento
-
+#Movimiento
 	# voltear player al cambiar de dirección
 	if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
 		dashsentido=1
@@ -302,11 +291,9 @@ func _physics_process(delta): # por frame
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
 		velocity.x = SPEED *move_input + abs(velocity.x)*move_input #dash
-		velocity.y = -jump_air_y * SPEED * Global.gravitychange
+		velocity.y = -jump_air_y * SPEED * Global.gravitychange #coef del level
 
 
-
-	
 # ANIMACIONES	
 
 # Animaciones
