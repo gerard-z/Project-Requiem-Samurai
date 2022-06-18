@@ -17,6 +17,8 @@ var time2s =1
 var daishi =1
 var daishifix =1
 
+var fpscount = 0
+
 func _process(delta): #tiempo => frames
 	area = round(area)
 
@@ -37,31 +39,32 @@ func _process(delta): #tiempo => frames
 			print("attack = ", ataqpyro)
 		
 		if figure ==2:
-			time1s= OS.get_unix_time()
+			time1s= fpscount
 			daishi= -1
 			daishifix = 0
 			
 			
 		if figure == 3:
-			time1= OS.get_unix_time()
+			time1= fpscount
 			gravitychange=-1
 
 func _gravity_time_power():
-	time2 = OS.get_unix_time()
+	time2 = fpscount
 	var time_elapsed = time2 - time1
 	
-	if time_elapsed >= 3:
+	if time_elapsed >= 150:
 		gravitychange=1
 
 
-var contador = 0
-func _physics_process(delta):
-	contador+=1
+#utilizar fps para el tiempo #nota para mi yo del futuro planeando
+
+func _physics_process(delta): #cuenta 1 frame
+	fpscount+=1
 
 
 func daishi_sword():
-	time2s = OS.get_unix_time()
+	time2s = fpscount
 	var time_elapseds = time2s - time1s
 	
-	if time_elapseds >= 3:
+	if time_elapseds >= 60*3:
 		daishi=1

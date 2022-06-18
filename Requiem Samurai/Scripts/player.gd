@@ -96,22 +96,23 @@ func _ready(): # cuando inicia el juego
 
 	
 func _health_recharge():
-	time2h = OS.get_unix_time()
+	time2h = Global.fpscount
 	var time_elapsed2 = time2h- time1h
-	if time_elapsed2 >= 4 and health<100:
+
+	if time_elapsed2 >= 60*8 and health<100:
 		take_damage(-5)
 
 func _stamina_recharge():
-	time2 = OS.get_unix_time()
+	time2 = Global.fpscount
 	var time_elapsed = time2- time1
-	if time_elapsed >= 2 and stamina<100:
+	if time_elapsed >= 60*2 and stamina<100:
 		take_stamina(-10)
-		time1 = OS.get_unix_time()
+		time1 = Global.fpscount
 	
 func _attack_recharge():
-	time2at = OS.get_system_time_msecs()
+	time2at = Global.fpscount
 	var time_elapsed = time2at- time1at
-	if time_elapsed >= 820:
+	if time_elapsed >= 50:
 		puedeatacar=1
 		
 	
@@ -231,29 +232,29 @@ func _physics_process(delta): # por frame
 	if Input.is_action_just_pressed("attack1") and not is_on_wall() and puedeatacar==1:
 		hasAttacked = true
 		puedeatacar=0
-		time1at = OS.get_system_time_msecs()
+		time1at = Global.fpscount
 
 		
 	
 	
 	
 	#Time for the Dash:
-	cd_time2_stamina=OS.get_system_time_msecs()
-	if cd_time2_stamina-cd_time1_stamina>600:
+	cd_time2_stamina=Global.fpscount
+	if cd_time2_stamina-cd_time1_stamina>52:
 		youcandothedash=0
 	
 	
 	
 	#sprint 
 	if Input.is_action_pressed("sprint") and is_on_floor() and stamina>0 and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")):
-		cd_time1_stamina = OS.get_system_time_msecs()
+		cd_time1_stamina = Global.fpscount
 		if pivote.scale.x < 0:
 			dirdash = -abs(dirdash)
 		else:
 			dirdash = abs(dirdash)
 			
 		velocity.x =   velocity.x*2.5
-		time1 = OS.get_unix_time()
+		time1 = Global.fpscount
 		take_stamina(0.3)		
 	
 	
@@ -262,7 +263,7 @@ func _physics_process(delta): # por frame
 	if Input.is_action_just_pressed("dash"):			
 		if stamina>=20 and youcandothedash==0:
 			youcandothedash=1
-			cd_time1_stamina = OS.get_system_time_msecs()
+			cd_time1_stamina = Global.fpscount
 			if pivote.scale.x < 0:
 				dirdash = -abs(dirdash)
 			else:
@@ -273,17 +274,17 @@ func _physics_process(delta): # por frame
 
 			
 			velocity.y = 0
-			time1 = OS.get_unix_time()
+			time1 = Global.fpscount
 			take_stamina(20)	
 	
 	
 	#en el dash
-	if cd_time2_stamina-cd_time1_stamina<100 and youcandothedash==1:
+	if cd_time2_stamina-cd_time1_stamina<8 and youcandothedash==1:
 		velocity.x =  dash * dirdash #dash
 		velocity.y=0
 	#luego de terminarlo
-	if cd_time2_stamina-cd_time1_stamina<120 and 100<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
-		velocity.x= (dash/2)*dirdash
+	if cd_time2_stamina-cd_time1_stamina<9 and 7<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
+		velocity.x/= 2
 
 
 
@@ -354,7 +355,7 @@ func take_damage(value,body=null):
 	print("samurai")
 	print(health," " ,health-value)
 	self.health -= value
-	time1h = OS.get_unix_time()
+	time1h = Global.fpscount
 	
 	#para simular un golpe
 	if value>0:

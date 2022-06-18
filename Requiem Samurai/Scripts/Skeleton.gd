@@ -56,10 +56,10 @@ var time1demo =0
 func _process(delta):
 
 	if hit:
-		time2 = OS.get_unix_time()	
+		time2 = Global.fpscount
 		var time_elapsed = time2- time1
 		sprite.modulate = Color(sin(time_elapsed*50+1), cos(time_elapsed*50+2), sin(time_elapsed*50) , 1)
-		if (time_elapsed>3):
+		if (time_elapsed>60*3):
 			hit = false
 	else:
 		sprite.modulate = Color(1, 1, 1, 1)
@@ -72,8 +72,8 @@ func _process(delta):
 		self.visible = false
 		$Hitbox.disabled=true
 		$DoDamage/CollisionShape2D.disabled=true
-		time1demo = OS.get_unix_time()
-		if time1demo-time1>= 4:
+		time1demo = Global.fpscount
+		if time1demo-time1>= 60*4:
 			$Hitbox.disabled=false
 			$DoDamage/CollisionShape2D.disabled=false
 			self.visible = true
@@ -95,7 +95,7 @@ func take_damage(dmg,body=null):
 	if Global.ataqpyro > 0:
 		self.health -= dmg
 		hit = true
-		time1 = OS.get_unix_time()
+		time1 = Global.fpscount
 
 		
 
