@@ -68,7 +68,7 @@ var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
 
-var dash = 1250
+var dash = 1000
 var dashsentido = 1
 var dirdash = 1
 
@@ -279,12 +279,16 @@ func _physics_process(delta): # por frame
 	
 	
 	#en el dash
-	if cd_time2_stamina-cd_time1_stamina<8 and youcandothedash==1:
+	if cd_time2_stamina-cd_time1_stamina<10 and youcandothedash==1:
 		velocity.x =  dash * dirdash #dash
 		velocity.y=0
+		#aiuda pa implementar una animacion de dash uwu
+		#playback.travel("dash")
 	#luego de terminarlo
-	if cd_time2_stamina-cd_time1_stamina<9 and 7<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
+	if cd_time2_stamina-cd_time1_stamina<11 and 9<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
+		#playback.travel("dash")
 		velocity.x/= 2
+		
 
 
 
@@ -357,6 +361,9 @@ func take_damage(value,body=null):
 	self.health -= value
 	time1h = Global.fpscount
 	
+	#muere
+	if self.health<=0:
+		get_tree().change_scene("res://Escenes/MainMenu.tscn")
 	#para simular un golpe
 	if value>0:
 		velocity = -global_position.direction_to(body.global_position) * rebote

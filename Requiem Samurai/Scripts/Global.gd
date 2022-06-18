@@ -15,9 +15,11 @@ var time1s =1
 var time2s =1
 
 var daishi =1
-var daishifix =1
+
 
 var fpscount = 0
+
+var seactivaeltrazado=false
 
 func _process(delta): #tiempo => frames
 	area = round(area)
@@ -41,7 +43,7 @@ func _process(delta): #tiempo => frames
 		if figure ==2:
 			time1s= fpscount
 			daishi= -1
-			daishifix = 0
+
 			
 			
 		if figure == 3:

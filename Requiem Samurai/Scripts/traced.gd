@@ -19,6 +19,14 @@ var active = false
 
 var pointR = preload("res://Escenes/Point.tscn")
 
+#tiempo entre puntos del trazado automatico
+var time1=0
+var time2=0
+
+#tiempo para borrarse el ultimo punto!
+var time1delet = 0
+var time2delet = 0
+
 func _ready():
 	target = get_node(targetPath)		# carga nodo samurai, posicion
 	
@@ -34,6 +42,10 @@ func _process(delta):
 		modulate = Color(3,3,3)
 	
 	if Input.is_action_just_pressed("vertice"):
+		
+		if get_point_count()==0:
+			time1delet=Global.fpscount
+		
 		point = target.global_position
 		
 		point.x = round(point.x/Grid)*Grid
@@ -45,8 +57,41 @@ func _process(delta):
 
 		add_point(point)	# se agrega punto actual en lista ***
 		
+	
+	
+	if Global.seactivaeltrazado:
+		if get_point_count()==0:
+			time1delet=Global.fpscount
+			
+		time2=Global.fpscount
+		if time2-time1> 40:
+			point = target.global_position
+		
+			point.x = round(point.x/Grid)*Grid
+			point.y = round(point.y/Grid)*Grid
+		
+			var pointNew = pointR.instance()
+			get_node("Node2D").add_child(pointNew)
+			pointNew.position = point
+
+			add_point(point)	# se agrega punto actual en lista ***		
+			time1=Global.fpscount
+	
+	time2delet=Global.fpscount
+
+	
+
+	if get_point_count()>0 and time2delet-time1delet>60*5:
+		time1delet=Global.fpscount
+		remove_point(0)
+		_delete_children1($Node2D)
+		
+		
+	
 	if get_point_count() > trailLenght-1:	# largo lista > largo def
 		remove_point(0)						# se borra de lista el primero
+		_delete_children1($Node2D)
+		
 		
 	if Input.is_action_just_pressed("activar"):	
 		add_point(get_point_position(0))
@@ -114,7 +159,11 @@ static func _delete_children(node):
 		node.remove_child(n)
 		n.queue_free()
 
-
+static func _delete_children1(node):
+	for n in node.get_children():
+		node.remove_child(n)
+		n.queue_free()
+		break
 
 
 # FIGURAS 
