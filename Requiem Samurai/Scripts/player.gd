@@ -5,7 +5,7 @@ export var ACCELERATION = 700 # 233 -> 700
 export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
 export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3 #no está en la versión development
-export var rebote=270
+export var rebote=1000
 var GRAVITY=gravity_effect
 
 var up_down = 1
@@ -37,6 +37,8 @@ var time2at = 0
 var puedeatacar = 1
 var fix_atq_pyro = 1
 
+
+var golpefps = 100
 
 
 #vida
@@ -161,10 +163,12 @@ func _physics_process(delta): # por frame
 	
 	# movimiento horizontal
 	#velocity.x = move_toward(velocity.x, move_input * SPEED, ACCELERATION)
-	if is_on_floor():
-		velocity.x = move_input * SPEED
-	else:
+	golpefps+=1
+	
+	if golpefps<5:
 		velocity.x  = move_toward(velocity.x, move_input * SPEED, res_air_move)
+	else:
+		velocity.x = move_input * SPEED 
 	up_down = 1
 	
 	# gravedad
@@ -246,14 +250,14 @@ func _physics_process(delta): # por frame
 	
 	
 	#sprint 
-	if Input.is_action_pressed("sprint") and is_on_floor() and stamina>0 and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")):
+	if golpefps>5 and Input.is_action_pressed("sprint") and is_on_floor() and stamina>0 and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")):
 		cd_time1_stamina = Global.fpscount
 		if pivote.scale.x < 0:
 			dirdash = -abs(dirdash)
 		else:
 			dirdash = abs(dirdash)
 			
-		velocity.x =   velocity.x*2.5
+		velocity.x =   SPEED*2.5*move_input
 		time1 = Global.fpscount
 		take_stamina(0.3)		
 	
@@ -358,18 +362,23 @@ func take_stamina(value):
 func take_damage(value,body=null):
 	print("samurai")
 	print(health," " ,health-value)
+	if golpefps<6:
+		return 1
+	
 	self.health -= value
 	time1h = Global.fpscount
 	
 	#muere
 	if self.health<=0:
 		get_tree().change_scene("res://Escenes/MainMenu.tscn")
+		
 	#para simular un golpe
 	if value>0:
 		velocity = -global_position.direction_to(body.global_position) * rebote
+		golpefps=0
 		
-		if velocity.y>0:
-			velocity.y*=-1
+		
+
 
 
 #para hacerle daño
