@@ -32,32 +32,13 @@ color_ramp = SubResource( 103 )
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Particles2D2" type="Particles2D" parent="."]
-pause_mode = 2
-position = Vector2( 560, -128 )
-z_index = 1
-amount = 2000
-lifetime = 7.0
-randomness = 0.03
-visibility_rect = Rect2( -2500, -2500, 5000, 5000 )
-process_material = SubResource( 104 )
-
 [node name="Particles2D" type="Particles2D" parent="."]
 pause_mode = 2
+visible = false
 position = Vector2( -1298, -11 )
 z_index = 1
 amount = 2000
 lifetime = 7.0
 randomness = 0.03
-visibility_rect = Rect2( -2500, -2500, 5000, 5000 )
-process_material = SubResource( 104 )
-
-[node name="Particles2D3" type="Particles2D" parent="."]
-pause_mode = 2
-position = Vector2( 2256, 32 )
-z_index = 1
-amount = 2000
-lifetime = 7.0
-randomness = 0.03
-visibility_rect = Rect2( -2500, -2500, 5000, 5000 )
+visibility_rect = Rect2( -2500, -2500, 10000, 5100 )
 process_material = SubResource( 104 )
