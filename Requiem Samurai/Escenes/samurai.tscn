@@ -950,7 +950,7 @@ z_index = -5
 [node name="trail" parent="Node2D/trailpos" instance=ExtResource( 9 )]
 modulate = Color( 5.56863, 1.4902, 0, 0.905882 )
 show_behind_parent = true
-z_index = -5
+z_index = 5
 points = PoolVector2Array( 4.76837e-07, 0 )
 width = 9.0
 default_color = Color( 0.4, 0.501961, 1, 1 )

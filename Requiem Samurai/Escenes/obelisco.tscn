@@ -7,17 +7,17 @@
 trail_divisor = 6
 flag_disable_z = true
 direction = Vector3( 0, -1, 0 )
-spread = 80.0
+spread = 92.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 93.33
+initial_velocity = 133.33
 initial_velocity_random = 0.17
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-radial_accel = 100.0
+radial_accel = -100.0
 radial_accel_random = 0.54
 damping = 30.67
 color = Color( 0.0666667, 0.862745, 0.729412, 1 )
-hue_variation = 0.04
+hue_variation = 0.17
 hue_variation_random = 0.65
 
 [sub_resource type="Animation" id=3]
@@ -119,7 +119,7 @@ script = ExtResource( 2 )
 modulate = Color( 1, 4, 4, 1 )
 position = Vector2( 0, 124 )
 amount = 1000
-lifetime = 1.5
+lifetime = 0.7
 visibility_rect = Rect2( -1000, -1000, 2000, 2000 )
 process_material = SubResource( 6 )
 
