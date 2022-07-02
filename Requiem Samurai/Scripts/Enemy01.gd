@@ -45,7 +45,7 @@ func _physics_process(delta):
 	velocity.y += GRAVITY * delta
 	
 	var move_input = 0
-	var dist = 400
+	var dist = 300
 	
 	if _target != null:	
 		

@@ -7,7 +7,7 @@
 trail_divisor = 6
 flag_disable_z = true
 direction = Vector3( 0, -1, 0 )
-spread = 92.0
+spread = 100.4
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 133.33
 initial_velocity_random = 0.17
@@ -118,13 +118,14 @@ script = ExtResource( 2 )
 [node name="Particles2D" type="Particles2D" parent="."]
 modulate = Color( 1, 4, 4, 1 )
 position = Vector2( 0, 124 )
-amount = 1000
-lifetime = 0.7
+amount = 700
+lifetime = 2.0
 visibility_rect = Rect2( -1000, -1000, 2000, 2000 )
 process_material = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.7, 0.7 )
+position = Vector2( 0, 36.25 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 hframes = 13
 
