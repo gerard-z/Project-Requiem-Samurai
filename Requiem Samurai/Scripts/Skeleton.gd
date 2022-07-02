@@ -9,6 +9,7 @@ var GRAVITY = 400
 export var gravity_effect = 1000
 var ACCELERATION = 200
 var SPEED = 50
+
 var hit = false
 var time1 = 0
 var time2 = 0

@@ -1,11 +1,18 @@
 extends MarginContainer
 
 
-onready var play = $Panel/VBoxContainer/Play
-onready var options = $Panel/VBoxContainer/Options
-onready var exit = $Panel/VBoxContainer/Exit
+onready var play = $VBoxContainer/Play
+onready var options = $VBoxContainer/Options
+onready var exit = $VBoxContainer/Exit
+
+onready var anim_player = $AnimationPlayer
+onready var anim_tree = $AnimationTree
+onready var playback = anim_tree.get("parameters/playback")	
 
 func _ready():
+	anim_tree.active = true
+	playback.start("fondo")
+	
 	play.connect("pressed", self, "_on_play_pressed")
 	exit.connect("pressed", self, "_on_exit_pressed")
 	

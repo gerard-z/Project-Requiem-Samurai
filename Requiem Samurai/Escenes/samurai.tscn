@@ -863,7 +863,7 @@ script = ExtResource( 4 )
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Pivot"]
-modulate = Color( 0.745098, 0.745098, 0.745098, 1 )
+modulate = Color( 0.784314, 0.784314, 0.784314, 1 )
 position = Vector2( 0, -1 )
 texture = ExtResource( 3 )
 hframes = 4
