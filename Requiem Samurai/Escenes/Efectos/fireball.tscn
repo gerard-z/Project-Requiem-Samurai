@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/Efectos/Attacks/fireball01/FB500-1.png" type="Texture" id=1]
 [ext_resource path="res://assets/Efectos/Attacks/fireball01/B500-3.PNG" type="Texture" id=2]
@@ -75,11 +75,15 @@ transitions = [ "Idle", "Impacto", SubResource( 6 ) ]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=8]
 
+[sub_resource type="CircleShape2D" id=9]
+radius = 4.0
+
 [node name="fireball" type="Node2D"]
+z_index = 20
 script = ExtResource( 9 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 3, 3, 3, 1 )
+modulate = Color( 3, 1.14, 1.14, 1 )
 scale = Vector2( 0.03, 0.03 )
 texture = ExtResource( 1 )
 
@@ -93,3 +97,10 @@ tree_root = SubResource( 7 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 8 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 28
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 9 )

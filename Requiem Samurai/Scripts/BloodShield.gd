@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var A = $ShieldArea
 onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")	
@@ -7,3 +8,10 @@ onready var playback = anim_tree.get("parameters/playback")
 func _ready():
 	anim_tree.active = true
 	playback.start("shield")
+	
+	A.connect("area_entered", self, "_on_area_entered")
+
+func _on_area_entered(area: Node):
+	print("jump bitch")
+	Global.E1jump += 1
+	

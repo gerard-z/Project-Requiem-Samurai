@@ -107,14 +107,14 @@ func _health_recharge():
 func _stamina_recharge():
 	time2 = Global.fpscount
 	var time_elapsed = time2- time1
-	if time_elapsed >= 60*2 and stamina<100:
+	if time_elapsed >= 40*2 and stamina<100:
 		take_stamina(-10)
 		time1 = Global.fpscount
 	
 func _attack_recharge():
 	time2at = Global.fpscount
 	var time_elapsed = time2at- time1at
-	if time_elapsed >= 50:
+	if time_elapsed >=10:
 		puedeatacar=1
 		
 	
@@ -228,7 +228,7 @@ func _physics_process(delta): # por frame
 		if Global.daishi==1:
 			pivote.scale.x = -1
 	
-	
+	Global.dir = dashsentido
 	
 	
 	hasAttacked = false
