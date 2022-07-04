@@ -8,6 +8,7 @@ var dir = 1
 #enemy 01
 var E1jump = 0
 var FBretornable = 0
+var fireball = true
 
 var ataqpyro = 0
 

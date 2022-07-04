@@ -9,9 +9,4 @@ func _ready():
 	anim_tree.active = true
 	playback.start("shield")
 	
-	A.connect("area_entered", self, "_on_area_entered")
 
-func _on_area_entered(area: Node):
-	print("jump bitch")
-	Global.E1jump += 1
-	

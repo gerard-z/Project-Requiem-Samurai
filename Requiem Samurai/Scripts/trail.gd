@@ -21,7 +21,7 @@ func _physics_process(delta):
 				remove_point(0)
 		else:
 			add_point(point)
-	else: remove_point(0)
+	else: clear_points()
 	if points.size() > 100:
 		remove_point(0)
 	while points.size() > 200:

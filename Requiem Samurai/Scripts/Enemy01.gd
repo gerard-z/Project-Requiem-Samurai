@@ -8,9 +8,9 @@ onready var detArea = $DetectionArea
 onready var pivote = $pivote
 onready var sprite = $pivote/Sprite
 onready var posPoint = $FireBall
+onready var shield = $pivote/Shield/ShieldArea
 
 var FB = preload("res://Escenes/Efectos/fireball.tscn")
-export var Grid = 50
 
 var GRAVITY = 400
 export var gravity_effect = 1000
@@ -18,8 +18,7 @@ var ACCELERATION = 200
 var SPEED = 70
 
 var hit = false
-var time1 = 0
-var time2 = 0
+var dist = 400
 
 #vida
 var health = 100 setget _set_health
@@ -38,7 +37,7 @@ func _ready():
 	anim_tree.active = true
 	playback.start("idle")
 	
-	
+	shield.connect("area_entered", self, "_on_fireball_entered")
 	
 	
 
@@ -52,29 +51,26 @@ func _physics_process(delta):
 		velocity.y=0
 	velocity.y += GRAVITY * delta
 	
-	#JUMP
-	if Global.E1jump == 2:
-		velocity.y = -8 * SPEED *Global.gravitychange
-		Global.E1jump = 0
-	
-	if is_on_floor() == false:
+	if not is_on_floor():
 		playback.travel("Jump")
 	
 	var move_input = 0
-	var dist = 400
+	
 	
 	if _target != null:
+		var distance = _target.global_position - global_position
+		if int(abs(distance.x)) > dist :
+			move_input = (distance).normalized().x
 		
-		if int(abs(_target.global_position.x - global_position.x)) > dist :
-			move_input = (_target.global_position - global_position).normalized().x
-		
-		elif int(abs(_target.global_position.x - global_position.x)) == dist:
-			move_input = 0	
+#		elif int(abs(_target.global_position.x - global_position.x)) == dist:
+#			move_input = 0	
+		else:
+			move_input = 0
 	
-		if _target.global_position.x - global_position.x > 0:
+		if distance.x > 0:
 			pivote.scale.x = -1
 		
-		elif _target.global_position.x - global_position.x < 0:
+		elif distance.x < 0:
 			pivote.scale.x = 1
 			
 	
@@ -86,95 +82,35 @@ func _physics_process(delta):
 				playback.travel("walk")
 			else:
 				playback.travel("idle")
-				time2 = Global.fpscount
-				fireBall(time2)
+				fireBall()
 
 		
-		if abs(_target.global_position.x - global_position.x) < 80 and abs(_target.global_position.x - global_position.x) > 0:
+		if abs(distance.x) < 80 and distance.x != 0:
 			attack()
 
+func _on_fireball_entered(area):
+	jump()
+
+func jump():
+	if Global.FBretornable == 1:
+		velocity.y = -8 * SPEED *Global.gravitychange
+		Global.E1jump = 0
 
 func attack():
 	if canAttack == 1:
 		playback.travel("attack")
 	#jump hacia atrás
 		
-func fireBall(t2):
-	var time = t2 - time1
-	var scl = 0
-	#print(time)
-	
-	#if time > 0 and get_parent().get_node("fBall").get_child_count() == 0:
-	if time > 0 and get_node("FireBall").get_child_count() == 0:
-
+func fireBall():
+	if Global.fireball:
+		Global.fireball = false
 		canAttack = 0
-		
-		var FB1 = FB.instance()
-		#get_parent().get_node("fBall").add_child(FB1)
-		get_node("FireBall").add_child(FB1)
-		#get_parent().get_node("fBall").global_position = posPoint.global_position
-		#FB1.global_position = posPoint.global_position
 		Global.FBretornable = 0
+		var FB1 = FB.instance()
+		get_parent().add_child(FB1)
+		FB1.global_position = posPoint.global_position
 		if pivote.scale.x == -1:
 			FB1.rotation = PI
-		
-	if time > 300:
-		time1 = Global.fpscount
-	
-	else:
-		var b = 20
-		var tam = 1.5
-		if time < b:
-			get_node("FireBall/fireball").scale.x = -1 
-			#get_parent().get_node("fBall/fireball").scale.x = -1 
-			get_node("FireBall/fireball").scale.y = 0 
-			#get_parent().get_node("fBall/fireball").scale.y = 0 
-		
-		elif time == b:
-			pos = get_node("FireBall/fireball").position
-			#pos = get_parent().get_node("fBall/fireball").position
-		
-		elif time < b*4 and time > b:
-			get_node("FireBall/fireball").position.x = pos.x 
-			#get_parent().get_node("fBall/fireball").position.x = pos.x 
-			
-			if time > b*2.5:
-				get_node("FireBall/fireball").scale.x = -tam - 0.5
-				#get_parent().get_node("fBall/fireball").scale.x = -tam - 0.5
-				get_node("FireBall/fireball").scale.y = tam + 0.5
-				#get_parent().get_node("fBall/fireball").scale.y = tam + 0.5
-			else:
-				get_node("FireBall/fireball").scale.x = -(tam+0.5) * time/(b*2.5)
-				#get_parent().get_node("fBall/fireball").scale.x = -(tam+0.5) * time/(b*2.5)
-				get_node("FireBall/fireball").scale.y = (tam+0.5) * time/(b*2.5)
-				#get_parent().get_node("fBall/fireball").scale.y = (tam+0.5) * time/(b*2.5)
-		
-		elif time > b*4:
-			get_node("FireBall/fireball").scale.x = -3
-			#get_parent().get_node("fBall/fireball").scale.x = -3
-			get_node("FireBall/fireball").scale.y = tam
-			#get_parent().get_node("fBall/fireball").scale.y = tam
-			canAttack = 1
-			Global.FBretornable = 1
-		
-		if time > b*7:
-			get_node("FireBall/fireball").scale.x = -tam
-			#get_parent().get_node("fBall/fireball").scale.x = -tam
-			get_node("FireBall/fireball").scale.y = tam
-			#get_parent().get_node("fBall/fireball").scale.y = tam
-			get_node("FireBall/fireball/AnimationTree").get("parameters/playback").travel("Impacto")
-			#get_parent().get_node("fBall/fireball/AnimationTree").get("parameters/playback").travel("Impacto")
-			
-		
-		if time > b*7.5:
-			if get_node("FireBall").get_child_count() == 1:
-			#if get_parent().get_node("fBall/fireball").get_child_count() == 1:
-				#_delete_children(get_parent().get_node("fBall"))
-				_delete_children(get_node("FireBall"))
-				Global.E1jump = 0
-		
-		
-
 			
 static func _delete_children(node):
 	for n in node.get_children():
