@@ -190,30 +190,21 @@ func take_damage(dmg,body=null):
 	print(health," ",health-dmg)
 	
 	#if Global.ataqpyro > 0:
-	#	self.health -= dmg
+	self.health -= dmg
 	#	hit = true
 	#	time1 = Global.fpscount
 
-		
 
 
-#para hacerle daño al samurai
+
 
 func _on_body_entered(body : Node):
 	_target = body
-	#if body.has_method("take_damage"):
-	#	body.take_damage(5)
-
-
-#var buglequitavida = 0
-
-#func _on_DoDamage_body_entered(body):
-#	if buglequitavida==0:
-#		buglequitavida=1
-#	elif body.has_method("take_damage"):
-#		body.take_damage(5,self)
 
 
 
-#func NotAgarrable():
-#	pass
+
+
+func _on_DoDamagePlayer_body_entered(body):
+	if body.has_method("take_damage"):
+		body.take_damage(5,self)

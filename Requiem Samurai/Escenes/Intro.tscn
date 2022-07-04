@@ -281,7 +281,7 @@ position = Vector2( 518, 304 )
 z_index = 19
 
 [node name="Enemy01" parent="." instance=ExtResource( 12 )]
-position = Vector2( 1126, 283 )
+position = Vector2( 980, 158 )
 scale = Vector2( 1.8, 1.8 )
 z_index = 19
 

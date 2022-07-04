@@ -1,10 +1,13 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://assets/Enemies/01/Knight-Walk-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/Enemies/01/Knight-Idle-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://assets/Enemies/01/Knight-Attack-Sheet.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Enemy01.gd" type="Script" id=4]
 [ext_resource path="res://Escenes/BloodShield.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=49]
+extents = Vector2( 7, 23.5 )
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
@@ -477,18 +480,39 @@ graph_offset = Vector2( -169.541, 49.1833 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=7]
 
 [node name="Enemy01" type="KinematicBody2D"]
-collision_layer = 28
+collision_layer = 12
 collision_mask = 3
 script = ExtResource( 4 )
 
 [node name="FireBall" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="pivote" type="Position2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DoDamagePlayer" type="Area2D" parent="pivote"]
+position = Vector2( 0, 5 )
+collision_layer = 0
+collision_mask = 16
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/DoDamagePlayer"]
+position = Vector2( -3, 0 )
+shape = SubResource( 49 )
 
 [node name="Sprite" type="Sprite" parent="pivote"]
 modulate = Color( 1, 0.376471, 0.415686, 1 )
 texture = ExtResource( 2 )
 hframes = 4
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Shield" parent="pivote" instance=ExtResource( 5 )]
 position = Vector2( 0, -7 )
@@ -496,14 +520,24 @@ position = Vector2( 0, -7 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5 )
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="DetectionArea" type="Area2D" parent="."]
-collision_layer = 2
+visible = false
+collision_layer = 0
 collision_mask = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 rotation = 1.5708
 shape = SubResource( 25 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Jump = SubResource( 17 )
@@ -516,3 +550,5 @@ anims/walk = SubResource( 5 )
 tree_root = SubResource( 6 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 7 )
+
+[connection signal="body_entered" from="pivote/DoDamagePlayer" to="." method="_on_DoDamagePlayer_body_entered"]
