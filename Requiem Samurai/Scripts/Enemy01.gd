@@ -4,11 +4,14 @@ onready var anim_player = $AnimationPlayer
 onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")
 
-onready var detArea = $DetectionArea
+onready var detArea = $pivote/DetectionArea
+onready var Sword = $pivote/Sword
 onready var pivote = $pivote
 onready var sprite = $pivote/Sprite
-onready var posPoint = $FireBall
+onready var posPoint = $pivote/FireBall
 onready var shield = $pivote/Shield/ShieldArea
+onready var posE1 = get_parent().get_node("EnemyPos").global_position
+onready var fosaPos = get_parent().get_node("Fosa").global_position
 
 var FB = preload("res://Escenes/Efectos/fireball.tscn")
 
@@ -18,21 +21,20 @@ var ACCELERATION = 200
 var SPEED = 70
 
 var hit = false
-var dist = 400
+var dist = 300
 
 #vida
 var health = 100 setget _set_health
 var max_health= 100
 
 var velocity = Vector2()
-var pos = Vector2()
 
 var _target: Node2D = null
-var canAttack = 1
-
 
 func _ready():
 	detArea.connect("body_entered", self, "_on_body_entered")
+	
+	Sword.connect("body_entered", self, "_on_body_attacked")
 	
 	anim_tree.active = true
 	playback.start("idle")
@@ -52,6 +54,7 @@ func _physics_process(delta):
 	velocity.y += GRAVITY * delta
 	
 	if not is_on_floor():
+		Global.FBretornable = 0
 		playback.travel("Jump")
 	
 	var move_input = 0
@@ -59,14 +62,20 @@ func _physics_process(delta):
 	
 	if _target != null:
 		var distance = _target.global_position - global_position
+		var distanceToPos = posE1 - global_position	
+
 		if int(abs(distance.x)) > dist :
 			move_input = (distance).normalized().x
 		
-#		elif int(abs(_target.global_position.x - global_position.x)) == dist:
-#			move_input = 0	
-		else:
+		elif int(abs(distance.x)) < dist*3/4 and int(abs(distance.x)) > 80:
+			move_input = (distanceToPos).normalized().x
+			
+		elif int(abs(distanceToPos.x)) == 0:
 			move_input = 0
 	
+		else:
+			move_input = 0
+			
 		if distance.x > 0:
 			pivote.scale.x = -1
 		
@@ -82,29 +91,31 @@ func _physics_process(delta):
 				playback.travel("walk")
 			else:
 				playback.travel("idle")
-				fireBall()
+				if Global.fpscount%100 == 0:
+					fireBall()
 
 		
 		if abs(distance.x) < 80 and distance.x != 0:
 			attack()
+		
+
 
 func _on_fireball_entered(area):
 	jump()
 
 func jump():
 	if Global.FBretornable == 1:
-		velocity.y = -8 * SPEED *Global.gravitychange
-		Global.E1jump = 0
+		velocity.y = -8 * SPEED * Global.gravitychange
 
 func attack():
-	if canAttack == 1:
+	if Global.FBretornable == 1:
 		playback.travel("attack")
 	#jump hacia atrás
 		
 func fireBall():
 	if Global.fireball:
 		Global.fireball = false
-		canAttack = 0
+
 		Global.FBretornable = 0
 		var FB1 = FB.instance()
 		get_parent().add_child(FB1)
@@ -125,22 +136,28 @@ func take_damage(dmg,body=null):
 	print("Boss 1")
 	print(health," ",health-dmg)
 	
-	#if Global.ataqpyro > 0:
 	self.health -= dmg
-	#	hit = true
-	#	time1 = Global.fpscount
-
-
-
-
 
 func _on_body_entered(body : Node):
 	_target = body
 
+# daño por espada
+func _on_body_attacked(body : Node):
+	if body.has_method("take_damage"):
+		body.take_damage(30,self)
 
-
-
-
+#choque corporal
 func _on_DoDamagePlayer_body_entered(body):
 	if body.has_method("take_damage"):
 		body.take_damage(5,self)
+	if not is_on_floor():
+		print("a la fosa wacho")
+		fosa()
+		
+func fosa():
+	var fall = abs(fosaPos.x - global_position.x)
+	Global.inFosa = true
+	_target.global_position.x = _target.global_position.x + fall
+	global_position.x = global_position.x + fall
+	yield(get_tree().create_timer(4.0), "timeout")
+	get_tree().change_scene("res://Escenes/main.tscn") #POR AHORA

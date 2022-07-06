@@ -6,9 +6,9 @@ var area = 0
 var dir = 1
 
 #enemy 01
-var E1jump = 0
 var FBretornable = 0
 var fireball = true
+var inFosa = false
 
 var ataqpyro = 0
 

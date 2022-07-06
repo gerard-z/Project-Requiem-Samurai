@@ -5,7 +5,7 @@ export var ACCELERATION = 700 # 233 -> 700
 export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
 export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3 #no está en la versión development
-export var rebote=1000
+export var rebote = 1000
 var GRAVITY=gravity_effect
 
 var up_down = 1
@@ -369,12 +369,13 @@ func take_damage(value,body=null):
 	time1h = Global.fpscount
 	
 	#muere
-	if self.health<=0:
+	if self.health<=0 and Global.inFosa == false:
 		get_tree().change_scene("res://Escenes/MainMenu.tscn")
 		
 	#para simular un golpe
 	if value>0:
-		velocity = -global_position.direction_to(body.global_position) * rebote
+		velocity.y = -jump_air_y * SPEED*3/4 * Global.gravitychange
+		velocity.x = (-global_position.direction_to(body.global_position) * rebote).x
 		golpefps=0
 		
 		

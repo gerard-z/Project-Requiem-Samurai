@@ -10,8 +10,9 @@ var nomiciela = -1
 var SPEED = 0
 
 var b=20
-var tam=1.5
-var time
+var tam=2
+var time = 0
+var impact = 0
 onready var timer = Global.fpscount
 
 
@@ -24,56 +25,49 @@ func _ready():
 	scale.y = 0
 
 func _on_body_entered(body: Node):
-	print("pium")
+	if Global.FBretornable == 1:
+		print("pium")
+		if body.has_method("take_damage"):
+			body.take_damage(20,self)
+		impact = 1
+		Global.FBretornable = 0
+		destroy()
+	
 
 func _on_area_entered(area: Area2D):
 	if area.is_in_group("shield") and 	Global.FBretornable == 1:
 		nomiciela = 1
 		print("bounce")
 
-
 func _physics_process(delta):
-	position += SPEED * delta * -nomiciela * transform.x
-
-	time = Global.fpscount-timer
-
-	#comienzo
-	if time < b:
-		scale.x = -1 
-		scale.y = 0 
+	time = Global.fpscount - timer
+	
+	if time < b*9 and impact == 0:
+		position += SPEED * delta * -nomiciela * transform.x
 
 	#crecimiento
-	elif time < b*4 and time > b:
-		
-		#get_parent().get_node("fBall/fireball").position.x = pos.x 
-		
+	if time < b*4 and time > b:
 		if time > b*2.5:
 			scale.x = -tam - 0.5
-			#get_parent().get_node("fBall/fireball").scale.x = -tam - 0.5
 			scale.y = tam + 0.5
-			#get_parent().get_node("fBall/fireball").scale.y = tam + 0.5
 		else:
-			scale.x = -(tam+0.5) * time/(b*2.5)
-			#get_parent().get_node("fBall/fireball").scale.x = -(tam+0.5) * time/(b*2.5)
-			scale.y = (tam+0.5) * time/(b*2.5)
-			#get_parent().get_node("fBall/fireball").scale.y = (tam+0.5) * time/(b*2.5)
+			scale.x = -(tam + 0.5) * time/(b*2.5)
+			scale.y = (tam + 0.5) * time/(b*2.5)
 	#disparo
+	elif time == b*4:
+		Global.FBretornable = 1
 	elif time > b*4:
 		scale.x = -3
-		#get_parent().get_node("fBall/fireball").scale.x = -3
 		scale.y = tam
-		#get_parent().get_node("fBall/fireball").scale.y = tam
-		SPEED = 100
-		Global.FBretornable = 1
-	#impacto
+		SPEED = 120
 	if time > b*9:
-		scale.x = -tam
+		destroy()
 
-		scale.y = tam
-
-		playback.travel("Impacto")
-		
-	
-	if time > b*9.5:
-		Global.fireball = true
-		queue_free()
+func destroy():
+	#impacto
+	scale.x = -tam
+	scale.y = tam
+	playback.travel("Impacto")
+	yield(get_tree().create_timer(0.4), "timeout")
+	Global.fireball = true
+	queue_free()

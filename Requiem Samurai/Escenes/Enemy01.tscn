@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://assets/Enemies/01/Knight-Walk-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/Enemies/01/Knight-Idle-Sheet.png" type="Texture" id=2]
@@ -9,13 +9,16 @@
 [sub_resource type="RectangleShape2D" id=49]
 extents = Vector2( 7, 23.5 )
 
+[sub_resource type="CircleShape2D" id=50]
+radius = 35.0
+
+[sub_resource type="CapsuleShape2D" id=25]
+radius = 55.9996
+height = 96.0008
+
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
 height = 32.0
-
-[sub_resource type="CapsuleShape2D" id=25]
-radius = 88.0
-height = 208.0
 
 [sub_resource type="Animation" id=17]
 resource_name = "Jump"
@@ -91,7 +94,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -193,6 +196,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [ true ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("pivote/Sword/CollisionShape2D:disabled")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack"
@@ -269,6 +284,18 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("pivote/Sword/CollisionShape2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -484,11 +511,6 @@ collision_layer = 12
 collision_mask = 3
 script = ExtResource( 4 )
 
-[node name="FireBall" type="Node2D" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="pivote" type="Position2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
@@ -517,24 +539,33 @@ __meta__ = {
 [node name="Shield" parent="pivote" instance=ExtResource( 5 )]
 position = Vector2( 0, -7 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5 )
-shape = SubResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="FireBall" type="Node2D" parent="pivote"]
+position = Vector2( -24, 0 )
 
-[node name="DetectionArea" type="Area2D" parent="."]
-visible = false
+[node name="Sword" type="Area2D" parent="pivote"]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/Sword"]
+position = Vector2( -2, 10 )
+shape = SubResource( 50 )
+disabled = true
+
+[node name="DetectionArea" type="Area2D" parent="pivote"]
 collision_layer = 0
 collision_mask = 2
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-rotation = 1.5708
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/DetectionArea"]
+position = Vector2( -96, 0 )
+rotation = 4.71239
 shape = SubResource( 25 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
