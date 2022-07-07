@@ -157,6 +157,7 @@ func _on_DoDamagePlayer_body_entered(body):
 func fosa():
 	var fall = abs(fosaPos.x - global_position.x)
 	Global.inFosa = true
+	playback.travel("Jump")
 	_target.global_position.x = _target.global_position.x + fall
 	global_position.x = global_position.x + fall
 	yield(get_tree().create_timer(4.0), "timeout")

@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Escenes/astro.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/Pueblo/land2.png" type="Texture" id=2]
+[ext_resource path="res://Escenes/Fondolvl0.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Escenes/Trees Front.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/Pueblo/casa01.png" type="Texture" id=4]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=5]
@@ -19,6 +19,9 @@
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 10, 1000 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 1000, 1000 )
 
 [sub_resource type="Environment" id=2]
 background_mode = 4
@@ -153,41 +156,7 @@ position = Vector2( 0, -168 )
 [node name="Sky" parent="ParallaxBackground/Eclipse" instance=ExtResource( 13 )]
 position = Vector2( 0, -168 )
 
-[node name="Fondo" type="ParallaxLayer" parent="ParallaxBackground"]
-z_as_relative = false
-motion_scale = Vector2( 0.2, 0.05 )
-
-[node name="Land" type="Sprite" parent="ParallaxBackground/Fondo"]
-modulate = Color( 0.278431, 0.215686, 0.215686, 1 )
-position = Vector2( 64, -15 )
-scale = Vector2( 0.2, 0.2 )
-z_index = 5
-z_as_relative = false
-texture = ExtResource( 2 )
-
-[node name="Land2" type="Sprite" parent="ParallaxBackground/Fondo"]
-modulate = Color( 0.278431, 0.215686, 0.215686, 1 )
-position = Vector2( 1216, -15 )
-scale = Vector2( 0.2, 0.2 )
-z_index = 5
-z_as_relative = false
-texture = ExtResource( 2 )
-
-[node name="Land3" type="Sprite" parent="ParallaxBackground/Fondo"]
-modulate = Color( 0.278431, 0.215686, 0.215686, 1 )
-position = Vector2( -1088, -15 )
-scale = Vector2( 0.2, 0.2 )
-z_index = 5
-z_as_relative = false
-texture = ExtResource( 2 )
-
-[node name="Land4" type="Sprite" parent="ParallaxBackground/Fondo"]
-modulate = Color( 0.278431, 0.215686, 0.215686, 1 )
-position = Vector2( -2240, -15 )
-scale = Vector2( 0.2, 0.2 )
-z_index = 5
-z_as_relative = false
-texture = ExtResource( 2 )
+[node name="Fondo" parent="ParallaxBackground" instance=ExtResource( 2 )]
 
 [node name="Grass back" type="ParallaxLayer" parent="ParallaxBackground"]
 modulate = Color( 0.235294, 0.317647, 0.662745, 1 )
@@ -301,20 +270,16 @@ __meta__ = {
 
 [node name="Walls" type="Node2D" parent="."]
 
-[node name="Muro2" type="StaticBody2D" parent="Walls"]
-position = Vector2( -106, 1032 )
-z_index = 25
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Muro2"]
-position = Vector2( 1510, -456 )
-shape = SubResource( 5 )
-
 [node name="Muro" type="StaticBody2D" parent="Walls"]
 z_index = 25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Muro"]
 position = Vector2( -8026, -488 )
 shape = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/Muro"]
+position = Vector2( 2370, 567 )
+shape = SubResource( 6 )
 
 [node name="Muro3" type="StaticBody2D" parent="Walls"]
 position = Vector2( -338, 1040 )
