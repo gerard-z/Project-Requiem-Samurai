@@ -161,4 +161,4 @@ func fosa():
 	_target.global_position.x = _target.global_position.x + fall
 	global_position.x = global_position.x + fall
 	yield(get_tree().create_timer(4.0), "timeout")
-	get_tree().change_scene("res://Escenes/main.tscn") #POR AHORA
+	get_tree().change_scene("res://Escenes/lvl1.tscn") #POR AHORA

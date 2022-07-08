@@ -14,6 +14,7 @@ func _ready():
 	playback.start("fondo")
 	
 	play.connect("pressed", self, "_on_play_pressed")
+	options.connect("pressed", self, "_on_options_pressed")
 	exit.connect("pressed", self, "_on_exit_pressed")
 	
 func _on_play_pressed():
@@ -22,3 +23,6 @@ func _on_play_pressed():
 	
 func _on_exit_pressed():
 	get_tree().quit()
+
+func _on_options_pressed():
+	get_tree().change_scene("res://Escenes/lvl1.tscn")
