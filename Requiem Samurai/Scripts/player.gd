@@ -335,11 +335,12 @@ func _physics_process(delta): # por frame
 				
 		else:
 		# animacion caida y salto
+			var vAir = 200
 			if Global.inFosa:
 				playback.travel("fall")
-			if velocity.y > 0:
+			if velocity.y > vAir:
 				playback.travel("fall")
-			if velocity.y < -0:
+			if velocity.y < -vAir:
 				playback.travel("jump")
 
 
