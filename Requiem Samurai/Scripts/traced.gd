@@ -59,23 +59,23 @@ func _process(delta):
 		
 	
 	
-	if Global.seactivaeltrazado:
-		if get_point_count()==0:
-			time1delet=Global.fpscount
+	#if Global.seactivaeltrazado:
+	#	if get_point_count()==0:
+	#		time1delet=Global.fpscount
 			
-		time2=Global.fpscount
-		if time2-time1> 40:
-			point = target.global_position
+	#	time2=Global.fpscount
+	#	if time2-time1> 40:
+	#		point = target.global_position
 		
-			point.x = round(point.x/Grid)*Grid
-			point.y = round(point.y/Grid)*Grid
+	#		point.x = round(point.x/Grid)*Grid
+	#		point.y = round(point.y/Grid)*Grid
 		
-			var pointNew = pointR.instance()
-			get_node("Node2D").add_child(pointNew)
-			pointNew.position = point
+	#		var pointNew = pointR.instance()
+	#		get_node("Node2D").add_child(pointNew)
+	#		pointNew.position = point
 
-			add_point(point)	# se agrega punto actual en lista ***		
-			time1=Global.fpscount
+	#		add_point(point)	# se agrega punto actual en lista ***		
+	#		time1=Global.fpscount
 	
 	time2delet=Global.fpscount
 

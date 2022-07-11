@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/lvl1-ladrillos tail.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
@@ -8,6 +8,13 @@
 [ext_resource path="res://assets/Fosa/prllx/red_L1.png" type="Texture" id=6]
 [ext_resource path="res://assets/Fosa/prllx/red_L4.png" type="Texture" id=7]
 [ext_resource path="res://Escenes/Deco/Skulls Acum.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=9]
+
+[sub_resource type="CanvasItemMaterial" id=12]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=13]
+colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
 
 [sub_resource type="Environment" id=11]
 background_mode = 4
@@ -25,9 +32,22 @@ adjustment_saturation = 1.07
 
 [node name="lvl1" type="Node2D"]
 
-[node name="Samuria" parent="." instance=ExtResource( 2 )]
+[node name="Samurai" parent="." instance=ExtResource( 2 )]
 position = Vector2( 336, 484 )
 z_index = 19
+
+[node name="Traza" parent="." instance=ExtResource( 9 )]
+modulate = Color( 3, 3, 3, 1 )
+material = SubResource( 12 )
+width = 1.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 13 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+targetPath = NodePath("../Samurai")
+trailLenght = 10
+Grid = 40
 
 [node name="deco" type="Position2D" parent="."]
 

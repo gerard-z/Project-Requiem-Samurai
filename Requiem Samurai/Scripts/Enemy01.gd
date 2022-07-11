@@ -41,12 +41,11 @@ func _ready():
 	
 	shield.connect("area_entered", self, "_on_fireball_entered")
 	
+	Global.fireball = true
 	
 
 func _physics_process(delta):
 	GRAVITY = gravity_effect*Global.gravitychange
-
-	
 	move_and_slide(velocity, Vector2.UP*Global.gravitychange)
 	
 	if is_on_floor():
@@ -58,8 +57,7 @@ func _physics_process(delta):
 		playback.travel("Jump")
 	
 	var move_input = 0
-	
-	
+
 	if _target != null:
 		var distance = _target.global_position - global_position
 		var distanceToPos = posE1 - global_position	
@@ -91,14 +89,10 @@ func _physics_process(delta):
 				playback.travel("walk")
 			else:
 				playback.travel("idle")
-				if Global.fpscount%100 == 0:
-					fireBall()
+				fireBall()
 
-		
 		if abs(distance.x) < 80 and distance.x != 0:
 			attack()
-		
-
 
 func _on_fireball_entered(area):
 	jump()
@@ -114,14 +108,13 @@ func attack():
 		
 func fireBall():
 	if Global.fireball:
-		Global.fireball = false
-
 		Global.FBretornable = 0
 		var FB1 = FB.instance()
 		get_parent().add_child(FB1)
 		FB1.global_position = posPoint.global_position
 		if pivote.scale.x == -1:
 			FB1.rotation = PI
+		Global.fireball = false
 			
 static func _delete_children(node):
 	for n in node.get_children():
@@ -155,10 +148,10 @@ func _on_DoDamagePlayer_body_entered(body):
 		fosa()
 		
 func fosa():
-	var fall = abs(fosaPos.x - global_position.x)
+	var toFall = abs(fosaPos.x - global_position.x)
 	Global.inFosa = true
 	playback.travel("Jump")
-	_target.global_position.x = _target.global_position.x + fall
-	global_position.x = global_position.x + fall
+	_target.global_position.x = _target.global_position.x + toFall
+	global_position.x = global_position.x + toFall
 	yield(get_tree().create_timer(3.0), "timeout")
 	get_tree().change_scene("res://Escenes/lvl1.tscn") #POR AHORA

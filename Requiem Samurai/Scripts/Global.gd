@@ -10,6 +10,7 @@ var FBretornable = 0
 var fireball = true
 var inFosa = false
 
+
 var ataqpyro = 0
 
 var gravitychange = 1
