@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/lvl1-ladrillos tail.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/Fosa/prllx/red_L4.png" type="Texture" id=7]
 [ext_resource path="res://Escenes/Deco/Skulls Acum.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/lvl1.gd" type="Script" id=10]
 
 [sub_resource type="CanvasItemMaterial" id=12]
 blend_mode = 1
@@ -31,6 +32,7 @@ adjustment_contrast = 1.08
 adjustment_saturation = 1.07
 
 [node name="lvl1" type="Node2D"]
+script = ExtResource( 10 )
 
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
 position = Vector2( 336, 484 )
