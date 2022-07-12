@@ -1,7 +1,6 @@
 extends Node
 
-var figure = 0
-var area = 0
+
 
 var dir = 1
 
@@ -11,7 +10,19 @@ var fireball = true
 var inFosa = false
 
 
-var ataqpyro = 0
+
+
+#Habiliades Samurai
+var figure = 0
+var type_figure = 0 #subvariante de la figura
+var area = 0
+
+var lvlskill = 4 #habilidades desbloqueadas
+
+var elementalsword = 0
+var ataqpyro = 0 #1
+var ataqhydro= 0 #2
+var ataqwind = 0 #3
 
 var gravitychange = 1
 
@@ -33,27 +44,60 @@ func _process(delta): #tiempo => frames
 
 	_gravity_time_power()
 	daishi_sword()
+	
+	if area==0 and figure==1 and lvlskill>=1:
+			elementalsword=3
+			ataqhydro=0
+			ataqpyro=0
+			
+			ataqwind+=3
+			if ataqwind>=4:
+				ataqwind=4
+			print("attackwind = ", ataqwind)
+	
 	if area != 0:
 		print(figure, " ", area)
 		
-		if figure == 1:		#triangulo
-			if ataqpyro<0:
-				ataqpyro = 3
-			else:
-				ataqpyro+=3
-				if ataqpyro>=6:
-					ataqpyro=6
-
+		if figure == 1 and lvlskill>=1:		#triangulo
 			
-			print("attack = ", ataqpyro)
+			if type_figure==0: #Pyro Sword
+				elementalsword=1
+				ataqhydro=0
+				ataqwind=0
+				
+				ataqpyro+=3
+				if ataqpyro>=4:
+					ataqpyro=4
+				print("attackpyro = ", ataqpyro)
 		
-		if figure ==2:
+			else: #Hydro_sword
+				elementalsword=2
+				ataqpyro=0
+				ataqwind=0
+				ataqhydro =3
+				if ataqhydro>=4:
+					ataqhydro=4
+				print("attackhydro = ", ataqhydro)
+				
+				#por si agregamos una figura en especifico al viento
+	#	if figure == 2 and lvlskill>=2:		# /\/ viento
+	#		
+	#		#WindSword
+	#			elementalsword=3
+	#			ataqpyro=0
+	#			ataqhydro=0
+	#			ataqwind=3
+		#		print("attackwind = ", ataqwind)
+			
+			
+		
+		if figure ==3 and lvlskill>=3:   # rectangulo  estilo daishi
 			time1s= fpscount
 			daishi= -1
 
 			
 			
-		if figure == 3:
+		if figure == 4 and lvlskill>=4:  #reloj gravity
 			time1= fpscount
 			gravitychange=-1
 

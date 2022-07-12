@@ -14,6 +14,7 @@ export var Grid = 50
 
 var figure = 0
 var area = 0
+var type_figure = 0
 
 var active = false
 
@@ -115,8 +116,11 @@ func _process(delta):
 			
 			n1 = Vector2(0,0)
 			
+			
 			area = _triangulo(n1,n2,n3)
-			figure = 1
+			if (n2-n1)==Vector2(0,0) or (n3-n2 )== Vector2(0,0):
+				figure=-1
+			else: figure = 1
 			
 			print("Triángulo, área = ", area)
 		
@@ -131,14 +135,14 @@ func _process(delta):
 			information = _rectangulo(n1,n2,n3,n4)
 			if information[0]:
 				area = information[1]
-				figure = 2
+				figure = 3
 				print("Rectángulo, área = ", area)
 			
 			else:
 				information = _reloj(n1,n2,n3,n4)
 				if information[0]:
 					area = information[1]
-					figure = 3
+					figure = 4
 					print("Reloj, area = ", area)
 		
 		# Borrar instancias
@@ -150,7 +154,7 @@ func _process(delta):
 	
 	Global.figure = figure
 	Global.area = area
-	
+	Global.type_figure = type_figure
 	
 	
 	
@@ -168,16 +172,35 @@ static func _delete_children1(node):
 
 # FIGURAS 
 
-static func _triangulo(n1,n2,n3):
+func _triangulo(n1,n2,n3):
 	var lado1 = n2.length()
 	var lado2 = n3.length()
 	var lado3 = n3.distance_to(n2)
 	var semiperimetro = (lado1+ lado2+ lado3)/2
 	var squaredArea = semiperimetro*(semiperimetro-lado1)*(semiperimetro-lado2)*(semiperimetro-lado3)
 	
-	return sqrt(squaredArea)
+	var a = abs(n1.distance_to(n2))
+	var b = abs(n2.distance_to(n3))
 	
-		
+	var ang1 = abs(round(rad2deg((n1-n2).angle_to(n3-n2))))
+	var ang2 = abs(round(rad2deg((n2-n1).angle_to(n3-n1))))
+	var ang3 = 180 - ang1-ang2
+	
+	
+	if ang1>=100 or ang2>=100 or ang3>=100:
+		type_figure= 1
+	else:
+		type_figure= 0
+	
+	return sqrt(squaredArea)
+
+
+	
+
+	
+
+	
+
 	
 	
 
@@ -185,14 +208,13 @@ static func _rectangulo(n1,n2,n3,n4):
 	var area = 0
 	
 	var w = false
+
+	
 	
 	var a = abs(n1.distance_to(n2))
-	var b = abs(n2.distance_to(n3))
-	
+	var b = abs(n2.distance_to(n3))	
 	var ang1 = abs(round(rad2deg((n1-n2).angle_to(n3-n2))))
-	var ang2 = abs(round(rad2deg((-n4).angle_to(n3-n4))))
-	
-	
+	var ang2 = abs(round(rad2deg((n1-n4).angle_to(n3-n4))))
 	if abs(ang1-90) < 30 and abs(ang2-90) < 30 :
 		area = a * b
 		w = true

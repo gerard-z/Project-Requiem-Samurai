@@ -119,7 +119,7 @@ func _stamina_recharge():
 func _attack_recharge():
 	time2at = Global.fpscount
 	var time_elapsed = time2at- time1at
-	if time_elapsed >=5:
+	if time_elapsed >=24:
 		puedeatacar=1
 		
 	
@@ -127,7 +127,8 @@ func _attack_recharge():
 
 func _physics_process(delta): # por frame
 	
-
+	
+	
 	_attack_recharge()
 	_stamina_recharge()
 	_health_recharge()
@@ -183,6 +184,7 @@ func _physics_process(delta): # por frame
 		Global.dir = dashsentido
 		
 		
+		#ataques
 		hasAttacked = false ################# cambiar
 		# ataque 1 
 		if Input.is_action_just_pressed("attack1") and puedeatacar==1 and not is_on_wall():
@@ -250,7 +252,29 @@ func _physics_process(delta): # por frame
 
 func mecInnovadora():
 	#espada de fuego
+	
 	set_pyro()
+	
+	set_hydro()
+
+	set_wind()
+	
+	if Global.elementalsword == 1 :
+		NodeSprite.modulate= Color(1,1,1)
+
+	if Global.elementalsword == 2 :
+		NodeSprite.modulate= Color(0.04, 0.08,1,1)
+	
+	if Global.elementalsword == 3 :
+		NodeSprite.modulate= Color(0.2,0.8,3)
+		
+		
+	if Global.ataqpyro<=0 and Global.ataqhydro<=0 and Global.ataqwind<=0 :
+		dmg =1
+		NodeSprite.visible = false
+		AirSprite.visible = true	
+		fire = false
+		Global.elementalsword=0 #estado base
 
 	#mecanica gravedad (cambia la gravedad)
 	GRAVITY = gravity_effect*Global.gravitychange
@@ -264,19 +288,40 @@ func mecInnovadora():
 
 
 func set_pyro():
-	if Global.ataqpyro+1 > 0:
+	if Global.ataqpyro > 0:
 		dmg=30
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true
 	
-	if Global.ataqpyro+1<=0:
-		dmg=1
-		NodeSprite.visible = false
-		AirSprite.visible = true	
-		fire = false
+	if Global.ataqpyro<=0:
+		#dmg=1
+		pass
+		#NodeSprite.visible = false
+		#AirSprite.visible = true	
+		#fire = false
 
+func set_hydro():
+	if Global.ataqhydro > 0:
+		dmg=10
+		NodeSprite.visible = true
+		AirSprite.visible = false
+		fire = true
+	
+	if Global.ataqhydro<=0:
 
+		pass
+
+func set_wind():
+	if Global.ataqwind > 0:
+		dmg=10
+		NodeSprite.visible = true
+		AirSprite.visible = false
+		fire = true
+	
+	if Global.ataqhydro<=0:
+
+		pass
 
 
 func sprint(move_input):
@@ -287,7 +332,7 @@ func sprint(move_input):
 		else:
 			dirdash = abs(dirdash)
 			
-		velocity.x =   SPEED*2.5*move_input
+		velocity.x =   SPEED*2.0*move_input
 		time1 = Global.fpscount
 		take_stamina(0.3)		
 
@@ -407,15 +452,27 @@ func wall():
 ### ATAQUE 1
 func attack():
 	playback.travel("attack 1")
-	if fire==true:
-		if Global.ataqpyro<=1:
-			Global.ataqpyro -= 1
-		elif Global.daishi==-1:
-			Global.ataqpyro-=2
+	
+	if Global.elementalsword==1:
+		if Global.ataqpyro<=0:
+			Global.ataqpyro = 0
+
 		else: Global.ataqpyro -= 1
 
 
+	if Global.elementalsword==2:
+		
+		if Global.ataqhydro<=0:
+			Global.ataqhydro = 0
 
+		else: Global.ataqhydro -= 1
+
+	if Global.elementalsword==3:
+		
+		if Global.ataqwind<=0:
+			Global.ataqwind = 0
+
+		else: Global.ataqwind -= 1
 
 # fall y jump animations
 func fall_jump():
@@ -475,6 +532,9 @@ func take_damage(value,body=null):
 #para hacerle daño
 func _on_body_entered(body: Node2D):
 	body.take_damage(dmg)
+	
+	if Global.elementalsword==2:
+		self.take_damage(-20)
 
 
 #agarres
