@@ -1,17 +1,21 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://Scripts/Skeleton.gd" type="Script" id=1]
 [ext_resource path="res://assets/Enemies/Skeleton/Idle.png" type="Texture" id=2]
 [ext_resource path="res://assets/Enemies/Skeleton/Walk.png" type="Texture" id=3]
 [ext_resource path="res://assets/Enemies/Skeleton/Attack.png" type="Texture" id=4]
+[ext_resource path="res://assets/Enemies/Skeleton/Take Hit.png" type="Texture" id=5]
+[ext_resource path="res://assets/Enemies/Skeleton/Shield.png" type="Texture" id=6]
+[ext_resource path="res://assets/Enemies/Skeleton/Death.png" type="Texture" id=7]
+[ext_resource path="res://assets/Enemies/Skeleton/Attack3.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 11, 32 )
+extents = Vector2( 10.3125, 21.375 )
 
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
+tracks/0/path = NodePath("pivote/Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -23,7 +27,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 2 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/path = NodePath("pivote/Sprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -35,7 +39,7 @@ tracks/1/keys = {
 "values": [ 4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
+tracks/2/path = NodePath("pivote/Sprite:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -46,54 +50,149 @@ tracks/2/keys = {
 "update": 0,
 "values": [ 0 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivote/DoDamage:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:attacking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("pivote/detectMelee:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:canmove")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath(".:shilding")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "attack"
-length = 0.8
+length = 1.3
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
+tracks/0/path = NodePath("pivote/Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 4 ), ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/path = NodePath("pivote/Sprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 8 ]
+"values": [ 8, 6 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
+tracks/2/path = NodePath("pivote/Sprite:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 5 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivote/DoDamage:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:attacking")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("pivote/detectMelee:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "idle"
-length = 0.4
-loop = true
+[sub_resource type="Animation" id=21]
+resource_name = "death"
+length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
+tracks/0/path = NodePath("pivote/Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -102,10 +201,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/path = NodePath("pivote/Sprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -117,7 +216,62 @@ tracks/1/keys = {
 "values": [ 4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
+tracks/2/path = NodePath("pivote/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivote/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivote/Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivote/Sprite:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -129,12 +283,12 @@ tracks/2/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "walk"
+[sub_resource type="Animation" id=22]
+resource_name = "shield"
 length = 0.4
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
+tracks/0/path = NodePath("pivote/Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -143,10 +297,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/path = NodePath("pivote/Sprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -158,7 +312,137 @@ tracks/1/keys = {
 "values": [ 4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:frame")
+tracks/2/path = NodePath("pivote/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:shilding")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("pivote/detectMelee:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "take_hit"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivote/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivote/Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivote/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:shilding")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("pivote/detectMelee:monitoring")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "walk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("pivote/Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("pivote/Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("pivote/Sprite:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -173,8 +457,17 @@ tracks/2/keys = {
 [sub_resource type="AnimationNodeAnimation" id=12]
 animation = "attack"
 
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "death"
+
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "idle"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "shield"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "take_hit"
 
 [sub_resource type="AnimationNodeAnimation" id=6]
 animation = "walk"
@@ -192,32 +485,84 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
 switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=27]
+priority = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+switch_mode = 2
 auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id=9]
 states/attack/node = SubResource( 12 )
-states/attack/position = Vector2( 379, 229.667 )
+states/attack/position = Vector2( 274, 241.667 )
+states/death/node = SubResource( 24 )
+states/death/position = Vector2( 1034, 162.105 )
 states/idle/node = SubResource( 5 )
 states/idle/position = Vector2( 255, 89.5555 )
+states/shield/node = SubResource( 25 )
+states/shield/position = Vector2( 396, -121.445 )
+states/take_hit/node = SubResource( 26 )
+states/take_hit/position = Vector2( -127, 186.105 )
 states/walk/node = SubResource( 6 )
-states/walk/position = Vector2( 499, 90 )
-transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ) ]
+states/walk/position = Vector2( 499, 89.5555 )
+transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ), "attack", "take_hit", SubResource( 27 ), "take_hit", "idle", SubResource( 28 ), "idle", "shield", SubResource( 29 ), "shield", "walk", SubResource( 30 ), "walk", "shield", SubResource( 31 ), "shield", "idle", SubResource( 32 ), "walk", "death", SubResource( 33 ), "idle", "death", SubResource( 34 ), "attack", "death", SubResource( 35 ), "take_hit", "death", SubResource( 36 ), "shield", "death", SubResource( 37 ), "idle", "take_hit", SubResource( 40 ), "take_hit", "walk", SubResource( 41 ), "walk", "take_hit", SubResource( 42 ), "attack", "shield", SubResource( 43 ), "shield", "attack", SubResource( 44 ) ]
+graph_offset = Vector2( -159.74, -84.3469 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
+[sub_resource type="RectangleShape2D" id=38]
+extents = Vector2( 150, 60 )
+
 [sub_resource type="RectangleShape2D" id=17]
-extents = Vector2( 3.89063, 30.4375 )
+extents = Vector2( 27, 15.5 )
 
 [sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 5.875, 5.5625 )
+extents = Vector2( 4.1875, 4.75 )
+
+[sub_resource type="CapsuleShape2D" id=39]
+radius = 31.0
 
 [node name="Skeleton" type="KinematicBody2D" groups=["Enemy"]]
-collision_layer = 28
+collision_layer = 12
 collision_mask = 3
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2( 10, 6 )
+position = Vector2( 2.3125, 4 )
 shape = SubResource( 19 )
 __meta__ = {
 "_edit_lock_": true
@@ -226,7 +571,10 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/attack = SubResource( 11 )
+anims/death = SubResource( 21 )
 anims/idle = SubResource( 3 )
+anims/shield = SubResource( 22 )
+anims/take_hit = SubResource( 23 )
 anims/walk = SubResource( 4 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -234,34 +582,76 @@ tree_root = SubResource( 9 )
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 10 )
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 1.5, 1.5 )
+[node name="pivote" type="Position2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="detectingArea" type="Area2D" parent="pivote"]
+collision_layer = 0
+collision_mask = 2
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/detectingArea"]
+position = Vector2( 108, 1.5 )
+shape = SubResource( 38 )
+
+[node name="Sprite" type="Sprite" parent="pivote"]
 texture = ExtResource( 2 )
 hframes = 4
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="DoDamage" type="Area2D" parent="."]
+[node name="DoDamage" type="Area2D" parent="pivote"]
 collision_layer = 0
 collision_mask = 16
-__meta__ = {
-"_edit_lock_": true
-}
+monitoring = false
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DoDamage"]
-position = Vector2( 20.1094, 5.5625 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/DoDamage"]
+position = Vector2( 37, -3.5 )
 shape = SubResource( 17 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 4
-collision_mask = 3
+[node name="StaticBody2D" type="StaticBody2D" parent="pivote"]
+collision_layer = 0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/StaticBody2D"]
+position = Vector2( 11, -20 )
+shape = SubResource( 18 )
+
+[node name="RayCastWall" type="RayCast2D" parent="pivote"]
+position = Vector2( 11, -19 )
+enabled = true
+cast_to = Vector2( 10, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 16.125, -31.5625 )
-shape = SubResource( 18 )
+[node name="RayCastFloor" type="RayCast2D" parent="pivote"]
+position = Vector2( 23, -23 )
+enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
 
-[connection signal="body_entered" from="DoDamage" to="." method="_on_DoDamage_body_entered"]
+[node name="detectMelee" type="Area2D" parent="pivote"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/detectMelee"]
+position = Vector2( 41, -5 )
+rotation = 1.5708
+shape = SubResource( 39 )
+
+[connection signal="body_entered" from="pivote/detectingArea" to="." method="_on_detectingArea_body_entered"]
+[connection signal="body_entered" from="pivote/DoDamage" to="." method="_on_DoDamage_body_entered"]
+[connection signal="body_entered" from="pivote/detectMelee" to="." method="_on_detectMelee_body_entered"]

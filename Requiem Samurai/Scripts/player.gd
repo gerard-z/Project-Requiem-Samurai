@@ -505,7 +505,7 @@ func take_stamina(value):
 
 func take_damage(value,body=null):
 	print("samurai")
-	print(health," " ,health-value)
+	print(health,"->" ,health-value)
 	if golpefps<6:
 		return 1
 	
