@@ -26,5 +26,6 @@ func _on_exit_pressed():
 
 func _on_options_pressed():
 	#get_tree().change_scene("res://Escenes/Test Scenes/TEST LVL.tscn")
-	get_tree().change_scene("res://Escenes/lvl1.tscn")
+	#get_tree().change_scene("res://Escenes/lvl1.tscn")
+	get_tree().change_scene("res://Escenes/Bosses Fight/Water Boss.tscn")
 	

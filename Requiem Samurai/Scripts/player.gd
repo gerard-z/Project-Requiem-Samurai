@@ -147,6 +147,7 @@ func _physics_process(delta): # por frame
 	
 	
 	else:
+		
 		_attack_recharge()
 		_stamina_recharge()
 		_health_recharge()
@@ -569,7 +570,7 @@ func take_damage(value,body=null):
 	time1h = Global.fpscount
 
 	#para simular un golpe
-	if value>0:
+	if value>0 and health > 0:
 		velocity.y = -jump_air_y * SPEED*3/4 * Global.gravitychange
 		velocity.x = (-global_position.direction_to(body.global_position) * rebote).x
 		golpefps=0
@@ -577,6 +578,7 @@ func take_damage(value,body=null):
 	if self.health<=0 and Global.inFosa == false:
 		print("Muere")
 		velocity.x = 0
+		#velocity.y = 0
 		playback.travel("death")
 		yield(get_tree().create_timer(1.0), "timeout")
 		get_tree().change_scene("res://Escenes/MainMenu.tscn")
