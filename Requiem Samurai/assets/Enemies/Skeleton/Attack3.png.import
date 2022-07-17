@@ -14,7 +14,7 @@ dest_files=[ "res://.import/Attack3.png-e315b1fa762685e81ab42be4c548913e.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

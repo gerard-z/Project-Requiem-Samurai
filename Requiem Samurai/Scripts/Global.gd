@@ -9,7 +9,7 @@ var FBretornable = 0
 var fireball = true
 var inFosa = false
 
-
+var revive = false
 
 
 #Habiliades Samurai

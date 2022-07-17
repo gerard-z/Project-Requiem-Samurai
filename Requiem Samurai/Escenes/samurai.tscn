@@ -1,4 +1,4 @@
-[gd_scene load_steps=155 format=2]
+[gd_scene load_steps=163 format=2]
 
 [ext_resource path="res://assets/Samurai/Fall.png" type="Texture" id=1]
 [ext_resource path="res://assets/Samurai/Run-2.png" type="Texture" id=2]
@@ -14,6 +14,10 @@
 [ext_resource path="res://Escenes/pauseMenu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/Samurai/Death.png" type="Texture" id=13]
 [ext_resource path="res://assets/Samurai/ataque/espadas.png" type="Texture" id=14]
+[ext_resource path="res://assets/Samurai/arrow/1_0.png" type="Texture" id=15]
+[ext_resource path="res://assets/Samurai/arrow/1_2.png" type="Texture" id=16]
+[ext_resource path="res://assets/Samurai/arrow/1_3.png" type="Texture" id=17]
+[ext_resource path="res://assets/Samurai/arrow/1_1.png" type="Texture" id=18]
 
 [sub_resource type="RectangleShape2D" id=67]
 extents = Vector2( 4, 8.5 )
@@ -256,11 +260,34 @@ tracks/18/keys = {
 "update": 0,
 "values": [ Color( 3, 3, 4.68, 1 ) ]
 }
+tracks/19/type = "value"
+tracks/19/path = NodePath("../../PivoteFlecha/pos2/Flecha:texture")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 15 ) ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "attack 1"
 length = 0.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
 tracks/0/interp = 1
@@ -441,11 +468,34 @@ tracks/14/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/15/type = "value"
+tracks/15/path = NodePath("../Node2D/SpriteAttackEspecial:vframes")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=95]
 resource_name = "attack earth"
 length = 0.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
 tracks/0/interp = 1
@@ -648,13 +698,24 @@ tracks/16/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1.2, 1.3, 3, 1 ) ]
+"values": [ Color( 0.662745, 0.721569, 0.843137, 1 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=93]
 resource_name = "attack water"
 length = 0.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
 tracks/0/interp = 1
@@ -857,13 +918,24 @@ tracks/16/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 4.68, 1 ) ]
+"values": [ Color( 2.5, 2.5, 2.5, 1 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=94]
 resource_name = "attack wind"
 length = 0.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
 tracks/0/interp = 1
@@ -1044,10 +1116,34 @@ tracks/14/keys = {
 "update": 1,
 "values": [ 3 ]
 }
+tracks/15/type = "value"
+tracks/15/path = NodePath("../Node2D/SpriteAttackEspecial:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 2.5, 2.5, 2.5, 1 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=78]
 resource_name = "dash"
-length = 0.2
+length = 0.4
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
@@ -1068,10 +1164,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 3, 7 ]
+"values": [ 3, 7, 3, 7 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:texture")
@@ -1132,6 +1228,30 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../PivoteFlecha/pos2/Flecha:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 15 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 17 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=68]
@@ -1245,6 +1365,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [ 1 ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=59]
 resource_name = "fall"
@@ -1334,6 +1466,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [ 7 ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=33]
 resource_name = "fall wall"
@@ -1422,6 +1566,18 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 7 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -1536,6 +1692,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [ 7 ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=34]
 resource_name = "idle wall"
@@ -1637,6 +1805,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [ 7 ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=19]
 resource_name = "jump"
@@ -1725,6 +1905,142 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 7 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=144]
+resource_name = "revive"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 7 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 13 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../Node2D/SpriteAttackEspecial:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../../Hitbox:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../AgarreWall/CollisionShape2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../..:collision_layer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../..:collision_mask")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -1815,6 +2131,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [ 7 ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../PivoteFlecha/pos2/Flecha:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="AnimationNodeAnimation" id=12]
 animation = "attack 1"
@@ -1849,6 +2177,9 @@ animation = "idle"
 [sub_resource type="AnimationNodeAnimation" id=21]
 animation = "jump"
 
+[sub_resource type="AnimationNodeAnimation" id=145]
+animation = "revive"
+
 [sub_resource type="AnimationNodeAnimation" id=8]
 animation = "run"
 
@@ -1865,6 +2196,7 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=16]
 switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
 
@@ -2045,12 +2377,15 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=129]
 switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=130]
 switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=131]
 switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=132]
 switch_mode = 2
@@ -2088,34 +2423,42 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id=143]
 switch_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=146]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=147]
+switch_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id=5]
 "states/attack 1/node" = SubResource( 12 )
-"states/attack 1/position" = Vector2( 125.716, 45.642 )
+"states/attack 1/position" = Vector2( 421.716, 28.3087 )
 "states/attack earth/node" = SubResource( 96 )
-"states/attack earth/position" = Vector2( 125.969, 151.041 )
+"states/attack earth/position" = Vector2( 421.632, 115.041 )
 "states/attack water/node" = SubResource( 97 )
-"states/attack water/position" = Vector2( 125.813, 237.545 )
+"states/attack water/position" = Vector2( 421.239, 217.545 )
 "states/attack wind/node" = SubResource( 98 )
-"states/attack wind/position" = Vector2( 124.27, 332.663 )
+"states/attack wind/position" = Vector2( 425.306, 321.996 )
 states/dash/node = SubResource( 79 )
 states/dash/position = Vector2( -230.232, 58.3513 )
 states/death/node = SubResource( 69 )
-states/death/position = Vector2( -230.826, 333.217 )
+states/death/position = Vector2( -574.826, 350.55 )
 states/fall/node = SubResource( 20 )
 states/fall/position = Vector2( -237.601, 395.106 )
 "states/fall wall/node" = SubResource( 35 )
 "states/fall wall/position" = Vector2( -236.553, 579.586 )
 states/idle/node = SubResource( 4 )
-states/idle/position = Vector2( -231.192, 259 )
+states/idle/position = Vector2( -547.593, 97.6667 )
 "states/idle wall/node" = SubResource( 36 )
 "states/idle wall/position" = Vector2( -230.713, 487.532 )
 states/jump/node = SubResource( 21 )
 states/jump/position = Vector2( -228.057, -47.6817 )
+states/revive/node = SubResource( 145 )
+states/revive/position = Vector2( -717.774, 236.769 )
 states/run/node = SubResource( 8 )
 states/run/position = Vector2( -234.323, 150.333 )
-transitions = [ "idle", "run", SubResource( 9 ), "run", "idle", SubResource( 10 ), "run", "attack 1", SubResource( 13 ), "idle", "attack 1", SubResource( 14 ), "attack 1", "run", SubResource( 15 ), "attack 1", "idle", SubResource( 16 ), "run", "jump", SubResource( 22 ), "idle", "jump", SubResource( 23 ), "jump", "fall", SubResource( 24 ), "fall", "idle", SubResource( 25 ), "attack 1", "jump", SubResource( 26 ), "attack 1", "fall", SubResource( 27 ), "jump", "attack 1", SubResource( 28 ), "jump", "idle", SubResource( 29 ), "fall", "jump", SubResource( 30 ), "idle", "fall", SubResource( 31 ), "fall", "attack 1", SubResource( 32 ), "jump", "fall wall", SubResource( 37 ), "fall wall", "jump", SubResource( 38 ), "fall wall", "idle", SubResource( 39 ), "idle", "fall wall", SubResource( 40 ), "fall", "fall wall", SubResource( 41 ), "fall wall", "fall", SubResource( 42 ), "attack 1", "fall wall", SubResource( 43 ), "run", "fall wall", SubResource( 44 ), "idle wall", "idle", SubResource( 45 ), "idle", "idle wall", SubResource( 46 ), "jump", "idle wall", SubResource( 47 ), "idle wall", "jump", SubResource( 48 ), "idle wall", "attack 1", SubResource( 49 ), "attack 1", "idle wall", SubResource( 50 ), "fall wall", "attack 1", SubResource( 51 ), "fall wall", "run", SubResource( 52 ), "idle wall", "fall", SubResource( 53 ), "fall", "idle wall", SubResource( 54 ), "idle wall", "fall wall", SubResource( 55 ), "fall wall", "idle wall", SubResource( 56 ), "run", "fall", SubResource( 57 ), "fall", "run", SubResource( 58 ), "jump", "run", SubResource( 60 ), "idle wall", "run", SubResource( 61 ), "run", "idle wall", SubResource( 62 ), "run", "death", SubResource( 72 ), "attack 1", "death", SubResource( 73 ), "jump", "death", SubResource( 74 ), "fall wall", "death", SubResource( 75 ), "fall", "death", SubResource( 76 ), "idle wall", "death", SubResource( 77 ), "run", "dash", SubResource( 80 ), "dash", "run", SubResource( 81 ), "jump", "dash", SubResource( 82 ), "dash", "jump", SubResource( 83 ), "dash", "attack 1", SubResource( 84 ), "attack 1", "dash", SubResource( 85 ), "dash", "death", SubResource( 86 ), "dash", "fall wall", SubResource( 87 ), "fall wall", "dash", SubResource( 88 ), "dash", "idle wall", SubResource( 89 ), "idle wall", "dash", SubResource( 90 ), "dash", "idle", SubResource( 91 ), "idle", "dash", SubResource( 92 ), "jump", "attack earth", SubResource( 99 ), "dash", "attack water", SubResource( 100 ), "dash", "attack earth", SubResource( 101 ), "jump", "attack water", SubResource( 102 ), "jump", "attack wind", SubResource( 103 ), "dash", "attack wind", SubResource( 104 ), "attack wind", "dash", SubResource( 105 ), "attack water", "dash", SubResource( 106 ), "attack earth", "dash", SubResource( 107 ), "run", "attack earth", SubResource( 108 ), "run", "attack water", SubResource( 109 ), "run", "attack wind", SubResource( 110 ), "idle", "attack earth", SubResource( 111 ), "idle", "attack water", SubResource( 112 ), "idle", "attack wind", SubResource( 113 ), "death", "attack wind", SubResource( 114 ), "death", "attack water", SubResource( 115 ), "death", "attack earth", SubResource( 116 ), "fall", "attack wind", SubResource( 117 ), "fall", "attack earth", SubResource( 118 ), "fall", "attack water", SubResource( 119 ), "idle wall", "attack wind", SubResource( 120 ), "idle wall", "attack water", SubResource( 121 ), "idle wall", "attack earth", SubResource( 122 ), "fall wall", "attack earth", SubResource( 123 ), "fall wall", "attack water", SubResource( 124 ), "fall wall", "attack wind", SubResource( 125 ), "attack earth", "jump", SubResource( 126 ), "attack water", "jump", SubResource( 127 ), "attack wind", "jump", SubResource( 128 ), "attack earth", "idle", SubResource( 129 ), "attack water", "idle", SubResource( 130 ), "attack wind", "idle", SubResource( 131 ), "attack earth", "death", SubResource( 132 ), "attack water", "fall", SubResource( 133 ), "attack wind", "idle wall", SubResource( 134 ), "attack wind", "fall", SubResource( 135 ), "attack wind", "death", SubResource( 136 ), "attack earth", "fall", SubResource( 137 ), "attack earth", "idle wall", SubResource( 138 ), "attack water", "death", SubResource( 139 ), "attack water", "idle wall", SubResource( 140 ), "attack earth", "fall wall", SubResource( 141 ), "attack water", "fall wall", SubResource( 142 ), "attack wind", "fall wall", SubResource( 143 ) ]
+transitions = [ "idle", "run", SubResource( 9 ), "run", "idle", SubResource( 10 ), "run", "attack 1", SubResource( 13 ), "idle", "attack 1", SubResource( 14 ), "attack 1", "run", SubResource( 15 ), "attack 1", "idle", SubResource( 16 ), "run", "jump", SubResource( 22 ), "idle", "jump", SubResource( 23 ), "jump", "fall", SubResource( 24 ), "fall", "idle", SubResource( 25 ), "attack 1", "jump", SubResource( 26 ), "attack 1", "fall", SubResource( 27 ), "jump", "attack 1", SubResource( 28 ), "jump", "idle", SubResource( 29 ), "fall", "jump", SubResource( 30 ), "idle", "fall", SubResource( 31 ), "fall", "attack 1", SubResource( 32 ), "jump", "fall wall", SubResource( 37 ), "fall wall", "jump", SubResource( 38 ), "fall wall", "idle", SubResource( 39 ), "idle", "fall wall", SubResource( 40 ), "fall", "fall wall", SubResource( 41 ), "fall wall", "fall", SubResource( 42 ), "attack 1", "fall wall", SubResource( 43 ), "run", "fall wall", SubResource( 44 ), "idle wall", "idle", SubResource( 45 ), "idle", "idle wall", SubResource( 46 ), "jump", "idle wall", SubResource( 47 ), "idle wall", "jump", SubResource( 48 ), "idle wall", "attack 1", SubResource( 49 ), "attack 1", "idle wall", SubResource( 50 ), "fall wall", "attack 1", SubResource( 51 ), "fall wall", "run", SubResource( 52 ), "idle wall", "fall", SubResource( 53 ), "fall", "idle wall", SubResource( 54 ), "idle wall", "fall wall", SubResource( 55 ), "fall wall", "idle wall", SubResource( 56 ), "run", "fall", SubResource( 57 ), "fall", "run", SubResource( 58 ), "jump", "run", SubResource( 60 ), "idle wall", "run", SubResource( 61 ), "run", "idle wall", SubResource( 62 ), "run", "death", SubResource( 72 ), "attack 1", "death", SubResource( 73 ), "jump", "death", SubResource( 74 ), "fall wall", "death", SubResource( 75 ), "fall", "death", SubResource( 76 ), "idle wall", "death", SubResource( 77 ), "run", "dash", SubResource( 80 ), "dash", "run", SubResource( 81 ), "jump", "dash", SubResource( 82 ), "dash", "jump", SubResource( 83 ), "dash", "attack 1", SubResource( 84 ), "attack 1", "dash", SubResource( 85 ), "dash", "death", SubResource( 86 ), "dash", "fall wall", SubResource( 87 ), "fall wall", "dash", SubResource( 88 ), "dash", "idle wall", SubResource( 89 ), "idle wall", "dash", SubResource( 90 ), "dash", "idle", SubResource( 91 ), "idle", "dash", SubResource( 92 ), "jump", "attack earth", SubResource( 99 ), "dash", "attack water", SubResource( 100 ), "dash", "attack earth", SubResource( 101 ), "jump", "attack water", SubResource( 102 ), "jump", "attack wind", SubResource( 103 ), "dash", "attack wind", SubResource( 104 ), "attack wind", "dash", SubResource( 105 ), "attack water", "dash", SubResource( 106 ), "attack earth", "dash", SubResource( 107 ), "run", "attack earth", SubResource( 108 ), "run", "attack water", SubResource( 109 ), "run", "attack wind", SubResource( 110 ), "idle", "attack earth", SubResource( 111 ), "idle", "attack water", SubResource( 112 ), "idle", "attack wind", SubResource( 113 ), "death", "attack wind", SubResource( 114 ), "death", "attack water", SubResource( 115 ), "death", "attack earth", SubResource( 116 ), "fall", "attack wind", SubResource( 117 ), "fall", "attack earth", SubResource( 118 ), "fall", "attack water", SubResource( 119 ), "idle wall", "attack wind", SubResource( 120 ), "idle wall", "attack water", SubResource( 121 ), "idle wall", "attack earth", SubResource( 122 ), "fall wall", "attack earth", SubResource( 123 ), "fall wall", "attack water", SubResource( 124 ), "fall wall", "attack wind", SubResource( 125 ), "attack earth", "jump", SubResource( 126 ), "attack water", "jump", SubResource( 127 ), "attack wind", "jump", SubResource( 128 ), "attack earth", "idle", SubResource( 129 ), "attack water", "idle", SubResource( 130 ), "attack wind", "idle", SubResource( 131 ), "attack earth", "death", SubResource( 132 ), "attack water", "fall", SubResource( 133 ), "attack wind", "idle wall", SubResource( 134 ), "attack wind", "fall", SubResource( 135 ), "attack wind", "death", SubResource( 136 ), "attack earth", "fall", SubResource( 137 ), "attack earth", "idle wall", SubResource( 138 ), "attack water", "death", SubResource( 139 ), "attack water", "idle wall", SubResource( 140 ), "attack earth", "fall wall", SubResource( 141 ), "attack water", "fall wall", SubResource( 142 ), "attack wind", "fall wall", SubResource( 143 ), "death", "revive", SubResource( 146 ), "revive", "idle", SubResource( 147 ) ]
 start_node = "idle"
-graph_offset = Vector2( -606.416, 0.0577272 )
+graph_offset = Vector2( -1123.44, -26.575 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
@@ -2203,6 +2546,7 @@ anims/fall = SubResource( 59 )
 anims/idle = SubResource( 3 )
 "anims/idle wall" = SubResource( 34 )
 anims/jump = SubResource( 19 )
+anims/revive = SubResource( 144 )
 anims/run = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -2266,6 +2610,16 @@ size_flags_horizontal = 0
 custom_styles/fg = SubResource( 65 )
 custom_styles/bg = SubResource( 66 )
 value = 100.0
+
+[node name="PivoteFlecha" type="Position2D" parent="."]
+
+[node name="pos2" type="Position2D" parent="PivoteFlecha"]
+position = Vector2( 41, 0 )
+
+[node name="Flecha" type="Sprite" parent="PivoteFlecha/pos2"]
+visible = false
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 15 )
 
 [connection signal="body_entered" from="Pivot/AgarreWall" to="." method="_on_AgarreWall_body_entered"]
 [connection signal="body_exited" from="Pivot/AgarreWall" to="." method="_on_AgarreWall_body_exited"]

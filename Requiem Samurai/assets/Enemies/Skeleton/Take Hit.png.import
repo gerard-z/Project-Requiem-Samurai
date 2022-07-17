@@ -14,7 +14,7 @@ dest_files=[ "res://.import/Take Hit.png-f1b4983b58d372b611c6dfbf90e61262.stex" 
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

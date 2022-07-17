@@ -8,6 +8,8 @@ export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3 #no est�
 export var rebote = 1000
 var GRAVITY=gravity_effect
 
+var dirTraz = Vector2(0,0)
+
 var up_down = 1
 var hasAttacked = false
 
@@ -25,6 +27,7 @@ onready var baseSprite = $Pivot/Sprite
 onready var AirSprite = $Pivot/SpriteAttackBasic
 onready var NodeSprite = $Pivot/Node2D
 
+onready var flecha = $PivoteFlecha/pos2
 
 #movement
 var res_air_move = 5
@@ -126,122 +129,174 @@ func _attack_recharge():
 
 
 func _physics_process(delta): # por frame
+	velocity = move_and_slide(velocity, Vector2.UP * Global.gravitychange)		
+	var move_input = Input.get_axis("move_left", "move_right")
 	
-	
-	
-	_attack_recharge()
-	_stamina_recharge()
-	_health_recharge()
-	
-	mecInnovadora()
-		
-	if health > 0:
-		velocity = move_and_slide(velocity, Vector2.UP * Global.gravitychange)
-		
-		var move_input = Input.get_axis("move_left", "move_right")
-		
-		# movimiento horizontal
-		golpefps+=1
-		
-		if golpefps<5:
-			velocity.x  = move_toward(velocity.x, move_input * SPEED, res_air_move)
-		else:
-			velocity.x = move_input * SPEED 
-		up_down = 1
-		
-		# gravedad
+	#Animation fosa
+	if Global.inFosa:
 		velocity.y += GRAVITY * delta * DIR
-		
-		
-	# PISO
-		if is_on_floor() and not is_on_wall():
+		fall_jump()
+		if.is_on_floor():
+			playback.travel("death")
+			yield(get_tree().create_timer(3.0), "timeout")
+			Global.revive = true
+			Global.seactivaeltrazado = true
+			Global.inFosa = false
+			
+			
+	
+	
+	else:
+		_attack_recharge()
+		_stamina_recharge()
+		_health_recharge()
+	
+		mecInnovadora()
+		if health > 0:
+			
+			# movimiento horizontal
+			golpefps+=1
+			
+			if golpefps<5:
+				velocity.x  = move_toward(velocity.x, move_input * SPEED, res_air_move)
+			else:
+				velocity.x = move_input * SPEED 
+			up_down = 1
+			
+			# gravedad
+			velocity.y += GRAVITY * delta * DIR
+			
+			
+		# PISO
+			if is_on_floor() and not is_on_wall():
 
-			jump=0
-			# salto
-			if Input.is_action_just_pressed("jump"):
-				velocity.y = -jump_air_y * SPEED *Global.gravitychange
-		
-	# MURO
+				jump=0
+				# salto
+				if Input.is_action_just_pressed("jump"):
+					velocity.y = -jump_air_y * SPEED *Global.gravitychange
+			
+		# MURO
 
-		#agarrado
-		elif is_on_wall() and not is_on_floor() and agarre:
-			youcandothedash=0
-			jump=0
-			wall()
+			#agarrado
+			elif is_on_wall() and not is_on_floor() and agarre:
+				youcandothedash=0
+				jump=0
+				wall()
+					
+		#Movimiento
+			# voltear player al cambiar de dirección
+			if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
+				dashsentido=1
+				if Global.daishi==1:
+					pivote.scale.x = 1
+			
+			if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
+				dashsentido=-1
+				if Global.daishi==1:
+					pivote.scale.x = -1
+			
+			Global.dir = dashsentido
+			
+			
+			#ataques
+			hasAttacked = false ################# cambiar
+			# ataque 1 
+			if Input.is_action_just_pressed("attack1") and puedeatacar==1 and not is_on_wall():
+				hasAttacked = true
+				puedeatacar=0
+				time1at = Global.fpscount
+			animations()
+			
+
+
+		####################################################################################################
+
+			# NEW TRAZADO
+			if Global.seactivaeltrazado:
+				var move = Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_down")
 				
-	#Movimiento
-		# voltear player al cambiar de dirección
-		if Input.is_action_pressed("move_right") and not Input.is_action_just_pressed("move_left"):
-			dashsentido=1
-			if Global.daishi==1:
-				pivote.scale.x = 1
-		
-		if Input.is_action_pressed("move_left") and not Input.is_action_just_pressed("move_right"):
-			dashsentido=-1
-			if Global.daishi==1:
-				pivote.scale.x = -1
-		
-		Global.dir = dashsentido
-		
-		
-		#ataques
-		hasAttacked = false ################# cambiar
-		# ataque 1 
-		if Input.is_action_just_pressed("attack1") and puedeatacar==1 and not is_on_wall():
-			hasAttacked = true
-			puedeatacar=0
-			time1at = Global.fpscount
+				if Input.is_action_just_pressed("vertice"):
+					dirTraz = Vector2(0,0)
+					timeTrz0 = Global.fpscount
+					traz = true
+					flecha.position.x = 0
+					flecha.position.y = 41
+					flecha.rotation_degrees = 90
+				
+				
+				if Input.is_action_pressed("vertice") and traz:
+					var dt = (Global.fpscount - timeTrz0)/30
+					velocity.x = 0
+					velocity.y = 0
+					
+					if Input.is_action_just_pressed("move_left"):
+						dirTraz.x = -1
+					if Input.is_action_just_pressed("move_right"):
+						dirTraz.x = 1
+					if Input.is_action_just_pressed("move_up"):
+						dirTraz.y = -1
+					if Input.is_action_just_pressed("move_down"):
+						dirTraz.y = 1
+						
+					#var grados = rad2deg(acos(dirTraz.x)) * dirTraz.y
+					#print(grados)
+						
+					# puse esto porque no me pescó grados = rad2deg(acos(dirTraz.x)) * dirTraz.y				
+					if dirTraz != Vector2(0,0):
+						flecha.position.x = dirTraz.x * 41
+						flecha.position.y = dirTraz.y * 41
+					
+						if dirTraz == Vector2(1,0):
+							flecha.rotation_degrees = 0
+						if dirTraz == Vector2(1,1):
+							flecha.rotation_degrees = 45
+						if dirTraz == Vector2(0,1):
+							flecha.rotation_degrees = 90
+						if dirTraz == Vector2(-1,1):
+							flecha.rotation_degrees = 135
+						if dirTraz == Vector2(-1,0):
+							flecha.rotation_degrees = 180
+						if dirTraz == Vector2(-1,-1):
+							flecha.rotation_degrees = 225
+						if dirTraz == Vector2(0,-1):
+							flecha.rotation_degrees = 270
+						if dirTraz == Vector2(1,-1):
+							flecha.rotation_degrees = 315
+					
+					else:
+						flecha.position.x = 0
+						flecha.position.y = 41
+						flecha.rotation_degrees = 90
+					
+					if dt>0.5:				
+						#direccion
+						timeTrz0 = Global.fpscount						
+						dirTraz = dirTraz.normalized()
 
+						traz = false
+						
+				var dt = Global.fpscount - timeTrz0
 
+				en_dashTR(dirTraz,dt)
 
-	####################################################################################################
+		####################################################################################################	
+			
+			#Time for the Dash:
+			cd_time2_stamina=Global.fpscount
+			if cd_time2_stamina-cd_time1_stamina>52:
+				youcandothedash=0
 
-		# NEW TRAZADO
-		var move = Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_down")
-		
-		if Input.is_action_just_pressed("vertice"):
-			timeTrz0 = Global.fpscount
-			traz = true
-		
-		var dirTraz = Vector2(0,0)
-		if Input.is_action_pressed("vertice") and traz:
-			var dt = (Global.fpscount - timeTrz0)/30
-			velocity.x = 0
-			velocity.y = 0
-			if dt>1 or move:				
-				#direccion
-				timeTrz0 = Global.fpscount
-				if Input.is_action_just_pressed("move_left"):
-					dirTraz.x = -1
-				if Input.is_action_just_pressed("move_right"):
-					dirTraz.x = 1
-				if Input.is_action_just_pressed("move_up"):
-					dirTraz.y = -1
-				if Input.is_action_just_pressed("move_down"):
-					dirTraz.y = 1
-				dirTraz = dirTraz.normalized()
-				traz = false
-		var dt = Global.fpscount - timeTrz0
-		en_dashTR(dirTraz,dt)
-
-	####################################################################################################	
-		
-		#Time for the Dash:
-		cd_time2_stamina=Global.fpscount
-		if cd_time2_stamina-cd_time1_stamina>52:
-			youcandothedash=0
-
-		sprint(move_input)
-		
-		#dash
-		if Input.is_action_just_pressed("dash"):			
-			dash()
-		en_dash()
-		
-		double_jump(move_input)
-		
-		# Animaciones
-		animations()
+			sprint(move_input)
+			
+			#dash
+			if Input.is_action_just_pressed("dash"):			
+				dash()
+			en_dash()
+			
+			double_jump(move_input)
+			
+			# Animaciones
+			#animations()
 
 
 ####################################################################################################
@@ -259,14 +314,14 @@ func mecInnovadora():
 
 	set_wind()
 	
-	if Global.elementalsword == 1 :
-		NodeSprite.modulate= Color(1,1,1)
+	#if Global.elementalsword == 1 :
+	#	NodeSprite.modulate= Color(1,1,1)
 
-	if Global.elementalsword == 2 :
-		NodeSprite.modulate= Color(0.04, 0.08,1,1)
+	#if Global.elementalsword == 2 :
+	#	NodeSprite.modulate= Color(0.04, 0.08,1,1)
 	
-	if Global.elementalsword == 3 :
-		NodeSprite.modulate= Color(0.2,0.8,3)
+	#if Global.elementalsword == 3 :
+	#	NodeSprite.modulate= Color(0.2,0.8,3)
 		
 		
 	if Global.ataqpyro<=0 and Global.ataqhydro<=0 and Global.ataqwind<=0 :
@@ -342,22 +397,23 @@ func sprint(move_input):
 #animaciones principales
 func animations():
 	#el ataque
-	if hasAttacked:
+	if hasAttacked and playback.get_current_node() != "attack 1":
 		attack()
 	else:
-		if is_on_wall() and agarre:
-			playback.travel("idle wall")
-			if velocity.y > 100:
-				playback.travel("fall wall")
-		
-		elif is_on_floor():
-			if abs(velocity.x) > 1:
-				playback.travel("run")
-			elif health != 0:
-				playback.travel("idle")
-				
-		else:
-			fall_jump()
+		if playback.get_current_node() != "attack 1":
+			if is_on_wall() and agarre:
+				playback.travel("idle wall")
+				if velocity.y > 100:
+					playback.travel("fall wall")
+			
+			elif is_on_floor():
+				if abs(velocity.x) > 1:
+					playback.travel("run")
+				elif health != 0:
+					playback.travel("idle")
+					
+			else:
+				fall_jump()
 
 
 
@@ -408,9 +464,7 @@ func double_jump(move_input):
 func en_dashTR(dirTraz, dt):
 	#en el dash
 	if dt < 10:
-		
-		velocity= 10000 * dirTraz #dash
-		#aiuda pa implementar una animacion de dash uwu
+		velocity= 1000 * dirTraz #dash
 		playback.travel("dash")
 	#luego de terminarlo
 	if dt < 10 and 9 < dt:
@@ -452,12 +506,14 @@ func wall():
 ### ATAQUE 1
 func attack():
 	playback.travel("attack 1")
-	
+	yield(get_tree().create_timer(0.4), "timeout")
 	if Global.elementalsword==1:
 		if Global.ataqpyro<=0:
 			Global.ataqpyro = 0
 
-		else: Global.ataqpyro -= 1
+		else: 
+			Global.ataqpyro -= 1
+			print("attackpyro = ", Global.ataqpyro)
 
 
 	if Global.elementalsword==2:
@@ -521,7 +577,6 @@ func take_damage(value,body=null):
 	if self.health<=0 and Global.inFosa == false:
 		print("Muere")
 		velocity.x = 0
-		#velocity.y = 0
 		playback.travel("death")
 		yield(get_tree().create_timer(1.0), "timeout")
 		get_tree().change_scene("res://Escenes/MainMenu.tscn")

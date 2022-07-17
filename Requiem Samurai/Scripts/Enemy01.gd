@@ -47,9 +47,7 @@ func _ready():
 func _physics_process(delta):
 	GRAVITY = gravity_effect*Global.gravitychange
 	move_and_slide(velocity, Vector2.UP*Global.gravitychange)
-	
-	if is_on_floor():
-		velocity.y=0
+
 	velocity.y += GRAVITY * delta
 	
 	if not is_on_floor():
@@ -58,7 +56,7 @@ func _physics_process(delta):
 	
 	var move_input = 0
 
-	if _target != null:
+	if _target != null and not playback.get_current_node() == "Fireball":
 		var distance = _target.global_position - global_position
 		var distanceToPos = posE1 - global_position	
 
@@ -88,7 +86,7 @@ func _physics_process(delta):
 			if abs(velocity.x) > 1:
 				playback.travel("walk")
 			else:
-				playback.travel("idle")
+				#playback.travel("idle")
 				fireBall()
 
 		if abs(distance.x) < 80 and distance.x != 0:
@@ -108,13 +106,15 @@ func attack():
 		
 func fireBall():
 	if Global.fireball:
-		Global.FBretornable = 0
-		var FB1 = FB.instance()
-		get_parent().add_child(FB1)
-		FB1.global_position = posPoint.global_position
-		if pivote.scale.x == -1:
-			FB1.rotation = PI
-		Global.fireball = false
+		playback.travel("Fireball")
+		if playback.get_current_node() != "Fireball":
+			Global.FBretornable = 0
+			var FB1 = FB.instance()
+			get_parent().add_child(FB1)
+			FB1.global_position = posPoint.global_position
+			if pivote.scale.x == -1:
+				FB1.rotation = PI
+			Global.fireball = false
 			
 static func _delete_children(node):
 	for n in node.get_children():
@@ -154,4 +154,4 @@ func fosa():
 	_target.global_position.x = _target.global_position.x + toFall
 	global_position.x = global_position.x + toFall
 	yield(get_tree().create_timer(3.0), "timeout")
-	get_tree().change_scene("res://Escenes/lvl1.tscn") #POR AHORA
+	get_tree().change_scene("res://Escenes/lvl1.tscn")

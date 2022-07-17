@@ -21,6 +21,7 @@ func _on_resume_pressed():
 	
 func _on_option_pressed():
 	pass
+	#get_tree().change_scene("res://Escenes/Test Scenes/TEST LVL.tscn")
 	
 func _on_mainmenu_pressed():
 	get_tree().change_scene("res://Escenes/MainMenu.tscn")

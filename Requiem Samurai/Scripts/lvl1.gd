@@ -1,4 +1,7 @@
 extends Node2D
 
+onready var cola = $Traza
+
 func _ready():
-	Global.inFosa = false
+	Global.inFosa = true
+	cola.clear_points()
