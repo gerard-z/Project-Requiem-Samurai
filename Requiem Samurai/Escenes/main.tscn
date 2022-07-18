@@ -1,9 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Escenes/Skeleton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Escenes/enemigos/Skeleton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/tailset.tres" type="TileSet" id=5]
+
 
 [sub_resource type="CanvasItemMaterial" id=107]
 blend_mode = 1

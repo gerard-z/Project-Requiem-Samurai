@@ -1,4 +1,4 @@
-extends MarginContainer
+extends Control
 
 
 onready var play = $VBoxContainer/Play
@@ -16,6 +16,7 @@ func _ready():
 	play.connect("pressed", self, "_on_play_pressed")
 	options.connect("pressed", self, "_on_options_pressed")
 	exit.connect("pressed", self, "_on_exit_pressed")
+	play.grab_focus()
 	
 func _on_play_pressed():
 	get_tree().change_scene("res://Escenes/Intro.tscn")
