@@ -31,7 +31,7 @@ onready var flecha = $PivoteFlecha/pos2
 
 #movement
 var res_air_move = 5
-var jump_air_y = 4
+var jump_air_y = 5
 
 #ataque basico
 var dmg =  1
