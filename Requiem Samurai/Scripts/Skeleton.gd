@@ -38,7 +38,7 @@ func _ready():
 
 	
 func _physics_process(delta):
-	if health == 0:
+	if health <= 0:
 		death()
 	else:
 		movimiento()
