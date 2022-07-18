@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Scripts/Skeleton.gd" type="Script" id=1]
 [ext_resource path="res://assets/Enemies/Skeleton/Idle.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/Enemies/Skeleton/Shield.png" type="Texture" id=6]
 [ext_resource path="res://assets/Enemies/Skeleton/Death.png" type="Texture" id=7]
 [ext_resource path="res://assets/Enemies/Skeleton/Attack3.png" type="Texture" id=8]
+[ext_resource path="res://assets/Enemies/bandido/idle.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=19]
 extents = Vector2( 10.3125, 21.375 )
@@ -244,7 +245,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "idle"
-length = 0.4
+length = 0.9
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("pivote/Sprite:texture")
@@ -256,7 +257,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 9 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("pivote/Sprite:hframes")
@@ -268,7 +269,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 8 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("pivote/Sprite:frame")
@@ -277,10 +278,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
 [sub_resource type="Animation" id=22]
@@ -537,7 +538,7 @@ states/take_hit/position = Vector2( -127, 186.105 )
 states/walk/node = SubResource( 6 )
 states/walk/position = Vector2( 499, 89.5555 )
 transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ), "attack", "take_hit", SubResource( 27 ), "take_hit", "idle", SubResource( 28 ), "idle", "shield", SubResource( 29 ), "shield", "walk", SubResource( 30 ), "walk", "shield", SubResource( 31 ), "shield", "idle", SubResource( 32 ), "walk", "death", SubResource( 33 ), "idle", "death", SubResource( 34 ), "attack", "death", SubResource( 35 ), "take_hit", "death", SubResource( 36 ), "shield", "death", SubResource( 37 ), "idle", "take_hit", SubResource( 40 ), "take_hit", "walk", SubResource( 41 ), "walk", "take_hit", SubResource( 42 ), "attack", "shield", SubResource( 43 ), "shield", "attack", SubResource( 44 ) ]
-graph_offset = Vector2( -159.74, -84.3469 )
+graph_offset = Vector2( -418.74, 45.6531 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
