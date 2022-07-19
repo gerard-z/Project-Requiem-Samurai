@@ -11,7 +11,8 @@ onready var pivote = $pivote
 var GRAVITY = 400
 export var gravity_effect = 17
 var ACCELERATION = 200
-var SPEED = 50
+var SPEED = 150
+var SPEEDUP = 400
 
 var velocity = Vector2()
 
@@ -19,19 +20,24 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-var health = 50 setget _set_health
-var max_health= 50
+var health = 3 setget _set_health
+var max_health= 3
 
 #IA
-var target: Node2D = null #distancia del área: 226
+var target: Node2D = null
 var moveToRight = true
 export var attacking = false
 export var canmove = true
 export var shilding = false
 
+export var spawnleft = false
+
 func _ready():
 	anim_tree.active = true
 	playback.start("idle")
+	if spawnleft == true:
+		pivote.scale.x = -1
+		moveToRight = false
 
 	
 func _physics_process(delta):
@@ -39,13 +45,12 @@ func _physics_process(delta):
 		death()
 	else:
 		movimiento()
-		animacion()
-		if target != null and target.global_position.distance_to(global_position) > 400:
+		if target != null and target.global_position.distance_to(global_position) > 1000:
 			target = null
 
 
 func _process(delta):
-	pass
+	animacion()
 
 ### movimiento IA
 func movimiento():
@@ -76,13 +81,19 @@ func detect_around():
 		else:
 			pivote.scale.x = -1
 			moveToRight = false
-		if (not rayCastFloor.is_colliding() or rayCastWall.is_colliding()) and is_on_floor():
-			canmove = false
 	else:
-		if (not rayCastFloor.is_colliding() or rayCastWall.is_colliding()) and is_on_floor():
-			canmove = true
-			moveToRight = not moveToRight
-			pivote.scale.x *= -1
+		canmove = false
+	if is_on_floor():
+		if rayCastWall.is_colliding():
+			if not rayCastFloor.is_colliding():
+				velocity.y = -SPEEDUP
+			else:
+				if target == null:
+					canmove = true
+					moveToRight = not moveToRight
+					pivote.scale.x *= -1
+				else:
+					canmove = false
 
 
 func _set_health(value):
@@ -91,18 +102,14 @@ func _set_health(value):
 
 func take_damage(dmg,body=null):
 	
-	print("esqueleto")
+	print("bandido")
 	print(health,"->",health-dmg)
 	canmove = false
 	shilding = true
 	attacking = false
 	
-	if Global.ataqpyro > 0: ##condiciòn para superar escudo
-		self.health -= dmg
-		getHit()
-	else:
-
-		escudo()
+	self.health -= dmg
+	getHit()
 
 #para hacerle daño al samurai
 func _on_DoDamage_body_entered(body):
@@ -122,12 +129,14 @@ func animacion():
 			playback.travel("attack")
 		else:
 			playback.travel("idle")
+	elif not is_on_floor():
+		if velocity.y<-10:
+			playback.travel("jump")
+		else:
+			playback.travel("fall")
 
 func death():
 	playback.travel("death")
-
-func escudo():
-	playback.travel("shield")
 	
 func getHit():
 	playback.travel("take_hit")

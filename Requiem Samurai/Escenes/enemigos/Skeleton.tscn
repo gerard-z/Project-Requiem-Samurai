@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Scripts/Skeleton.gd" type="Script" id=1]
 [ext_resource path="res://assets/Enemies/Skeleton/Idle.png" type="Texture" id=2]
@@ -182,10 +182,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 1, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, false, true ]
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=21]
@@ -282,6 +282,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivote/detectMelee:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=22]
 resource_name = "shield"
@@ -330,10 +342,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("pivote/detectMelee:monitoring")
@@ -343,7 +355,7 @@ tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
 "times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 1, 0 ),
 "update": 1,
 "values": [ false, true ]
 }
@@ -395,10 +407,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("pivote/detectMelee:monitoring")
@@ -408,7 +420,7 @@ tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
 "times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 1, 0 ),
 "update": 1,
 "values": [ false, true ]
 }
@@ -453,6 +465,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("pivote/detectMelee:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="AnimationNodeAnimation" id=12]
 animation = "attack"
@@ -491,15 +515,16 @@ priority = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
 switch_mode = 2
-auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=31]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=33]
 
@@ -523,6 +548,9 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id=44]
 switch_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+switch_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id=9]
 states/attack/node = SubResource( 12 )
 states/attack/position = Vector2( 274, 241.667 )
@@ -531,18 +559,18 @@ states/death/position = Vector2( 1034, 162.105 )
 states/idle/node = SubResource( 5 )
 states/idle/position = Vector2( 255, 89.5555 )
 states/shield/node = SubResource( 25 )
-states/shield/position = Vector2( 396, -121.445 )
+states/shield/position = Vector2( 424, -119.445 )
 states/take_hit/node = SubResource( 26 )
-states/take_hit/position = Vector2( -127, 186.105 )
+states/take_hit/position = Vector2( -133, 190.105 )
 states/walk/node = SubResource( 6 )
 states/walk/position = Vector2( 499, 89.5555 )
-transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ), "attack", "take_hit", SubResource( 27 ), "take_hit", "idle", SubResource( 28 ), "idle", "shield", SubResource( 29 ), "shield", "walk", SubResource( 30 ), "walk", "shield", SubResource( 31 ), "shield", "idle", SubResource( 32 ), "walk", "death", SubResource( 33 ), "idle", "death", SubResource( 34 ), "attack", "death", SubResource( 35 ), "take_hit", "death", SubResource( 36 ), "shield", "death", SubResource( 37 ), "idle", "take_hit", SubResource( 40 ), "take_hit", "walk", SubResource( 41 ), "walk", "take_hit", SubResource( 42 ), "attack", "shield", SubResource( 43 ), "shield", "attack", SubResource( 44 ) ]
-graph_offset = Vector2( -418.74, 45.6531 )
+transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ), "attack", "take_hit", SubResource( 27 ), "take_hit", "idle", SubResource( 28 ), "idle", "shield", SubResource( 29 ), "shield", "walk", SubResource( 30 ), "walk", "shield", SubResource( 31 ), "shield", "idle", SubResource( 32 ), "walk", "death", SubResource( 33 ), "idle", "death", SubResource( 34 ), "attack", "death", SubResource( 35 ), "take_hit", "death", SubResource( 36 ), "shield", "death", SubResource( 37 ), "idle", "take_hit", SubResource( 40 ), "take_hit", "walk", SubResource( 41 ), "walk", "take_hit", SubResource( 42 ), "attack", "shield", SubResource( 43 ), "shield", "attack", SubResource( 44 ), "take_hit", "attack", SubResource( 45 ) ]
+graph_offset = Vector2( -436.74, -133.347 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
 [sub_resource type="RectangleShape2D" id=38]
-extents = Vector2( 150, 60 )
+extents = Vector2( 161.5, 60 )
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 27, 15.5 )
@@ -596,7 +624,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/detectingArea"]
-position = Vector2( 108, 1.5 )
+position = Vector2( 96.5, 1.5 )
 shape = SubResource( 38 )
 
 [node name="Sprite" type="Sprite" parent="pivote"]
