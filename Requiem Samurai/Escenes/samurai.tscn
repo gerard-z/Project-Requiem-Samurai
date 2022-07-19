@@ -2585,8 +2585,9 @@ parameters/playback = SubResource( 6 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -80 )
+offset = Vector2( 0, 20 )
 current = true
-zoom = Vector2( 0.6, 0.6 )
+zoom = Vector2( 0.8, 0.8 )
 process_mode = 0
 __meta__ = {
 "_edit_lock_": true
