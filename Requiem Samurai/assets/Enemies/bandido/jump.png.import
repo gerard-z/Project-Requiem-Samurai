@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jump.png-dad66bd9e9573d1050ac88e615b5155d.stex"
+path="res://.import/Jump.png-d3dbcaf18ed06cf719b4f13d84b8e4f5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/bandido/jump.png"
-dest_files=[ "res://.import/jump.png-dad66bd9e9573d1050ac88e615b5155d.stex" ]
+source_file="res://assets/Enemies/bandido/Jump.png"
+dest_files=[ "res://.import/Jump.png-d3dbcaf18ed06cf719b4f13d84b8e4f5.stex" ]
 
 [params]
 
