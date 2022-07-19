@@ -10,6 +10,7 @@ var fireball = true
 var inFosa = false
 
 var revive = false
+var deathBoss = false
 
 
 #Habiliades Samurai

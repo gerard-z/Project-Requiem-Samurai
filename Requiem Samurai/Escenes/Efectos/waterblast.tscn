@@ -168,7 +168,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 11 )
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 65564
+collision_layer = 65544
 collision_mask = 65539
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

@@ -133,8 +133,9 @@ func _physics_process(delta): # por frame
 	var move_input = Input.get_axis("move_left", "move_right")
 	
 	#Animation fosa
-	if Global.inFosa:
+	if Global.inFosa or Global.deathBoss:
 		velocity.y += GRAVITY * delta * DIR
+		velocity.x = 0
 		fall_jump()
 		if.is_on_floor():
 			playback.travel("death")
@@ -214,7 +215,7 @@ func _physics_process(delta): # por frame
 
 			# NEW TRAZADO
 			if Global.seactivaeltrazado:
-				var move = Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_down")
+				#var move = Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_down")
 				
 				if Input.is_action_just_pressed("vertice"):
 					dirTraz = Vector2(0,0)
@@ -269,7 +270,7 @@ func _physics_process(delta): # por frame
 						flecha.position.y = 41
 						flecha.rotation_degrees = 90
 					
-					if dt>0.5:				
+					if dt>1:				
 						#direccion
 						timeTrz0 = Global.fpscount						
 						dirTraz = dirTraz.normalized()
@@ -462,13 +463,14 @@ func double_jump(move_input):
 
 
 
-func en_dashTR(dirTraz, dt):
+func en_dashTR(d, dt):
 	#en el dash
-	if dt < 10:
-		velocity= 1000 * dirTraz #dash
+	#velocity.y = 0
+	if dt < 15:
+		velocity= 1000 *d #dash
 		playback.travel("dash")
 	#luego de terminarlo
-	if dt < 10 and 9 < dt:
+	if dt < 15 and 9 < dt:
 		playback.travel("dash")
 		velocity /= 2
 

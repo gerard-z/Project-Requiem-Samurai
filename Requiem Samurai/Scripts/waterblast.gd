@@ -32,19 +32,8 @@ func _on_body_entered(body: Node):
 	
 #defensa
 func _on_area_entered(area: Area2D):
-	pass
-
-#func _physics_process(delta):
-#	time = Global.fpscount - timer
-	
-#	if time < b*9 and impact == 0:
-#		position += SPEED * delta * transform.x
-	#disparo
-#	elif time > b*4:
-#		SPEED = 120
-		
-#	if time > b*9:
-#		destroy()
+	if area.is_in_group("shield"):
+		destroy()
 
 func destroy():
 	#impacto
