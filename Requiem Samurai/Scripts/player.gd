@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-export var SPEED = 200 # 83 -> 400
+export var SPEED = 325 # 83 -> 400
+export var SPEEDY = 200
 export var ACCELERATION = 700 # 233 -> 700
 export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
@@ -175,7 +176,7 @@ func _physics_process(delta): # por frame
 				jump=0
 				# salto
 				if Input.is_action_just_pressed("jump"):
-					velocity.y = -jump_air_y * SPEED *Global.gravitychange
+					velocity.y = -jump_air_y * SPEEDY *Global.gravitychange
 			
 		# MURO
 
@@ -389,7 +390,7 @@ func sprint(move_input):
 		else:
 			dirdash = abs(dirdash)
 			
-		velocity.x =   SPEED*2.0*move_input
+		velocity.x =   SPEED*1.5*move_input
 		time1 = Global.fpscount
 		take_stamina(0.3)		
 
@@ -458,7 +459,7 @@ func double_jump(move_input):
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
 		velocity.x = SPEED *move_input + abs(velocity.x)*move_input #dash
-		velocity.y = -jump_air_y * SPEED * Global.gravitychange #coef del level
+		velocity.y = -jump_air_y * SPEEDY * Global.gravitychange #coef del level
 
 
 
@@ -480,7 +481,7 @@ func en_dashTR(d, dt):
 # wall move
 func wall():
 	#WALLse mantiene
-	if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
+	if (Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down")):
 		velocity.y = 0
 		up_down = 0
 		
@@ -488,7 +489,7 @@ func wall():
 	elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
 		up_down = SPEED
 	elif velocity.y >0:
-		up_down = SPEED/3
+		up_down = SPEEDY/3
 		
 	velocity.y = up_down
 
@@ -497,11 +498,11 @@ func wall():
 	if Input.is_action_just_pressed("jump"):
 		up_down = 1
 		if pivote.scale.x<0:
-			fwall = SPEED/2
+			fwall = SPEEDY/2
 		else:
-			fwall = -SPEED/2			
+			fwall = -SPEEDY/2			
 		velocity.x =  fwall
-		velocity.y = -jump_air_y * SPEED # level tenia el coeff
+		velocity.y = -jump_air_y * SPEEDY # level tenia el coeff
 
 
 
@@ -573,7 +574,7 @@ func take_damage(value,body=null):
 
 	#para simular un golpe
 	if value>0 and health > 0:
-		velocity.y = -jump_air_y * SPEED*3/4 * Global.gravitychange
+		velocity.y = -jump_air_y * SPEEDY*3/4 * Global.gravitychange
 		velocity.x = (-global_position.direction_to(body.global_position) * rebote).x
 		golpefps=0
 	#muere
