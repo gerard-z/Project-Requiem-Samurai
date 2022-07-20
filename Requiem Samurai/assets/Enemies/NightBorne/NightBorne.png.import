@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Attack4.png-481d02379463e85689f70beac3b2a1bf.stex"
+path="res://.import/NightBorne.png-73bd8f798f71914614c8b0eccc602f71.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/bandido/Attack4.png"
-dest_files=[ "res://.import/Attack4.png-481d02379463e85689f70beac3b2a1bf.stex" ]
+source_file="res://assets/Enemies/NightBorne/NightBorne.png"
+dest_files=[ "res://.import/NightBorne.png-73bd8f798f71914614c8b0eccc602f71.stex" ]
 
 [params]
 

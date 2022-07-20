@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Escenes/enemigos/bandido.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Escenes/enemigos/nightboner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/lvl1-ladrillos tail.tres" type="TileSet" id=3]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=4]
 
@@ -53,6 +53,6 @@ Grid = 40
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[node name="Bandido2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 220, 275 )
+[node name="nightBoner" parent="." instance=ExtResource( 2 )]
+position = Vector2( 223, 209 )
 spawnleft = true
