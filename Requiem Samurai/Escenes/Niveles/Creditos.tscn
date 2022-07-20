@@ -1,0 +1,143 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Music/25 - Requiem Samurai.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Escenes/Trees back.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Escenes/astro.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Escenes/Fondolvl0.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Escenes/grass2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Escenes/Sky.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Escenes/recuros creditos/GodotCredits.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_strength = 0.65
+glow_blend_mode = 0
+glow_hdr_threshold = 4.0
+glow_hdr_luminance_cap = 63.41
+glow_hdr_scale = 0.92
+glow_bicubic_upscale = true
+glow_high_quality = true
+adjustment_enabled = true
+adjustment_contrast = 1.08
+adjustment_saturation = 1.07
+
+[node name="Creditos" type="Control"]
+
+[node name="GodotCredits" parent="." instance=ExtResource( 7 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 1024
+limit_bottom = 600
+editor_draw_limits = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+autoplay = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Eclipse" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -5
+motion_scale = Vector2( 0.01, 0.01 )
+
+[node name="astro" parent="ParallaxBackground/Eclipse" instance=ExtResource( 3 )]
+position = Vector2( 0, -168 )
+
+[node name="Sky" parent="ParallaxBackground/Eclipse" instance=ExtResource( 6 )]
+position = Vector2( 0, -168 )
+
+[node name="Fondo" parent="ParallaxBackground" instance=ExtResource( 4 )]
+
+[node name="Grass back" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.235294, 0.317647, 0.662745, 1 )
+z_index = 6
+motion_scale = Vector2( 0.7, 0.7 )
+
+[node name="pasto" type="Node2D" parent="ParallaxBackground/Grass back"]
+position = Vector2( -6221, 32 )
+
+[node name="grass2" parent="ParallaxBackground/Grass back/pasto" instance=ExtResource( 5 )]
+
+[node name="grass3" parent="ParallaxBackground/Grass back/pasto" instance=ExtResource( 5 )]
+position = Vector2( 4701, 0 )
+
+[node name="grass4" parent="ParallaxBackground/Grass back/pasto" instance=ExtResource( 5 )]
+position = Vector2( 9397, 0 )
+
+[node name="Tres Back" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 1
+motion_scale = Vector2( 0.7, 0.7 )
+
+[node name="Node2D" type="Node2D" parent="ParallaxBackground/Tres Back"]
+position = Vector2( 0, 80 )
+
+[node name="Back2" parent="ParallaxBackground/Tres Back/Node2D" instance=ExtResource( 2 )]
+modulate = Color( 0.403922, 0.517647, 0.686275, 1 )
+position = Vector2( 312, 120 )
+scale = Vector2( 0.6, 0.6 )
+z_index = 1
+
+[node name="Back3" parent="ParallaxBackground/Tres Back/Node2D" instance=ExtResource( 2 )]
+modulate = Color( 0.403922, 0.517647, 0.686275, 1 )
+position = Vector2( -2312, 112 )
+scale = Vector2( 0.6, 0.6 )
+z_index = 1
+
+[node name="Back4" parent="ParallaxBackground/Tres Back/Node2D" instance=ExtResource( 2 )]
+modulate = Color( 0.403922, 0.517647, 0.686275, 1 )
+position = Vector2( -4918, 102 )
+scale = Vector2( 0.6, 0.6 )
+z_index = 1
+
+[node name="Back5" parent="ParallaxBackground/Tres Back/Node2D" instance=ExtResource( 2 )]
+modulate = Color( 0.403922, 0.517647, 0.686275, 1 )
+position = Vector2( -7520, 93 )
+scale = Vector2( 0.6, 0.6 )
+z_index = 1
+
+[node name="Grass mid" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.286275, 0.392157, 0.65098, 1 )
+position = Vector2( 0, 130 )
+z_index = 6
+motion_scale = Vector2( 0.9, 0.9 )
+
+[node name="pasto" type="Node2D" parent="ParallaxBackground/Grass mid"]
+position = Vector2( -6221, 13 )
+
+[node name="grass2" parent="ParallaxBackground/Grass mid/pasto" instance=ExtResource( 5 )]
+
+[node name="grass3" parent="ParallaxBackground/Grass mid/pasto" instance=ExtResource( 5 )]
+position = Vector2( 4701, 0 )
+
+[node name="grass4" parent="ParallaxBackground/Grass mid/pasto" instance=ExtResource( 5 )]
+position = Vector2( 9397, 0 )
+
+[node name="Trees mid" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 1
+z_as_relative = false
+motion_scale = Vector2( 0.9, 0.9 )
+
+[node name="Node2D" type="Node2D" parent="ParallaxBackground/Trees mid"]
+position = Vector2( 0, 75 )
+
+[node name="Back" parent="ParallaxBackground/Trees mid/Node2D" instance=ExtResource( 2 )]
+position = Vector2( 490, 144 )
+scale = Vector2( 0.8, 0.8 )
+z_index = 1
+
+[node name="Back3" parent="ParallaxBackground/Trees mid/Node2D" instance=ExtResource( 2 )]
+position = Vector2( -6472, 117 )
+scale = Vector2( 0.8, 0.8 )
+z_index = 1
+
+[node name="Back2" parent="ParallaxBackground/Trees mid/Node2D" instance=ExtResource( 2 )]
+position = Vector2( -2992, 128 )
+scale = Vector2( 0.8, 0.8 )
+z_index = 1

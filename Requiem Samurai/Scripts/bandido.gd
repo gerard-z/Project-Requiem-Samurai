@@ -20,8 +20,8 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-var health = 3 setget _set_health
-var max_health= 3
+export var max_health= 50
+var health = max_health setget _set_health
 
 #IA
 var target: Node2D = null

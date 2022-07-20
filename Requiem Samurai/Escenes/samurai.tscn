@@ -2589,6 +2589,7 @@ offset = Vector2( 0, 20 )
 current = true
 zoom = Vector2( 0.8, 0.8 )
 process_mode = 0
+offset_v = 0.1
 __meta__ = {
 "_edit_lock_": true
 }

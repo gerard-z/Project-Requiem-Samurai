@@ -11,8 +11,8 @@ onready var pivote = $pivote
 var GRAVITY = 400
 export var gravity_effect = 17
 var ACCELERATION = 200
-var SPEED = 300
-var SPEEDUP = 400
+var SPEED = 330
+var SPEEDUP = 500
 
 var velocity = Vector2()
 
@@ -20,8 +20,8 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-var health = 3 setget _set_health
-var max_health= 3
+export var max_health= 150
+var health = max_health setget _set_health
 
 #IA
 var target: Node2D = null
@@ -102,14 +102,16 @@ func _set_health(value):
 
 func take_damage(dmg,body=null):
 	
-	print("bandido")
+	print("nighbone")
 	print(health,"->",health-dmg)
 	canmove = false
-	shilding = true
-	attacking = false
-	
 	self.health -= dmg
-	getHit()
+	if attacking:
+		sprite.modulate = Color.blue
+	else:
+		getHit()
+	yield(get_tree().create_timer(0.1),"timeout")
+	sprite.modulate = Color.white
 
 #para hacerle daño al samurai
 func _on_DoDamage_body_entered(body):
