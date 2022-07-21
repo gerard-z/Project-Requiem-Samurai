@@ -319,7 +319,7 @@ func mecInnovadora():
 	
 	set_hydro()
 
-	set_wind()
+	set_earth()
 	
 	#if Global.elementalsword == 1 :
 	#	NodeSprite.modulate= Color(1,1,1)
@@ -331,7 +331,7 @@ func mecInnovadora():
 	#	NodeSprite.modulate= Color(0.2,0.8,3)
 		
 		
-	if Global.ataqpyro<=0 and Global.ataqhydro<=0 and Global.ataqwind<=0 :
+	if Global.ataqpyro<=0 and Global.ataqhydro<=0 and Global.ataqearth<=0 :
 		dmg =1
 		NodeSprite.visible = false
 		AirSprite.visible = true	
@@ -374,9 +374,9 @@ func set_hydro():
 
 		pass
 
-func set_wind():
-	if Global.ataqwind > 0:
-		dmg=10
+func set_earth():
+	if Global.ataqearth > 0:
+		dmg=20
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true
@@ -404,10 +404,10 @@ func sprint(move_input):
 #animaciones principales
 func animations():
 	#el ataque
-	if hasAttacked and playback.get_current_node() != "attack 1":
+	if hasAttacked and playback.get_current_node() != "attack 1" and playback.get_current_node() != "attack water"  and playback.get_current_node() != "attack earth":
 		attack()
 	else:
-		if playback.get_current_node() != "attack 1":
+		if playback.get_current_node() != "attack 1" and playback.get_current_node() != "attack water"  and playback.get_current_node() != "attack earth":
 			if is_on_wall() and agarre:
 				playback.travel("idle wall")
 				if velocity.y > 100:
@@ -513,30 +513,40 @@ func wall():
 
 ### ATAQUE 1
 func attack():
-	playback.travel("attack 1")
-	yield(get_tree().create_timer(0.4), "timeout")
+
 	if Global.elementalsword==1:
+		playback.travel("attack 1")
+		yield(get_tree().create_timer(0.4), "timeout")
 		if Global.ataqpyro<=0:
 			Global.ataqpyro = 0
-
 		else: 
 			Global.ataqpyro -= 1
 			print("attackpyro = ", Global.ataqpyro)
 
 
 	if Global.elementalsword==2:
-		
+
+		playback.travel("attack water")
+		yield(get_tree().create_timer(0.4), "timeout")
+
 		if Global.ataqhydro<=0:
 			Global.ataqhydro = 0
 
 		else: Global.ataqhydro -= 1
 
 	if Global.elementalsword==3:
-		
-		if Global.ataqwind<=0:
-			Global.ataqwind = 0
 
-		else: Global.ataqwind -= 1
+		playback.travel("attack earth")
+		yield(get_tree().create_timer(0.4), "timeout")
+
+		if Global.ataqearth<=0:
+			Global.ataqearth = 0
+
+		else: Global.ataqearth -= 1
+
+	if Global.elementalsword==0:
+		playback.travel("attack 1")
+		yield(get_tree().create_timer(0.4), "timeout")
 
 # fall y jump animations
 func fall_jump():
@@ -595,6 +605,8 @@ func take_damage(value,body=null):
 
 #para hacerle daño
 func _on_body_entered(body: Node2D):
+
+		
 	body.take_damage(dmg)
 	
 	if Global.elementalsword==2:

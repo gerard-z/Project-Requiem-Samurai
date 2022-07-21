@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fall.png-caf31072e45e14cb9576a0e1795e96e5.stex"
+path="res://.import/8x8 Metroidvania_Final.png-acb13f942c0846898b63decd44b5065b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/bandido/fall.png"
-dest_files=[ "res://.import/fall.png-caf31072e45e14cb9576a0e1795e96e5.stex" ]
+source_file="res://assets/map/Cuadrados/8x8 Metroidvania_Final.png"
+dest_files=[ "res://.import/8x8 Metroidvania_Final.png-acb13f942c0846898b63decd44b5065b.stex" ]
 
 [params]
 
