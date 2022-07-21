@@ -441,7 +441,7 @@ func dash():
 
 
 
-#en el dash
+#en el das
 func en_dash():
 	#en el dash
 	if cd_time2_stamina-cd_time1_stamina<10 and youcandothedash==1:

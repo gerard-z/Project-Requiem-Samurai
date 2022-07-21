@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Idle.png-8a62d803e5ddcb74b62b4f97838dbe66.stex"
+path="res://.import/idle.png-6738c698e23fad7dfaa3c8e1d03976fc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/bandido/Idle.png"
-dest_files=[ "res://.import/Idle.png-8a62d803e5ddcb74b62b4f97838dbe66.stex" ]
+source_file="res://assets/Enemies/bandido/idle.png"
+dest_files=[ "res://.import/idle.png-6738c698e23fad7dfaa3c8e1d03976fc.stex" ]
 
 [params]
 
