@@ -4,7 +4,8 @@
 [ext_resource path="res://assets/Enemies/01/Knight-Idle-Sheet.png" type="Texture" id=2]
 [ext_resource path="res://assets/Enemies/01/Knight-Attack-Sheet.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Enemy01.gd" type="Script" id=4]
-[ext_resource path="res://Escenes/BloodShield.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Escenes/Efectos/BloodShield.tscn" type="PackedScene" id=5]
+
 
 [sub_resource type="RectangleShape2D" id=49]
 extents = Vector2( 7, 23.5 )

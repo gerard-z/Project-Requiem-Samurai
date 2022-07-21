@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Escenes/background/grass.tscn" type="PackedScene" id=1]
+
+
+[node name="Node2D" type="Node2D"]
+
+[node name="grass2" type="Node2D" parent="."]
+modulate = Color( 0.415686, 0.34902, 0.756863, 1 )
+position = Vector2( 1046, 531 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="grass" parent="grass2" instance=ExtResource( 1 )]
+position = Vector2( -4477.14, -0.00012207 )
+scale = Vector2( 1, 1 )
+
+[node name="grass2" parent="grass2" instance=ExtResource( 1 )]
+position = Vector2( -2240, -0.00012207 )
+scale = Vector2( 1, 1 )
+
+[node name="grass3" parent="grass2" instance=ExtResource( 1 )]
+position = Vector2( 0, 0 )
+scale = Vector2( 1, 1 )
+
+[node name="grass3" type="Node2D" parent="."]
+modulate = Color( 0.415686, 0.34902, 0.756863, 1 )
+position = Vector2( 1046, 531 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="grass" parent="grass3" instance=ExtResource( 1 )]
+position = Vector2( -4477.14, 304.286 )
+scale = Vector2( 1, 1 )
+
+[node name="grass2" parent="grass3" instance=ExtResource( 1 )]
+position = Vector2( -2237.14, 304.286 )
+scale = Vector2( 1, 1 )
+
+[node name="grass3" parent="grass3" instance=ExtResource( 1 )]
+position = Vector2( 2.85718, 304.286 )
+scale = Vector2( 1, 1 )
