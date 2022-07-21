@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/map/Cuadrados/BasicGreen.png" type="Texture" id=3]
+[ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -78,6 +79,26 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 2/z_index = 0
 
+[sub_resource type="Environment" id=5]
+background_mode = 4
+glow_enabled = true
+glow_strength = 0.65
+glow_blend_mode = 0
+glow_hdr_threshold = 4.0
+glow_hdr_luminance_cap = 63.41
+glow_hdr_scale = 0.92
+glow_bicubic_upscale = true
+glow_high_quality = true
+adjustment_enabled = true
+adjustment_contrast = 1.08
+adjustment_saturation = 1.07
+
+[sub_resource type="CanvasItemMaterial" id=6]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=7]
+colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
@@ -101,3 +122,22 @@ tile_set = SubResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -1245175, 0, 0, -1179647, 0, 0, -1179646, 1, 0, -1179645, 1, 0, -1179644, 1, 0, -1179643, 1, 0, -1179642, 0, 0, -1179641, 0, 0, -1179640, 0, 0, -1179639, 0, 0, -1179623, 2, 0, -1179622, 2, 0, -1114112, 0, 0, -1114111, 0, 0, -1114110, 0, 0, -1114109, 0, 0, -1114108, 0, 0, -1114107, 1, 0, -1114106, 1, 0, -1114105, 0, 0, -1114104, 0, 0, -983041, 0, 0, -1048576, 0, 0, -1048572, 0, 0, -1048571, 0, 0, -1048570, 0, 0, -1048569, 0, 0, -1048546, 2, 0, -1048545, 2, 0, -1048539, 1, 0, -1048538, 0, 0, -1048537, 0, 0, -917505, 0, 0, -983003, 0, 0, -983002, 0, 0, -983001, 1, 0, -917479, 2, 0, -917478, 2, 0, -917466, 1, 0, -917465, 0, 0, -786402, 2, 0, -786401, 2, 0, -655341, 1, 0, -655340, 0, 0, -655339, 1, 0, -655338, 1, 0, -589804, 1, 0, -589803, 0, 0, -458754, 0, 0, -458753, 1, 0, -524278, 2, 0, -524277, 2, 0, -524254, 1, 0, -524253, 1, 0, -524252, 1, 0, -524251, 0, 0, -524250, 1, 0, -393219, 1, 0, -393218, 0, 0, -393217, 0, 0, -458727, 0, 0, -458726, 0, 0, -458725, 0, 0, -458724, 0, 0, -458716, 1, 0, -458715, 0, 0, -458714, 0, 0, -458713, 1, 0, -327682, 1, 0, -327681, 0, 0, -393211, 2, 0, -393210, 2, 0, -393192, 0, 0, -393191, 0, 0, -393190, 1, 0, -393189, 1, 0, -393188, 0, 0, -393187, 0, 0, -393179, 1, 0, -393178, 0, 0, -393177, 1, 0, -262145, 0, 0, -327656, 0, 0, -327655, 1, 0, -327654, 1, 0, -327653, 1, 0, -327652, 1, 0, -327651, 0, 0, -327643, 1, 0, -327642, 0, 0, -327641, 1, 0, -262134, 2, 0, -262133, 2, 0, -262120, 0, 0, -262119, 1, 0, -262118, 1, 0, -262117, 1, 0, -262116, 0, 0, -262115, 0, 0, -262107, 1, 0, -262106, 1, 0, -262105, 1, 0, -262104, 0, 0, -262103, 1, 0, -196584, 0, 0, -196583, 1, 0, -196582, 1, 0, -196581, 1, 0, -196580, 0, 0, -196569, 1, 0, -196568, 1, 0, -196567, 1, 0, -196566, 1, 0, -131057, 2, 0, -131056, 2, 0, -131046, 0, 0, -131045, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 65544, 1, 0, 65545, 1, 0, 65546, 1, 0 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="Traza" parent="." instance=ExtResource( 4 )]
+modulate = Color( 3, 3, 3, 1 )
+material = SubResource( 6 )
+position = Vector2( -208, 863 )
+z_index = 19
+points = PoolVector2Array( 2392, 248 )
+width = 1.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 7 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+targetPath = NodePath("../Samurai")
+trailLenght = 10
+Grid = 40

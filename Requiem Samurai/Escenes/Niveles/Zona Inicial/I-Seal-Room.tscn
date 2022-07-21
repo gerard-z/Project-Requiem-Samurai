@@ -1,9 +1,31 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/Cuadrados/DarkDungeon.tres" type="TileSet" id=2]
 [ext_resource path="res://resources/Cuadrados/WaterTower.tres" type="TileSet" id=3]
 [ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=4]
+[ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/Pueblo/white.jpg" type="Texture" id=6]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_strength = 0.65
+glow_blend_mode = 0
+glow_hdr_threshold = 4.0
+glow_hdr_luminance_cap = 63.41
+glow_hdr_scale = 0.92
+glow_bicubic_upscale = true
+glow_high_quality = true
+adjustment_enabled = true
+adjustment_contrast = 1.08
+adjustment_saturation = 1.07
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -36,3 +58,35 @@ tile_set = ExtResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -393195, 2, 0, -393194, 0, 0, -393193, 2, 0, -327660, 0, 0, -327659, 0, 0, -327658, 3, 0, -327657, 0, 0, -262124, 4, 0, -262123, 0, 0, -262122, 0, 0, -262121, 0, 0, 20, 0, 0, 21, 1, 0, 22, 0, 0, 23, 0, 0, 65557, 2, 0, 65558, 0, 0, 65559, 3, 0, 589902, 0, 0 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Traza" parent="." instance=ExtResource( 5 )]
+modulate = Color( 3, 3, 3, 1 )
+material = SubResource( 2 )
+position = Vector2( -208, 863 )
+z_index = 19
+points = PoolVector2Array( 2392, 248 )
+width = 1.0
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 3 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+targetPath = NodePath("../Samurai")
+trailLenght = 10
+Grid = 40
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="00" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/00"]
+modulate = Color( 0.12549, 0, 0.172549, 1 )
+scale = Vector2( 2, 1.5 )
+texture = ExtResource( 6 )
