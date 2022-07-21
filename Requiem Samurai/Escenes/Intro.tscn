@@ -15,12 +15,13 @@
 [ext_resource path="res://Escenes/background/Sky.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Music/Pueblo.ogg" type="AudioStream" id=14]
 [ext_resource path="res://Escenes/Efectos/Fire01.tscn" type="PackedScene" id=15]
-[ext_resource path="res://resources/Templo Tailset.tres" type="TileSet" id=16]
+[ext_resource path="res://resources/Cuadrados/Templo Tailset.tres" type="TileSet" id=16]
 [ext_resource path="res://Escenes/Deco/Skulls Acum.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Escenes/Tutoriales/Press A.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Escenes/Tutoriales/Press A+A.tscn" type="PackedScene" id=19]
 [ext_resource path="res://Escenes/Tutoriales/Analog L.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Escenes/Tutoriales/L + LT.tscn" type="PackedScene" id=21]
+
 
 [sub_resource type="GDScript" id=7]
 script/source = "extends Node2D
