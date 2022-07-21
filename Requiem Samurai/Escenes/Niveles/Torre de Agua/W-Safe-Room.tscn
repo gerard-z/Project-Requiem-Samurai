@@ -10,6 +10,7 @@ position = Vector2( 441, -335 )
 z_index = 19
 
 [node name="TileMap" type="TileMap" parent="." groups=["agarrables"]]
+modulate = Color( 0.368627, 0.72549, 0.560784, 1 )
 scale = Vector2( 4, 4 )
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )

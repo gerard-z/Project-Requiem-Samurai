@@ -10,6 +10,7 @@ position = Vector2( 1242, -90 )
 z_index = 19
 
 [node name="tilemaps" type="Position2D" parent="."]
+modulate = Color( 0.368627, 0.72549, 0.560784, 1 )
 z_index = 20
 
 [node name="TileMap" type="TileMap" parent="tilemaps" groups=["agarrables"]]
