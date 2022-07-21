@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/run.png-a3cfc051c0e81598c018785240c6b51d.stex"
+path="res://.import/Run.png-d44944f489b53707556b82e250cdc263.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/bandido/run.png"
-dest_files=[ "res://.import/run.png-a3cfc051c0e81598c018785240c6b51d.stex" ]
+source_file="res://assets/Enemies/bandido/Run.png"
+dest_files=[ "res://.import/Run.png-d44944f489b53707556b82e250cdc263.stex" ]
 
 [params]
 

@@ -1,11 +1,10 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://assets/Efectos/magicnecro/Effect2/1.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/batifire.gd" type="Script" id=2]
 [ext_resource path="res://assets/Efectos/magicnecro/Effect2/2.png" type="Texture" id=3]
 [ext_resource path="res://assets/Efectos/magicnecro/Effect2/3.png" type="Texture" id=4]
 [ext_resource path="res://assets/Efectos/magicnecro/Effect2/4.png" type="Texture" id=5]
-[ext_resource path="res://assets/Efectos/magicnecro/skull/skull.png" type="Texture" id=6]
 [ext_resource path="res://assets/Efectos/magicnecro/Effect2/31.png" type="Texture" id=7]
 [ext_resource path="res://assets/Efectos/magicnecro/Effect2/34.png" type="Texture" id=8]
 [ext_resource path="res://assets/Efectos/magicnecro/Effect2/35.png" type="Texture" id=9]
@@ -104,30 +103,6 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite2:texture")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 6 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite2:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
 
 [sub_resource type="Animation" id=2]
 resource_name = "Impacto"
@@ -182,18 +157,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( 0.0390625, 0.03125 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite2:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -245,30 +208,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Sprite2:texture")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ ExtResource( 6 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Sprite2:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
 
 [sub_resource type="AnimationNodeAnimation" id=4]
 animation = "Idle"
@@ -290,12 +229,12 @@ transitions = [ "Idle", "Impacto", SubResource( 6 ) ]
 [sub_resource type="CircleShape2D" id=9]
 radius = 7.07107
 
-[node name="batifire" type="Node2D"]
+[node name="wizzardfire" type="Node2D"]
 z_index = 20
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0.607843, 0, 0, 1 )
+modulate = Color( 0.054902, 0, 0.368627, 1 )
 position = Vector2( -2, 0 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
@@ -323,12 +262,6 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 9 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite2" type="Sprite" parent="."]
-texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }

@@ -273,7 +273,6 @@ graph_offset = Vector2( -699.165, 0 )
 extents = Vector2( 30, 31.25 )
 
 [node name="obelisco" type="Node2D"]
-position = Vector2( -7000, 375 )
 scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 2 )
 
@@ -287,7 +286,6 @@ visibility_rect = Rect2( -1000, -1000, 2000, 2000 )
 process_material = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 36.25 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, 28.5 )
@@ -310,5 +308,5 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, 102.5 )
+position = Vector2( 0, 60 )
 shape = SubResource( 10 )

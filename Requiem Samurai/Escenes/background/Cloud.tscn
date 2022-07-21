@@ -4,6 +4,7 @@
 
 [node name="Sprite" type="Sprite"]
 position = Vector2( 190, 8 )
+scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 2
 vframes = 4

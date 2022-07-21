@@ -6,12 +6,16 @@ onready var sprite = $pivote/Sprite
 onready var rayCastFloor = $pivote/RayCastFloor
 onready var rayCastWall = $pivote/RayCastWall
 onready var pivote = $pivote
+onready var rayview = $pivote/view
+onready var spawnpoint = $pivote/spawnpoint
+onready var timer = $shootCooldown
 
+var wizzardfire = preload("res://Escenes/Efectos/wizzardfire.tscn")
 
 var GRAVITY = 400
 export var gravity_effect = 17
 var ACCELERATION = 200
-var SPEED = 330
+var SPEED = 100
 var SPEEDUP = 500
 
 var velocity = Vector2()
@@ -29,7 +33,7 @@ var moveToRight = true
 export var attacking = false
 export var canmove = true
 export var shilding = false
-
+var COOLDOWN = false
 export var spawnleft = false
 
 func _ready():
@@ -73,6 +77,11 @@ func detect_around():
 	#con target hace un seguimiento
 	if target != null:
 		var distance = target.global_position.x - global_position.x
+		rayview.cast_to = (target.global_position - rayview.global_position) * Vector2(pivote.scale.x, 1)
+		if not rayview.is_colliding():
+			canmove = false
+			if not COOLDOWN:
+				shoot()
 		if distance > 10:
 			pivote.scale.x = 1
 			moveToRight = true
@@ -121,7 +130,6 @@ func _on_DoDamage_body_entered(body):
 func NotAgarrable():
 	pass
 
-
 #Animación
 func animacion():
 	if is_on_floor() and not shilding:
@@ -146,7 +154,21 @@ func getHit():
 func _on_detectingArea_body_entered(body: Node2D):
 	target = body
 
-
 func _on_detectMelee_body_entered(body):
 	if not shilding:
 		attacking = true
+		
+func spawn_batifire():
+	var fire = wizzardfire.instance()
+	get_parent().add_child(fire)
+	fire.global_position = spawnpoint.global_position
+	fire.rotation = Vector2(1,0).angle_to(target.global_position- spawnpoint.global_position)
+
+func shoot():
+	COOLDOWN = true
+	attacking = true
+	timer.start()
+	playback.travel("distanceattack")
+	
+func _on_shootCooldown_timeout():
+	COOLDOWN = false

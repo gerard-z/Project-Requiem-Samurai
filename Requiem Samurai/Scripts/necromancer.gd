@@ -141,11 +141,6 @@ func take_damage(dmg,body=null):
 	yield(get_tree().create_timer(0.1),"timeout")
 	sprite.modulate = Color.white
 
-#para hacerle daño al samurai
-func _on_dodamage_body_entered(body):
-	if body.has_method("take_damage"):
-		body.take_damage(5,self)
-
 func NotAgarrable():
 	pass
 

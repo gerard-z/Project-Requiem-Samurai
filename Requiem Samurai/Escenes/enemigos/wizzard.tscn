@@ -1,6 +1,5 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=73 format=2]
 
-[ext_resource path="res://assets/Enemies/NightBorne/NightBorne.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/wizzard.gd" type="Script" id=2]
 [ext_resource path="res://assets/Enemies/evil wizard/Death.png" type="Texture" id=3]
 [ext_resource path="res://assets/Enemies/evil wizard/Run.png" type="Texture" id=4]
@@ -13,6 +12,7 @@
 
 [sub_resource type="CapsuleShape2D" id=63]
 radius = 15.0
+height = 22.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("pivote/Sprite:hframes")
@@ -38,7 +38,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 23 ]
+"values": [ 8 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("pivote/Sprite:frame")
@@ -259,6 +259,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=64]
 resource_name = "distanceattack"
 length = 0.8
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("pivote/Sprite:texture")
 tracks/0/interp = 1
@@ -294,6 +295,32 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:attacking")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "spawn_batifire"
+} ]
 }
 
 [sub_resource type="Animation" id=45]
@@ -567,6 +594,9 @@ animation = "attack"
 [sub_resource type="AnimationNodeAnimation" id=24]
 animation = "death"
 
+[sub_resource type="AnimationNodeAnimation" id=66]
+animation = "distanceattack"
+
 [sub_resource type="AnimationNodeAnimation" id=46]
 animation = "fall"
 
@@ -651,11 +681,37 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=62]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=67]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=68]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=69]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=70]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=71]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=72]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=73]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=74]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=75]
+
 [sub_resource type="AnimationNodeStateMachine" id=9]
 states/attack/node = SubResource( 12 )
 states/attack/position = Vector2( 274, 241.667 )
 states/death/node = SubResource( 24 )
 states/death/position = Vector2( 1034, 162.105 )
+states/distanceattack/node = SubResource( 66 )
+states/distanceattack/position = Vector2( 526.26, 331.864 )
 states/fall/node = SubResource( 46 )
 states/fall/position = Vector2( -11.74, -45.136 )
 states/idle/node = SubResource( 5 )
@@ -666,13 +722,13 @@ states/take_hit/node = SubResource( 26 )
 states/take_hit/position = Vector2( -284, 182.555 )
 states/walk/node = SubResource( 6 )
 states/walk/position = Vector2( 499, 89.5555 )
-transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ), "attack", "take_hit", SubResource( 27 ), "take_hit", "idle", SubResource( 28 ), "walk", "death", SubResource( 33 ), "idle", "death", SubResource( 34 ), "attack", "death", SubResource( 35 ), "take_hit", "death", SubResource( 36 ), "idle", "take_hit", SubResource( 40 ), "take_hit", "walk", SubResource( 41 ), "walk", "take_hit", SubResource( 42 ), "take_hit", "attack", SubResource( 43 ), "walk", "jump", SubResource( 48 ), "jump", "walk", SubResource( 49 ), "jump", "idle", SubResource( 50 ), "idle", "jump", SubResource( 51 ), "take_hit", "jump", SubResource( 52 ), "jump", "take_hit", SubResource( 53 ), "idle", "fall", SubResource( 54 ), "walk", "fall", SubResource( 55 ), "fall", "idle", SubResource( 56 ), "fall", "walk", SubResource( 57 ), "jump", "fall", SubResource( 58 ), "fall", "take_hit", SubResource( 59 ), "take_hit", "fall", SubResource( 60 ), "fall", "death", SubResource( 61 ), "jump", "death", SubResource( 62 ) ]
-graph_offset = Vector2( -389.74, 90.864 )
+transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ), "attack", "take_hit", SubResource( 27 ), "take_hit", "idle", SubResource( 28 ), "walk", "death", SubResource( 33 ), "idle", "death", SubResource( 34 ), "attack", "death", SubResource( 35 ), "take_hit", "death", SubResource( 36 ), "idle", "take_hit", SubResource( 40 ), "take_hit", "walk", SubResource( 41 ), "walk", "take_hit", SubResource( 42 ), "take_hit", "attack", SubResource( 43 ), "walk", "jump", SubResource( 48 ), "jump", "walk", SubResource( 49 ), "jump", "idle", SubResource( 50 ), "idle", "jump", SubResource( 51 ), "take_hit", "jump", SubResource( 52 ), "jump", "take_hit", SubResource( 53 ), "idle", "fall", SubResource( 54 ), "walk", "fall", SubResource( 55 ), "fall", "idle", SubResource( 56 ), "fall", "walk", SubResource( 57 ), "jump", "fall", SubResource( 58 ), "fall", "take_hit", SubResource( 59 ), "take_hit", "fall", SubResource( 60 ), "fall", "death", SubResource( 61 ), "jump", "death", SubResource( 62 ), "distanceattack", "take_hit", SubResource( 67 ), "take_hit", "distanceattack", SubResource( 68 ), "distanceattack", "attack", SubResource( 69 ), "attack", "distanceattack", SubResource( 70 ), "distanceattack", "walk", SubResource( 71 ), "distanceattack", "idle", SubResource( 72 ), "idle", "distanceattack", SubResource( 73 ), "walk", "distanceattack", SubResource( 74 ), "distanceattack", "death", SubResource( 75 ) ]
+graph_offset = Vector2( -139.74, 175.864 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
 [sub_resource type="RectangleShape2D" id=38]
-extents = Vector2( 299.5, 59 )
+extents = Vector2( 465, 155.5 )
 
 [sub_resource type="CapsuleShape2D" id=65]
 radius = 30.8457
@@ -688,8 +744,11 @@ collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 17 )
+position = Vector2( 0, 16 )
 shape = SubResource( 63 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
@@ -721,15 +780,15 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/detectingArea"]
-position = Vector2( 174.5, 2 )
+position = Vector2( 340, 1.5 )
 shape = SubResource( 38 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Sprite" type="Sprite" parent="pivote"]
-texture = ExtResource( 1 )
-hframes = 23
+texture = ExtResource( 8 )
+hframes = 8
 __meta__ = {
 "_edit_lock_": true
 }
@@ -755,12 +814,12 @@ rotation = 0.710349
 shape = SubResource( 65 )
 
 [node name="RayCastWall" type="RayCast2D" parent="pivote"]
-position = Vector2( 6, 0 )
+position = Vector2( 9, -3 )
 enabled = true
 cast_to = Vector2( 10, 0 )
 
 [node name="RayCastFloor" type="RayCast2D" parent="pivote"]
-position = Vector2( 9, -42.5 )
+position = Vector2( 7, -40 )
 enabled = true
 cast_to = Vector2( 10, 0 )
 
@@ -779,6 +838,17 @@ __meta__ = {
 position = Vector2( 72, -5 )
 shape = SubResource( 39 )
 
+[node name="spawnpoint" type="Position2D" parent="pivote"]
+position = Vector2( 76, -42 )
+
+[node name="view" type="RayCast2D" parent="pivote"]
+position = Vector2( 76, -42 )
+enabled = true
+
+[node name="shootCooldown" type="Timer" parent="."]
+wait_time = 2.8
+
 [connection signal="body_entered" from="pivote/detectingArea" to="." method="_on_detectingArea_body_entered"]
 [connection signal="body_entered" from="pivote/DoDamage" to="." method="_on_DoDamage_body_entered"]
 [connection signal="body_entered" from="pivote/detectMelee" to="." method="_on_detectMelee_body_entered"]
+[connection signal="timeout" from="shootCooldown" to="." method="_on_shootCooldown_timeout"]
