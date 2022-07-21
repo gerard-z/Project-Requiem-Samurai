@@ -202,7 +202,7 @@ scale = Vector2( -1, 1 )
 z_index = 19
 
 [node name="Fire11" parent="Deco/Fuego/Hoyo 02" instance=ExtResource( 15 )]
-position = Vector2( 2154, 98 )
+position = Vector2( 4326, 162 )
 scale = Vector2( -1, 1 )
 z_index = 19
 

@@ -7,6 +7,7 @@ export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
 export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3 #no está en la versión development
 export var rebote = 1000
+export(NodePath) var spawPointFinal = null
 var GRAVITY=gravity_effect
 
 var dirTraz = Vector2(0,0)
@@ -102,6 +103,9 @@ func _ready(): # cuando inicia el juego
 	playback.start("idle")
 	
 	meleArea.connect("body_entered", self, "_on_body_entered")
+	if Global.spawnFinal:
+		spawPointFinal = get_node(spawPointFinal)
+		global_position = spawPointFinal.global_position
 
 
 

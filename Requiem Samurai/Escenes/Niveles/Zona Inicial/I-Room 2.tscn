@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/Cuadrados/DeepCave.tres" type="TileSet" id=2]
@@ -6,12 +6,27 @@
 [ext_resource path="res://assets/Fosa/prllx/red_L1.png" type="Texture" id=4]
 [ext_resource path="res://assets/Fosa/prllx/red_L3.png" type="Texture" id=5]
 [ext_resource path="res://assets/Fosa/prllx/red_L4.png" type="Texture" id=6]
+[ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
 
+[node name="spawnpoint" parent="." instance=ExtResource( 7 )]
+position = Vector2( 53, -1121 )
+
+[node name="toT1" parent="." instance=ExtResource( 8 )]
+position = Vector2( 40, -1673 )
+escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Room 3.tscn"
+
+[node name="toT2" parent="." instance=ExtResource( 8 )]
+position = Vector2( -1074, 27 )
+escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Room 1.tscn"
+toEnd = true
+
 [node name="Samurai" parent="." instance=ExtResource( 1 )]
-position = Vector2( 41, -1151 )
+position = Vector2( -821, 96 )
 z_index = 19
+spawPointFinal = NodePath("../spawnpoint")
 
 [node name="tilemaps" type="Position2D" parent="."]
 z_index = 20

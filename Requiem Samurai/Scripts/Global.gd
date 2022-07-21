@@ -1,6 +1,7 @@
 extends Node
 
-
+#spawn
+var spawnFinal = false
 
 var dir = 1
 
