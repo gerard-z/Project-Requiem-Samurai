@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/Cuadrados/StoneTowerBackGround{.tres" type="TileSet" id=3]
 [ext_resource path="res://assets/map/Cuadrados/BasicGreen.png" type="Texture" id=4]
+[ext_resource path="res://Escenes/Bosses/Tierra.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -86,6 +87,7 @@ position = Vector2( -280, -135 )
 z_index = 19
 
 [node name="tilemaps" type="Position2D" parent="."]
+modulate = Color( 0.568627, 0.517647, 0.517647, 1 )
 z_index = 20
 
 [node name="TileMap2" type="TileMap" parent="tilemaps" groups=["agarrables"]]
@@ -111,4 +113,6 @@ z_as_relative = false
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -196624, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 0, 0, -196620, 0, 0, -196619, 0, 0, -131088, 0, 0, -131087, 0, 0, -131086, 0, 0, -131085, 0, 0, -131084, 0, 0, -131083, 0, 0, -65552, 0, 0, -65551, 0, 0, -65550, 0, 0, -65549, 0, 0, -65548, 0, 0, -65547, 0, 0 )
+tile_data = PoolIntArray( -196626, 0, 0, -196625, 0, 0, -196624, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 0, 0, -196620, 0, 0, -196619, 0, 0, -196618, 0, 0, -196617, 0, 0, -131090, 0, 0, -131089, 0, 0, -131088, 0, 0, -131087, 0, 0, -131086, 0, 0, -131085, 0, 0, -131084, 0, 0, -131083, 0, 0, -131082, 0, 0, -131081, 0, 0, -65554, 0, 0, -65553, 0, 0, -65552, 0, 0, -65551, 0, 0, -65550, 0, 0, -65549, 0, 0, -65548, 0, 0, -65547, 0, 0, -65546, 0, 0, -65545, 0, 0, -10, 0, 0 )
+
+[node name="Tierra" parent="." instance=ExtResource( 5 )]
