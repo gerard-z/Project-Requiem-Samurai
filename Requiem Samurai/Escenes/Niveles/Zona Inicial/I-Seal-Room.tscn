@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/Cuadrados/DarkDungeon.tres" type="TileSet" id=2]
 [ext_resource path="res://resources/Cuadrados/WaterTower.tres" type="TileSet" id=3]
+[ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=4]
 
 [node name="Node2D" type="Node2D"]
 
@@ -28,3 +29,10 @@ cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
 format = 1
 tile_data = PoolIntArray( -720907, 3, 0, -655371, 2, 0, -655370, 6, 0, -655369, 3, 0, -589835, 3, 0, -589834, 3, 0, -589833, 4, 0, -589832, 3, 0, -327691, 6, 0, -327690, 3, 0, -327689, 3, 0, -327688, 6, 0, -262155, 3, 0, -262154, 0, 0, -262153, 6, 0 )
+
+[node name="TileMap2" type="TileMap" parent="tilemaps" groups=["agarrables"]]
+scale = Vector2( 4, 4 )
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -393195, 2, 0, -393194, 0, 0, -393193, 2, 0, -327660, 0, 0, -327659, 0, 0, -327658, 3, 0, -327657, 0, 0, -262124, 4, 0, -262123, 0, 0, -262122, 0, 0, -262121, 0, 0, 20, 0, 0, 21, 1, 0, 22, 0, 0, 23, 0, 0, 65557, 2, 0, 65558, 0, 0, 65559, 3, 0, 589902, 0, 0 )
