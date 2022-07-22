@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Fall.png-0df20b03b79ebb79f9023a859698f629.stex"
+path="res://.import/fall.png-caf31072e45e14cb9576a0e1795e96e5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/bandido/Fall.png"
-dest_files=[ "res://.import/Fall.png-0df20b03b79ebb79f9023a859698f629.stex" ]
+source_file="res://assets/Enemies/bandido/fall.png"
+dest_files=[ "res://.import/fall.png-caf31072e45e14cb9576a0e1795e96e5.stex" ]
 
 [params]
 

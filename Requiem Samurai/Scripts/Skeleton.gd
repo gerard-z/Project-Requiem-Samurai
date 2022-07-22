@@ -29,12 +29,32 @@ export var attacking = false
 export var canmove = true
 export var shilding = false
 
+
+
 func _ready():
 	anim_tree.active = true
 	playback.start("idle")
 
-	
+#se agrega esto para el stun
+var stuneado = 0 #stun
+var stuneadot1= 0
+var stuneadot2= 0
+
 func _physics_process(delta):
+	#stun
+	if stuneado==2:
+		stuneadot1=Global.fpscount
+		stuneadot2=Global.fpscount
+		stuneado=1
+		
+	if stuneado==1: 
+		print("stuneado")
+		playback.start("idle")
+		stuneadot2=Global.fpscount
+		if stuneadot2-stuneadot1>=50*3:
+			stuneado=0
+		return 1 
+	
 	if health <= 0:
 		death()
 	else:

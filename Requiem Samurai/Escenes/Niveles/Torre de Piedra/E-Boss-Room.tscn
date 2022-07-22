@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/map/Cuadrados/BasicGreen.png" type="Texture" id=4]
 [ext_resource path="res://Escenes/Bosses/Tierra.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -81,6 +83,12 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 2/z_index = 0
 
+[sub_resource type="CanvasItemMaterial" id=10]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=11]
+colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
+
 [sub_resource type="Environment" id=9]
 background_mode = 4
 glow_enabled = true
@@ -95,17 +103,12 @@ adjustment_enabled = true
 adjustment_contrast = 1.08
 adjustment_saturation = 1.07
 
-[sub_resource type="CanvasItemMaterial" id=10]
-blend_mode = 1
-
-[sub_resource type="Gradient" id=11]
-colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
-
 [node name="Node2D" type="Node2D"]
 
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
-position = Vector2( -280, -135 )
+position = Vector2( 225, -102 )
 z_index = 19
+spawPointFinal = NodePath("../spawnpoint")
 
 [node name="tilemaps" type="Position2D" parent="."]
 modulate = Color( 0.568627, 0.517647, 0.517647, 1 )
@@ -137,9 +140,8 @@ format = 1
 tile_data = PoolIntArray( -196624, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 0, 0, -196620, 0, 0, -196619, 0, 0, -131088, 0, 0, -131087, 0, 0, -131086, 0, 0, -131085, 0, 0, -131084, 0, 0, -131083, 0, 0, -65552, 0, 0, -65551, 0, 0, -65550, 0, 0, -65549, 0, 0, -65548, 0, 0, -65547, 0, 0, -10, 0, 0 )
 
 [node name="Tierra" parent="." instance=ExtResource( 5 )]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 9 )
+position = Vector2( -849, -68 )
+scale = Vector2( 2, 2 )
 
 [node name="Traza" parent="." instance=ExtResource( 6 )]
 modulate = Color( 3, 3, 3, 1 )
@@ -156,3 +158,14 @@ end_cap_mode = 2
 targetPath = NodePath("../Samurai")
 trailLenght = 10
 Grid = 40
+
+[node name="toT1" parent="." instance=ExtResource( 8 )]
+position = Vector2( 476, -159 )
+escena_objetivo = "res://Escenes/Niveles/Torre de Piedra/E-Safe-Room.tscn"
+toEnd = true
+
+[node name="spawnpoint" parent="." instance=ExtResource( 7 )]
+position = Vector2( 226, -103 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 9 )

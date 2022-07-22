@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/map/Cuadrados/BasicGreen.png" type="Texture" id=3]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -102,8 +104,9 @@ colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
 [node name="Node2D" type="Node2D"]
 
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
-position = Vector2( -280, -135 )
+position = Vector2( 863, -501 )
 z_index = 19
+spawPointFinal = NodePath("../spawnpoint")
 
 [node name="tilemaps" type="Position2D" parent="."]
 z_index = 20
@@ -141,3 +144,15 @@ end_cap_mode = 2
 targetPath = NodePath("../Samurai")
 trailLenght = 10
 Grid = 40
+
+[node name="toT1" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1063, -169 )
+escena_objetivo = "res://Escenes/Niveles/Torre de Piedra/E-Room-2.tscn"
+toEnd = true
+
+[node name="toT2" parent="." instance=ExtResource( 6 )]
+position = Vector2( -665, -552 )
+escena_objetivo = "res://Escenes/Niveles/Torre de Piedra/E-Boss-Room.tscn"
+
+[node name="spawnpoint" parent="." instance=ExtResource( 5 )]
+position = Vector2( -484, -508 )

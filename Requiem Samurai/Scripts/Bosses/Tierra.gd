@@ -12,7 +12,7 @@ onready var attack2 = $pivote/attackFig
 onready var pivote = $pivote
 onready var sprite = $pivote/Sprite
 
-onready var soulPOS = $Orb
+onready var soulPOS = $pivote/Orb
 
 var soul = preload("res://Escenes/Efectos/OrbeDemonio.tscn")
 
@@ -44,10 +44,11 @@ var attack = 0
 func _ready():
 	detArea.connect("body_entered", self, "_on_body_entered")
 	attack1.connect("body_entered", self, "_on_body_attacked")
+	attack2.connect("body_entered", self, "_on_body_attackedF")
 	
 	anim_tree.active = true
 	playback.start("idle")
-	pivote.scale.x = -1
+	#pivote.scale.x = -1
 
 func _physics_process(delta):
 	if health <= 0:
@@ -65,7 +66,7 @@ func _physics_process(delta):
 			var distance = _target.global_position - global_position
 			if move:
 				#if int(abs(distance.x)) > dist:
-				move_input = (distance).normalized().x*2
+				move_input = (distance).normalized().x*3
 				#else:
 				#	move_input = 0
 			
@@ -80,16 +81,25 @@ func _physics_process(delta):
 			
 			if is_on_floor():
 				if int(abs(distance.x)) <= dist:
-					attack(attack) 
+					attack() 
+					
+				elif abs(velocity.x) > 10:
+					playback.travel("run") 
 
 
-func attack(i):
-	if i < 2:
+func attack():
+	if attack < 2:
+		move = false
 		playback.travel("attack")
-		i += 1
+		yield(get_tree().create_timer(2.0), "timeout")		
+		move = true
+		attack += 1
 	else:
+		move = false
 		playback.travel("attack fig")
-		i = 0
+		yield(get_tree().create_timer(2.0), "timeout")		
+		move = true
+		attack = 0
 		#yield(get_tree().create_timer(3.0), "timeout")
 			
 
@@ -133,8 +143,12 @@ func death():
 func _on_body_entered(body : Node):
 	_target = body
 
-# daño por espada
+# daño por combos
 func _on_body_attacked(body : Node):
+	if body.has_method("take_damage"):
+		body.take_damage(10,self)
+
+func _on_body_attackedF(body : Node):
 	if body.has_method("take_damage"):
 		body.take_damage(20,self)
 

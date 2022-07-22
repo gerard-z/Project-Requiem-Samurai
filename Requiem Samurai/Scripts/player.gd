@@ -610,6 +610,10 @@ func _on_body_entered(body: Node2D):
 		
 	body.take_damage(dmg)
 	
+	if Global.elementalsword==3:
+		
+		body.stuneado=2
+	
 	if Global.elementalsword==2:
 		self.take_damage(-20)
 

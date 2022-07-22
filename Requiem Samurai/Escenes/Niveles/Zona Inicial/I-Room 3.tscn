@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/Fosa/prllx/red_L4.png" type="Texture" id=7]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Escenes/enemigos/wizzard.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -36,6 +36,7 @@ colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1325, -34 )
 z_index = 19
+spawPointFinal = NodePath("../spawnpoint")
 
 [node name="tilemaps" type="Position2D" parent="."]
 z_index = 20
@@ -209,5 +210,10 @@ position = Vector2( 1501, 210 )
 escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Room 2.tscn"
 toEnd = true
 
-[node name="wizzard" parent="." instance=ExtResource( 10 )]
-position = Vector2( 508, -115 )
+[node name="toT2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1888, -1937 )
+escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Room 4.tscn"
+toEnd = true
+
+[node name="spawnpoint" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1881, -1705 )
