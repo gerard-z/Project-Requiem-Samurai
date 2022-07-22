@@ -99,7 +99,8 @@ var agarre=0
 
 var fire = false
 	
-	
+#pa q no explote en locura saltando
+var usoelmarcarpuntos = 0
 	
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
@@ -221,10 +222,17 @@ func _physics_process(delta): # por frame
 
 
 		####################################################################################################
+			
+			if Global.conteopuntos>4:
+				usoelmarcarpuntos=1
+			if Global.conteopuntos<=4 and is_on_floor():
+				usoelmarcarpuntos=0
 
+			
 			# NEW TRAZADO
-			if Global.seactivaeltrazado:
+			if Global.seactivaeltrazado and usoelmarcarpuntos!=1:
 				#var move = Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_down")
+				
 				
 				if Input.is_action_just_pressed("vertice"):
 					dirTraz = Vector2(0,0)
@@ -233,6 +241,7 @@ func _physics_process(delta): # por frame
 					flecha.position.x = 0
 					flecha.position.y = 41
 					flecha.rotation_degrees = 90
+				
 				
 				
 				if Input.is_action_pressed("vertice") and traz:
@@ -279,7 +288,7 @@ func _physics_process(delta): # por frame
 						flecha.position.y = 41
 						flecha.rotation_degrees = 90
 					
-					if dt>1:				
+					if dt>0.92:				
 						#direccion
 						timeTrz0 = Global.fpscount						
 						dirTraz = dirTraz.normalized()
@@ -478,11 +487,11 @@ func double_jump(move_input):
 func en_dashTR(d, dt):
 	#en el dash
 	#velocity.y = 0
-	if dt < 15:
-		velocity= 1000 *d #dash
+	if dt < 12:
+		velocity= dash *d *0.65 #dash
 		playback.travel("dash")
 	#luego de terminarlo
-	if dt < 15 and 9 < dt:
+	if dt < 12 and 8 < dt:
 		playback.travel("dash")
 		velocity /= 2
 

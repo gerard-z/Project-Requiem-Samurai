@@ -31,8 +31,12 @@ var time2delet = 0
 func _ready():
 	target = get_node(targetPath)		# carga nodo samurai, posicion
 	clear_points()
-	
+
+
+
 func _process(delta):
+	
+	
 	global_position = Vector2(0,0)		
 	global_rotation = 0
 	figure = 0
@@ -81,7 +85,7 @@ func _process(delta):
 	
 	time2delet=Global.fpscount
 
-	
+	Global.conteopuntos=get_point_count()
 
 	if get_point_count()>0 and time2delet-time1delet>60*5:
 		time1delet=Global.fpscount

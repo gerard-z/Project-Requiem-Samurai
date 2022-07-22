@@ -38,6 +38,9 @@ var time2s =1
 var daishi =1
 
 
+var conteopuntos=0
+
+
 var fpscount = 0
 
 var seactivaeltrazado=false
