@@ -11,7 +11,7 @@
 [ext_resource path="res://Escenes/trail.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/Samurai/ataque/ataque sin fuego.png" type="Texture" id=10]
 [ext_resource path="res://assets/Samurai/ataque/aire.png" type="Texture" id=11]
-[ext_resource path="res://Escenes/pauseMenu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Escenes/menus/pauseMenu.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/Samurai/Death.png" type="Texture" id=13]
 [ext_resource path="res://assets/Samurai/ataque/espadas.png" type="Texture" id=14]
 [ext_resource path="res://assets/Samurai/arrow/1_0.png" type="Texture" id=15]
@@ -2499,7 +2499,7 @@ bg_color = Color( 0.792157, 0.827451, 0.0862745, 1 )
 [sub_resource type="StyleBoxFlat" id=66]
 bg_color = Color( 0.435294, 0.435294, 0.156863, 1 )
 
-[node name="Samuria" type="KinematicBody2D"]
+[node name="Samuria" type="KinematicBody2D" groups=["player"]]
 position = Vector2( 0, -27 )
 collision_layer = 18
 collision_mask = 7

@@ -1,6 +1,6 @@
 extends Control
 
-
+onready var continueBoton = $VBoxContainer/Continue
 onready var play = $VBoxContainer/Play
 onready var options = $VBoxContainer/Options
 onready var exit = $VBoxContainer/Exit
@@ -14,11 +14,14 @@ func _ready():
 	anim_tree.active = true
 	playback.start("fondo")
 	
+	continueBoton.connect("pressed", self, "_on_continue_pressed")
 	play.connect("pressed", self, "_on_play_pressed")
 	options.connect("pressed", self, "_on_options_pressed")
 	exit.connect("pressed", self, "_on_exit_pressed")
 	creditos.connect("pressed", self, "_on_credits_pressed")
 	play.grab_focus()
+	var file = File.new()
+	continueBoton.disabled = not file.file_exists("user://save.json")
 	
 func _on_play_pressed():
 	get_tree().change_scene("res://Escenes/Intro.tscn")
@@ -35,3 +38,5 @@ func _on_options_pressed():
 func _on_credits_pressed():
 	get_tree().change_scene("res://Escenes/Niveles/Creditos.tscn")
 	
+func _on_continue_pressed():
+	Global.load_game()

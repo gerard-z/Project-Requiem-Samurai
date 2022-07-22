@@ -45,7 +45,6 @@ var fix_atq_pyro = 1
 
 var golpefps = 100
 
-
 #vida
 var health setget _set_health
 var max_health= 100
@@ -54,19 +53,17 @@ onready var progress_bar = $CanvasLayer/ProgressBar
 
 
 #stamina
-var stamina = 100 setget _set_stamina
+var stamina setget _set_stamina
 var max_stamina= 100
 onready var progress_bar2 = $CanvasLayer/ProgressBar2
 
-
 #CD for the regenerations of HP and Stamina 
 #stamina
-var time1 = 0
-var time2 = 0
+var time1
+var time2
 #hp
-var time1h = 0
-var time2h = 0
-
+var time1h
+var time2h
 
 ####################################################################################################
 # TRAZADO
@@ -105,7 +102,14 @@ var usoelmarcarpuntos = 0
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
-	health = Global.health
+	_set_health(Global.health)
+	_set_stamina(Global.stamina)
+	
+	time1 = Global.fpscount
+	time2 = Global.fpscount
+
+	time1h = Global.fpscount
+	time2h = Global.fpscount
 	
 	meleArea.connect("body_entered", self, "_on_body_entered")
 	if Global.spawnFinal:
@@ -590,6 +594,7 @@ func _set_stamina(value):
 
 func take_stamina(value):
 	self.stamina -= value
+	Global.stamina = self.stamina
 
 
 
@@ -601,6 +606,7 @@ func take_damage(value,body=null):
 	
 	self.health -= value
 	time1h = Global.fpscount
+	Global.health = health
 
 	#para simular un golpe
 	if value>0 and health > 0:

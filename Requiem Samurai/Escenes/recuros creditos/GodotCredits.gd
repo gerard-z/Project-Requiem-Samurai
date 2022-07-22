@@ -128,3 +128,7 @@ func _unhandled_input(event):
 		speed_up = true
 	if event.is_action_released("ui_down") and !event.is_echo():
 		speed_up = false
+
+func _input(event):
+	if event.is_action_pressed("Pause") and not event.is_echo():
+		get_tree().change_scene("res://Escenes/menus/MainMenu.tscn")

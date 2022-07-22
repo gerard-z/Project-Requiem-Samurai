@@ -19,6 +19,7 @@ var figure = 0
 var type_figure = 0 #subvariante de la figura
 var area = 0
 var health = 100
+var stamina = 100
 
 var lvlskill = 4 #habilidades desbloqueadas
 
@@ -140,3 +141,22 @@ func daishi_sword():
 	
 	if time_elapseds >= 60*3:
 		daishi=1
+
+func save_game(ruta):
+	var file = File.new()
+	file.open("user://save.json", File.WRITE)
+	file.store_string(ruta)
+	file.close()
+	
+func load_game():
+	var saveSpawnfinal = Global.spawnFinal
+	Global.spawnFinal = false
+	var file = File.new()
+	if not file.file_exists("user://save.json"):
+		return
+	file.open("user://save.json", File.READ)
+	var ruta = file.get_as_text()
+	file.close()
+	get_tree().change_scene(ruta)
+	yield(get_tree().create_timer(0.5),"timeout")
+	Global.spawnFinal = saveSpawnfinal
