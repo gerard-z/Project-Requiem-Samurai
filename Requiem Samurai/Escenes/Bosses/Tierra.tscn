@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/Bosses/tierra.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Bosses/Tierra.gd" type="Script" id=2]
@@ -330,6 +330,9 @@ animation = "death"
 [sub_resource type="AnimationNodeAnimation" id=17]
 animation = "fall"
 
+[sub_resource type="AnimationNodeAnimation" id=36]
+animation = "hit"
+
 [sub_resource type="AnimationNodeAnimation" id=18]
 animation = "idle"
 
@@ -367,6 +370,12 @@ auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=35]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+
 [sub_resource type="AnimationNodeStateMachine" id=3]
 states/attack/node = SubResource( 14 )
 states/attack/position = Vector2( 280.333, 65.6667 )
@@ -378,16 +387,18 @@ states/death/node = SubResource( 16 )
 states/death/position = Vector2( 564.063, 296.333 )
 states/fall/node = SubResource( 17 )
 states/fall/position = Vector2( 765.123, 223 )
+states/hit/node = SubResource( 36 )
+states/hit/position = Vector2( 291.798, 338.93 )
 states/idle/node = SubResource( 18 )
 states/idle/position = Vector2( 563.444, 171 )
 states/jump/node = SubResource( 19 )
 states/jump/position = Vector2( 764.333, 97.6667 )
 states/run/node = SubResource( 20 )
-states/run/position = Vector2( 291, 267.148 )
-transitions = [ "idle", "run", SubResource( 21 ), "run", "idle", SubResource( 22 ), "idle", "jump", SubResource( 23 ), "jump", "fall", SubResource( 24 ), "fall", "idle", SubResource( 25 ), "idle", "attack", SubResource( 26 ), "idle", "death", SubResource( 27 ), "death", "dead", SubResource( 28 ), "attack", "idle", SubResource( 29 ), "attack fig", "idle", SubResource( 34 ), "idle", "attack fig", SubResource( 35 ) ]
+states/run/position = Vector2( 212.333, 184.481 )
+transitions = [ "idle", "run", SubResource( 21 ), "run", "idle", SubResource( 22 ), "idle", "jump", SubResource( 23 ), "jump", "fall", SubResource( 24 ), "fall", "idle", SubResource( 25 ), "idle", "attack", SubResource( 26 ), "idle", "death", SubResource( 27 ), "death", "dead", SubResource( 28 ), "attack", "idle", SubResource( 29 ), "attack fig", "idle", SubResource( 34 ), "idle", "attack fig", SubResource( 35 ), "hit", "idle", SubResource( 37 ), "idle", "hit", SubResource( 38 ) ]
 start_node = "idle"
 end_node = "dead"
-graph_offset = Vector2( -88.535, 0 )
+graph_offset = Vector2( -88.535, 38.5963 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=4]
 

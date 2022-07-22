@@ -66,7 +66,7 @@ func _physics_process(delta):
 			var distance = _target.global_position - global_position
 			if move:
 				#if int(abs(distance.x)) > dist:
-				move_input = (distance).normalized().x*2
+				move_input = (distance).normalized().x*3
 				#else:
 				#	move_input = 0
 			
@@ -82,6 +82,9 @@ func _physics_process(delta):
 			if is_on_floor():
 				if int(abs(distance.x)) <= dist:
 					attack() 
+					
+				elif abs(velocity.x) > 10:
+					playback.travel("run") 
 
 
 func attack():
