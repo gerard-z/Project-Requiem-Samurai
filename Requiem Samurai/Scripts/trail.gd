@@ -7,6 +7,7 @@ var error = 1
 
 func _ready():
 	set_as_toplevel(true)
+	clear_points()
 
 
 func _physics_process(delta):

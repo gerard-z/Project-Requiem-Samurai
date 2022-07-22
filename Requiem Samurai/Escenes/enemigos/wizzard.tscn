@@ -728,7 +728,7 @@ graph_offset = Vector2( -139.74, 175.864 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
 [sub_resource type="RectangleShape2D" id=38]
-extents = Vector2( 465, 155.5 )
+extents = Vector2( 465, 541 )
 
 [sub_resource type="CapsuleShape2D" id=65]
 radius = 30.8457
@@ -774,17 +774,10 @@ __meta__ = {
 [node name="detectingArea" type="Area2D" parent="pivote"]
 collision_layer = 0
 collision_mask = 2
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/detectingArea"]
-position = Vector2( 340, 1.5 )
+position = Vector2( 340, 5 )
 shape = SubResource( 38 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Sprite" type="Sprite" parent="pivote"]
 texture = ExtResource( 8 )

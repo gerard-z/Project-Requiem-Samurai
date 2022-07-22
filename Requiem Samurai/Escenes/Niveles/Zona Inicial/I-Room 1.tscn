@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/Cuadrados/DeepCave.tres" type="TileSet" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Escenes/enemigos/Skeleton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Escenes/enemigos/batiojo.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -200,3 +202,12 @@ escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Room 2.tscn"
 
 [node name="spawnpoint" parent="." instance=ExtResource( 8 )]
 position = Vector2( 805, -35 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 10 )]
+position = Vector2( -658, 198 )
+
+[node name="Skeleton2" parent="." instance=ExtResource( 10 )]
+position = Vector2( -2047, -640 )
+
+[node name="batiojo" parent="." instance=ExtResource( 11 )]
+position = Vector2( -1736, -1065 )

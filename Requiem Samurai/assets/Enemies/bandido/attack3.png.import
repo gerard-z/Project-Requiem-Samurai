@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/attack3.png-e8ddb0a4175522c0b6d4816b095a267f.stex"
+path="res://.import/Attack3.png-94f202f47bf3da2ee23b9c51225dda2f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Enemies/bandido/attack3.png"
-dest_files=[ "res://.import/attack3.png-e8ddb0a4175522c0b6d4816b095a267f.stex" ]
+source_file="res://assets/Enemies/bandido/Attack3.png"
+dest_files=[ "res://.import/Attack3.png-94f202f47bf3da2ee23b9c51225dda2f.stex" ]
 
 [params]
 

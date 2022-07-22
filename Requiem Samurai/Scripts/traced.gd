@@ -30,6 +30,7 @@ var time2delet = 0
 
 func _ready():
 	target = get_node(targetPath)		# carga nodo samurai, posicion
+	clear_points()
 	
 func _process(delta):
 	global_position = Vector2(0,0)		

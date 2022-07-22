@@ -261,3 +261,4 @@ environment = SubResource( 11 )
 position = Vector2( 3168, 128 )
 
 [node name="toT1" parent="Door" instance=ExtResource( 11 )]
+escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Room 1.tscn"
