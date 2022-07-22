@@ -392,6 +392,8 @@ graph_offset = Vector2( -88.535, 0 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=4]
 
 [node name="Tierra" type="KinematicBody2D"]
+collision_layer = 12
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -409,6 +411,8 @@ hframes = 25
 vframes = 14
 
 [node name="attack" type="Area2D" parent="pivote"]
+collision_layer = 0
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/attack"]
 position = Vector2( 20, -29 )
@@ -417,6 +421,8 @@ shape = SubResource( 7 )
 disabled = true
 
 [node name="attackFig" type="Area2D" parent="pivote"]
+collision_layer = 0
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pivote/attackFig"]
 position = Vector2( 83, -14 )

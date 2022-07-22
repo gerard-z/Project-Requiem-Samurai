@@ -12,7 +12,7 @@ onready var attack2 = $pivote/attackFig
 onready var pivote = $pivote
 onready var sprite = $pivote/Sprite
 
-onready var soulPOS = $Orb
+onready var soulPOS = $pivote/Orb
 
 var soul = preload("res://Escenes/Efectos/OrbeDemonio.tscn")
 
@@ -47,7 +47,7 @@ func _ready():
 	
 	anim_tree.active = true
 	playback.start("idle")
-	pivote.scale.x = -1
+	#pivote.scale.x = -1
 
 func _physics_process(delta):
 	if health <= 0:
@@ -80,16 +80,22 @@ func _physics_process(delta):
 			
 			if is_on_floor():
 				if int(abs(distance.x)) <= dist:
-					attack(attack) 
+					attack() 
 
 
-func attack(i):
-	if i < 2:
+func attack():
+	if attack < 2:
+		move = false
 		playback.travel("attack")
-		i += 1
+		yield(get_tree().create_timer(2.0), "timeout")		
+		move = true
+		attack += 1
 	else:
+		move = false
 		playback.travel("attack fig")
-		i = 0
+		yield(get_tree().create_timer(2.0), "timeout")		
+		move = true
+		attack = 0
 		#yield(get_tree().create_timer(3.0), "timeout")
 			
 
@@ -136,7 +142,7 @@ func _on_body_entered(body : Node):
 # daño por espada
 func _on_body_attacked(body : Node):
 	if body.has_method("take_damage"):
-		body.take_damage(20,self)
+		body.take_damage(5,self)
 
 #choque corporal
 func _on_DoDamagePlayer_body_entered(body):
