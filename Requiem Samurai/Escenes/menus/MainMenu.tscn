@@ -192,11 +192,11 @@ margin_right = 294.0
 margin_bottom = 111.0
 text = "Play"
 
-[node name="Options" type="Button" parent="VBoxContainer"]
+[node name="Delete Save" type="Button" parent="VBoxContainer"]
 margin_top = 115.0
 margin_right = 294.0
 margin_bottom = 146.0
-text = "Options"
+text = "Delete Save"
 
 [node name="Creditos" type="Button" parent="VBoxContainer"]
 margin_top = 150.0

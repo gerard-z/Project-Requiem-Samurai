@@ -2,7 +2,7 @@ extends Control
 
 onready var continueBoton = $VBoxContainer/Continue
 onready var play = $VBoxContainer/Play
-onready var options = $VBoxContainer/Options
+onready var options = $"VBoxContainer/Delete Save"
 onready var exit = $VBoxContainer/Exit
 onready var creditos = $VBoxContainer/Creditos
 
@@ -31,9 +31,9 @@ func _on_exit_pressed():
 	get_tree().quit()
 
 func _on_options_pressed():
-	#get_tree().change_scene("res://Escenes/Test Scenes/TEST LVL.tscn")
-	#get_tree().change_scene("res://Escenes/lvl1.tscn")
-	get_tree().change_scene("res://Escenes/Bosses Fight/Water Boss.tscn")
+	var dir = Directory.new()
+	dir.remove("user://save.json")
+	continueBoton.disabled = true
 	
 func _on_credits_pressed():
 	get_tree().change_scene("res://Escenes/Niveles/Creditos.tscn")

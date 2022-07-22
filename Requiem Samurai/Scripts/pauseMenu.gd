@@ -1,14 +1,12 @@
 extends MarginContainer
 
 onready var ResumeButton = $PanelContainer/VBoxContainer/Resume
-onready var OptionsButton = $PanelContainer/VBoxContainer/Options
 onready var MainMenuButton = $PanelContainer/VBoxContainer/MainMenu
 onready var saveGame = $PanelContainer/VBoxContainer/save
 onready var loadGame = $PanelContainer/VBoxContainer/load
 
 func _ready():
 	ResumeButton.connect("pressed", self, "_on_resume_pressed")
-	OptionsButton.connect("pressed", self, "_on_option_pressed")
 	MainMenuButton.connect("pressed", self, "_on_mainmenu_pressed")
 	saveGame.connect("pressed", self, "_on_save_pressed")
 	loadGame.connect("pressed", self, "_on_load_pressed")
@@ -22,10 +20,6 @@ func _input(event):
 func _on_resume_pressed():
 	get_tree().paused = false
 	visible = false
-	
-func _on_option_pressed():
-	pass
-	#get_tree().change_scene("res://Escenes/Test Scenes/TEST LVL.tscn")
 	
 func _on_mainmenu_pressed():
 	get_tree().change_scene("res://Escenes/menus/MainMenu.tscn")
