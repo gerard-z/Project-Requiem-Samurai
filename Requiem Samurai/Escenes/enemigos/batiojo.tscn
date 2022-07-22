@@ -57,7 +57,7 @@ graph_offset = Vector2( 8, 51 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=22]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=27]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("pivote/Sprite:texture")
@@ -168,7 +168,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=28]
 resource_name = "attack"
 length = 0.8
 loop = true
@@ -245,7 +245,7 @@ tracks/5/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=29]
 resource_name = "attack3"
 length = 0.6
 loop = true
@@ -312,7 +312,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=30]
 resource_name = "death"
 tracks/0/type = "value"
 tracks/0/path = NodePath("pivote/Sprite:texture")
@@ -516,7 +516,7 @@ radius = 11.0
 radius = 12.0
 
 [sub_resource type="CircleShape2D" id=24]
-radius = 203.089
+radius = 226.0
 
 [sub_resource type="CircleShape2D" id=26]
 radius = 13.0384
@@ -535,10 +535,10 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 22 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 1 )
-anims/attack = SubResource( 2 )
-anims/attack3 = SubResource( 3 )
-anims/death = SubResource( 4 )
+anims/RESET = SubResource( 27 )
+anims/attack = SubResource( 28 )
+anims/attack3 = SubResource( 29 )
+anims/death = SubResource( 30 )
 anims/idle = SubResource( 5 )
 anims/take_hit = SubResource( 6 )
 
@@ -599,15 +599,9 @@ __meta__ = {
 collision_layer = 0
 collision_mask = 2
 monitorable = false
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detectingArea"]
 shape = SubResource( 24 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="rays" type="Node2D" parent="."]
 __meta__ = {

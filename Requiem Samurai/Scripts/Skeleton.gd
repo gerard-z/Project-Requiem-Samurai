@@ -28,12 +28,16 @@ var moveToRight = true
 export var attacking = false
 export var canmove = true
 export var shilding = false
+export var spawnleft = false
 
 
 
 func _ready():
 	anim_tree.active = true
 	playback.start("idle")
+	if spawnleft == true:
+		pivote.scale.x = -1
+		moveToRight = false
 
 #se agrega esto para el stun
 var stuneado = 0 #stun

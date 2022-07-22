@@ -28,16 +28,7 @@ var credits = [
 		"Gerard Cathalifaud Salazar",
 		"Hugo Cortés Abarca",
 		"Matías Mancilla Lizana",
-		"Felipe Olivares E"
-	],[
-		"Art",
-		"Matías Mancilla L"
-	],[
-		"Music",
-		"Matías Mancilla L"
-	],[
-		"Sound Effects",
-		"---"
+		"Felipe Olivares Echeverría"
 	],[
 		"Assets",
 		"Bosses",

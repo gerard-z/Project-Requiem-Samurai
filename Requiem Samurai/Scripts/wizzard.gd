@@ -38,9 +38,12 @@ export var shilding = false
 var COOLDOWN = false
 export var spawnleft = false
 
+export var timeCooldown = 2.8
+
 func _ready():
 	anim_tree.active = true
 	playback.start("idle")
+	timer.wait_time = timeCooldown
 	if spawnleft == true:
 		pivote.scale.x = -1
 		moveToRight = false
