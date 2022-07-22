@@ -7,23 +7,20 @@ onready var anim_tree = $AnimationTree
 onready var playback = anim_tree.get("parameters/playback")
 
 onready var detArea = $pivote/DetectionArea
-onready var Sword = $pivote/sword
+onready var attack = $pivote/attack
 onready var pivote = $pivote
 onready var sprite = $pivote/Sprite
-onready var posPoint = $pivote/pium
 
-onready var soulPOS = $Orb
+onready var soulPOS = $pivote/Orb
 
-var blast = preload("res://Escenes/Efectos/waterblast.tscn")
 var soul = preload("res://Escenes/Efectos/OrbeDemonio.tscn")
 
-var GRAVITY = 400
-export var gravity_effect = 1000
 var ACCELERATION = 200
-var SPEED = 100
+var SPEED = 500
+var GRAVITY = 400
 
 var hit = false
-var dist = 80
+
 
 #ataque de samurai
 var dmg =  10
@@ -36,101 +33,93 @@ var velocity = Vector2()
 
 var _target: Node2D = null
 
-var pium = false
 var move = true
-var canAttack = true
 
 var muere = 0
 
+var ataque = 0
+
+var move_input = 0
+
 func _ready():
 	detArea.connect("body_entered", self, "_on_body_entered")
-	Sword.connect("body_entered", self, "_on_body_attacked")
+	attack.connect("body_entered", self, "_on_body_attacked")
 	
 	anim_tree.active = true
 	playback.start("idle")
+	
 	pivote.scale.x = -1
 
 func _physics_process(delta):
 	if health <= 0:
 		muere += 1
+		velocity.y += GRAVITY * delta
 		death()
+		
 	
 	else:
-		GRAVITY = gravity_effect*Global.gravitychange
 		move_and_slide(velocity, Vector2.UP*Global.gravitychange)
-		velocity.y += GRAVITY * delta
 		
-		var move_input = 0
 
 		if _target != null:
 			var distance = _target.global_position - global_position
+			var dist = 300
+			
 			if move:
-				if int(abs(distance.x)) > dist*2:
-					if not pium and int(abs(distance.x)) > dist*4:
-						move_input = 0
-					else:
-						move_input = (distance).normalized().x * 2
+				#límite exterior
+				if int(abs(distance.x)) > dist or is_on_wall():
+					move_input = (distance).normalized().x 
 				
-				elif int(abs(distance.x)) > dist and int(abs(distance.x)) <= dist*2:
-					move_input = (distance).normalized().x
-				
-				#if playback.get_current_node() == "supersoaker":
-				#	move_input = 0
+				if int(abs(distance.x)) == 0:
+					move_input = -1
+
+				# mov horizontal
+				velocity.x = move_toward(velocity.x, move_input*SPEED, ACCELERATION)
+				velocity.y = -velocity.x/2
 					
-				else:
-					move_input = 0
+			else:
+				velocity.x = 0
+				velocity.y = 0
+			
 			if distance.x > 0:
-				pivote.scale.x = 1
-			elif distance.x < 0:
 				pivote.scale.x = -1
+			elif distance.x < 0:
+				pivote.scale.x = 1
 				
-			# mov horizontal
-			velocity.x = move_toward(velocity.x, move_input*SPEED, ACCELERATION)
+			
 			
 			if is_on_floor():
 				if abs(velocity.x) == 0 and int(abs(distance.x)) > dist:
-					if not pium: 
-						wBlast()
-				
-				elif abs(velocity.x) > 190:
-					playback.travel("surf") 
+					pass
 				
 				elif int(abs(distance.x)) <= dist:
 					attack() 
-					pium = false
-
+			
+			else:
+				playback.travel("idle")
 
 func attack():
-	if canAttack:
-		playback.travel("attack")
-		canAttack = false
-		yield(get_tree().create_timer(3.0), "timeout")
-		canAttack = true
-	#jump hacia atrás
-		
-func wBlast():
-	pium = true
 	move = false
-	playback.travel("supersoaker")
-	var wb1 = blast.instance()
-	get_parent().add_child(wb1)
-	wb1.global_position = posPoint.global_position
-	if pivote.scale.x == 1:
-		wb1.scale.x = -1
-	yield(get_tree().create_timer(2.1), "timeout")
+	playback.travel("attack")	
+	yield(get_tree().create_timer(1.1), "timeout")
 	move = true
-			
+
+
+
 static func _delete_children(node):
 	for n in node.get_children():
 		node.remove_child(n)
 		n.queue_free()		
 
+
+
 func _set_health(value):
 	health= clamp(value, 0,max_health)
 
 
+
 func take_damage(dmg,body=null):	
-	print("Water Boss")
+	print("Daishi Boss")
 	print(health," ",health-dmg)
 	
 	if Global.ataqpyro > 0: ##condiciòn para superar escudo
@@ -141,11 +130,13 @@ func take_damage(dmg,body=null):
 		move = true
 		playback.travel("idle")
 
+
+
 func death():
 	move = false
 	if muere == 1:
 		
-		Global.actualBoss = "agua"
+		Global.actualBoss = "daishi"
 		
 		playback.travel("death")
 		yield(get_tree().create_timer(3.0), "timeout")
@@ -156,18 +147,30 @@ func death():
 		orbe.global_position = soulPOS.global_position
 	else:
 		playback.travel("dead")
-	
-	#######
+#######
+
 
 func _on_body_entered(body : Node):
 	_target = body
 
-# daño por espada
+
+
+# daño por combos
 func _on_body_attacked(body : Node):
 	if body.has_method("take_damage"):
+		body.take_damage(10,self)
+
+
+
+func _on_body_attackedF(body : Node):
+	if body.has_method("take_damage"):
 		body.take_damage(20,self)
+
+
 
 #choque corporal
 func _on_DoDamagePlayer_body_entered(body):
 	if body.has_method("take_damage"):
 		body.take_damage(5,self)
+
+

@@ -128,6 +128,9 @@ func take_damage(dmg,body=null):
 func death():
 	move = false
 	if muere == 1:
+		
+		Global.actualBoss = "tierra"
+		
 		playback.travel("death")
 		yield(get_tree().create_timer(3.0), "timeout")
 		hitbox.disabled = true

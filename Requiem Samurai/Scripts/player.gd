@@ -488,7 +488,7 @@ func en_dashTR(d, dt):
 	#en el dash
 	#velocity.y = 0
 	if dt < 12:
-		velocity= dash *d *0.65 #dash
+		velocity= dash *d *0.8 #dash
 		playback.travel("dash")
 	#luego de terminarlo
 	if dt < 12 and 8 < dt:

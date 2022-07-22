@@ -29,6 +29,15 @@ var ataqearth = 0 #3
 
 var gravitychange = 1
 
+#mecánicas desbloqueables
+var M_Water_sword = 0
+var M_Earth_Sword = 0
+var M_daishi = 0
+var M_gravity = 0
+
+#bosses
+var actualBoss = "" 
+
 var time1 =1
 var time2 =1
 
@@ -51,7 +60,7 @@ func _process(delta): #tiempo => frames
 	_gravity_time_power()
 	daishi_sword()
 	
-	if area==0 and figure==1 and lvlskill>=1:
+	if area==0 and figure==1 and lvlskill>=1 and M_Earth_Sword == 1:
 			elementalsword=3
 			ataqhydro=0
 			ataqpyro=0
@@ -76,7 +85,7 @@ func _process(delta): #tiempo => frames
 					ataqpyro=4
 				print("attackpyro = ", ataqpyro)
 		
-			else: #Hydro_sword
+			elif M_Water_sword == 1: #Hydro_sword
 				elementalsword=2
 				ataqpyro=0
 				ataqearth=0
@@ -97,13 +106,13 @@ func _process(delta): #tiempo => frames
 			
 			
 		
-		if figure ==3 and lvlskill>=3:   # rectangulo  estilo daishi
+		if figure ==3 and lvlskill>=3 and M_daishi == 1:   # rectangulo  estilo daishi
 			time1s= fpscount
 			daishi= -1
 
 			
 			
-		if figure == 4 and lvlskill>=4:  #reloj gravity
+		if figure == 4 and lvlskill>=4 and M_gravity == 1:  #reloj gravity
 			time1= fpscount
 			gravitychange=-1
 
