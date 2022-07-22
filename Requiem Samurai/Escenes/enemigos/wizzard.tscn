@@ -707,7 +707,7 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id=9]
 states/attack/node = SubResource( 12 )
-states/attack/position = Vector2( 274, 241.667 )
+states/attack/position = Vector2( 284, 208.667 )
 states/death/node = SubResource( 24 )
 states/death/position = Vector2( 1034, 162.105 )
 states/distanceattack/node = SubResource( 66 )
@@ -723,7 +723,7 @@ states/take_hit/position = Vector2( -284, 182.555 )
 states/walk/node = SubResource( 6 )
 states/walk/position = Vector2( 499, 89.5555 )
 transitions = [ "idle", "walk", SubResource( 7 ), "walk", "idle", SubResource( 8 ), "idle", "attack", SubResource( 13 ), "attack", "walk", SubResource( 14 ), "walk", "attack", SubResource( 15 ), "attack", "idle", SubResource( 16 ), "attack", "take_hit", SubResource( 27 ), "take_hit", "idle", SubResource( 28 ), "walk", "death", SubResource( 33 ), "idle", "death", SubResource( 34 ), "attack", "death", SubResource( 35 ), "take_hit", "death", SubResource( 36 ), "idle", "take_hit", SubResource( 40 ), "take_hit", "walk", SubResource( 41 ), "walk", "take_hit", SubResource( 42 ), "take_hit", "attack", SubResource( 43 ), "walk", "jump", SubResource( 48 ), "jump", "walk", SubResource( 49 ), "jump", "idle", SubResource( 50 ), "idle", "jump", SubResource( 51 ), "take_hit", "jump", SubResource( 52 ), "jump", "take_hit", SubResource( 53 ), "idle", "fall", SubResource( 54 ), "walk", "fall", SubResource( 55 ), "fall", "idle", SubResource( 56 ), "fall", "walk", SubResource( 57 ), "jump", "fall", SubResource( 58 ), "fall", "take_hit", SubResource( 59 ), "take_hit", "fall", SubResource( 60 ), "fall", "death", SubResource( 61 ), "jump", "death", SubResource( 62 ), "distanceattack", "take_hit", SubResource( 67 ), "take_hit", "distanceattack", SubResource( 68 ), "distanceattack", "attack", SubResource( 69 ), "attack", "distanceattack", SubResource( 70 ), "distanceattack", "walk", SubResource( 71 ), "distanceattack", "idle", SubResource( 72 ), "idle", "distanceattack", SubResource( 73 ), "walk", "distanceattack", SubResource( 74 ), "distanceattack", "death", SubResource( 75 ) ]
-graph_offset = Vector2( -139.74, 175.864 )
+graph_offset = Vector2( -380.74, 105.864 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 

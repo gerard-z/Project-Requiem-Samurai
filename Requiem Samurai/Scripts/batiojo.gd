@@ -22,7 +22,7 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-export var max_health= 30
+export var max_health= 40
 var health = max_health setget _set_health
 
 #IA
@@ -62,7 +62,8 @@ func _physics_process(delta):
 
 
 func _process(delta):
-	animacion()
+	if health > 0:
+		animacion()
 
 ### movimiento IA
 func movimiento(delta):
@@ -190,10 +191,11 @@ func _on_contactDamage_body_entered(body):
 		body.take_damage(5,self)
 	
 func spawn_batifire():
-	var fire = batifire.instance()
-	get_parent().add_child(fire)
-	fire.global_position = spawn_fire.global_position
-	fire.rotation = Vector2(1,0).angle_to(target.global_position- spawn_fire.global_position)
+	if target != null:
+		var fire = batifire.instance()
+		get_parent().add_child(fire)
+		fire.global_position = spawn_fire.global_position
+		fire.rotation = Vector2(1,0).angle_to(target.global_position- spawn_fire.global_position)
 
 func shoot():
 	COOLDOWN = true

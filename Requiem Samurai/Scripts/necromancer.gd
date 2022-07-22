@@ -56,7 +56,7 @@ func _physics_process(delta):
 	if health <= 0:
 		death()
 		
-	if stuneado==2:
+	elif stuneado==2:
 		stuneadot1=Global.fpscount
 		stuneadot2=Global.fpscount
 		stuneado=1
@@ -79,7 +79,8 @@ func _physics_process(delta):
 			dangerShield.global_position = global_position + Vector2(10, -10)
 
 func _process(delta):
-	animacion()
+	if health > 0:
+		animacion()
 
 ### movimiento IA
 func movimiento(delta):
@@ -198,10 +199,11 @@ func _on_contactDamage_body_entered(body):
 		body.take_damage(5,self)
 	
 func spawn_batifire():
-	var fire = batifire.instance()
-	get_parent().add_child(fire)
-	fire.global_position = spawn_fire.global_position
-	fire.rotation = Vector2(1,0).angle_to(target.global_position- spawn_fire.global_position)
+	if target != null:
+		var fire = batifire.instance()
+		get_parent().add_child(fire)
+		fire.global_position = spawn_fire.global_position
+		fire.rotation = Vector2(1,0).angle_to(target.global_position- spawn_fire.global_position)
 
 func shoot():
 	COOLDOWN = true

@@ -350,7 +350,7 @@ func mecInnovadora():
 		
 		
 	if Global.ataqpyro<=0 and Global.ataqhydro<=0 and Global.ataqearth<=0 :
-		dmg =1
+		dmg =0
 		NodeSprite.visible = false
 		AirSprite.visible = true	
 		fire = false
@@ -369,7 +369,7 @@ func mecInnovadora():
 
 func set_pyro():
 	if Global.ataqpyro > 0:
-		dmg=20
+		dmg=35
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true
@@ -616,11 +616,13 @@ func take_damage(value,body=null):
 	#muere
 	if self.health<=0 and Global.inFosa == false:
 		print("Muere")
+		Global.save_game(get_tree().current_scene.filename)
 		velocity.x = 0
 		#velocity.y = 0
 		playback.travel("death")
 		yield(get_tree().create_timer(1.0), "timeout")
-		get_tree().change_scene("res://Escenes/MainMenu.tscn")
+		get_tree().change_scene("res://Escenes/menus/MainMenu.tscn")
+		take_damage(-100)
 
 
 

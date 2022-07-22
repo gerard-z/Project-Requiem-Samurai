@@ -406,7 +406,7 @@ height = 28.0
 radius = 59.0
 
 [sub_resource type="CircleShape2D" id=24]
-radius = 381.257
+radius = 641.132
 
 [sub_resource type="CapsuleShape2D" id=30]
 height = 28.0

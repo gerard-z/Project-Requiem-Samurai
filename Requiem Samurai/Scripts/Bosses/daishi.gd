@@ -41,6 +41,12 @@ var ataque = 0
 
 var move_input = 0
 
+#se agrega esto para el stun
+var stuneado = 0 #stun
+var stuneadot1= 0
+var stuneadot2= 0
+
+
 func _ready():
 	detArea.connect("body_entered", self, "_on_body_entered")
 	attack.connect("body_entered", self, "_on_body_attacked")

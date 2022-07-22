@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/Cuadrados/WaterTower.tres" type="TileSet" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/W-Room 2.gd" type="Script" id=7]
 [ext_resource path="res://Escenes/enemigos/batiojo.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Escenes/enemigos/nightboner.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -112,3 +113,7 @@ distanceAttack = true
 [node name="batiojo3" parent="." instance=ExtResource( 8 )]
 position = Vector2( 3882, -1178 )
 distanceAttack = true
+
+[node name="nightBoner" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1714, -1368 )
+spawnleft = true

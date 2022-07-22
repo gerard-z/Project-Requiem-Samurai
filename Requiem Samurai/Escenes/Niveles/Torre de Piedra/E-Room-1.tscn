@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/Pueblo/white.jpg" type="Texture" id=7]
+[ext_resource path="res://Escenes/enemigos/Skeleton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Escenes/enemigos/wizzard.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -171,3 +173,16 @@ __meta__ = {
 modulate = Color( 0, 0, 0, 1 )
 scale = Vector2( 2, 1.5 )
 texture = ExtResource( 7 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 8 )]
+position = Vector2( 528, -63 )
+
+[node name="Skeleton2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1534, -707 )
+
+[node name="wizzard2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 2343, -1213 )
+spawnleft = true
+
+[node name="wizzard" parent="." instance=ExtResource( 9 )]
+position = Vector2( 194, -641 )

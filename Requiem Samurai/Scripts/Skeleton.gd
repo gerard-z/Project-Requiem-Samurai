@@ -49,7 +49,7 @@ func _physics_process(delta):
 	if health <= 0:
 		death()
 	#stun
-	if stuneado==2:
+	elif stuneado==2:
 		stuneadot1=Global.fpscount
 		stuneadot2=Global.fpscount
 		stuneado=1

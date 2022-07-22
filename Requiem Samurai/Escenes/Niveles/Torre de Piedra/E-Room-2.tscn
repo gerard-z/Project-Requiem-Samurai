@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://resources/Cuadrados/StoneTower.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/Pueblo/white.jpg" type="Texture" id=8]
+[ext_resource path="res://Escenes/enemigos/Skeleton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Escenes/enemigos/necromancer.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Escenes/enemigos/wizzard.tscn" type="PackedScene" id=11]
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -185,3 +188,12 @@ __meta__ = {
 modulate = Color( 0, 0, 0, 1 )
 scale = Vector2( 2, 1.5 )
 texture = ExtResource( 8 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1001, -874 )
+
+[node name="necromancer" parent="." instance=ExtResource( 10 )]
+position = Vector2( 1483, -1326 )
+
+[node name="wizzard" parent="." instance=ExtResource( 11 )]
+position = Vector2( 311, -1340 )

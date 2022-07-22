@@ -59,7 +59,7 @@ func _ready():
 func _physics_process(delta):
 	if health <= 0:
 		death()
-	if stuneado==2:
+	elif stuneado==2:
 		stuneadot1=Global.fpscount
 		stuneadot2=Global.fpscount
 		stuneado=1
@@ -76,12 +76,14 @@ func _physics_process(delta):
 		return 1
 	else:
 		movimiento()
+		
 		if target != null and target.global_position.distance_to(global_position) > 1000:
 			target = null
 
 
 func _process(delta):
-	animacion()
+	if health > 0:
+		animacion()
 
 ### movimiento IA
 func movimiento():
@@ -157,7 +159,7 @@ func take_damage(dmg,body=null):
 #para hacerle daño al samurai
 func _on_DoDamage_body_entered(body):
 	if body.has_method("take_damage"):
-		body.take_damage(5,self)
+		body.take_damage(dmg,self)
 
 func NotAgarrable():
 	pass

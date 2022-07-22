@@ -48,7 +48,7 @@ func _physics_process(delta):
 	if health <= 0:
 		death()
 		
-	if stuneado==2:
+	elif stuneado==2:
 		stuneadot1=Global.fpscount
 		stuneadot2=Global.fpscount
 		stuneado=1
@@ -70,7 +70,8 @@ func _physics_process(delta):
 
 
 func _process(delta):
-	animacion()
+	if health > 0:
+		animacion()
 
 ### movimiento IA
 func movimiento():
