@@ -140,6 +140,8 @@ format = 1
 tile_data = PoolIntArray( -196624, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 0, 0, -196620, 0, 0, -196619, 0, 0, -131088, 0, 0, -131087, 0, 0, -131086, 0, 0, -131085, 0, 0, -131084, 0, 0, -131083, 0, 0, -65552, 0, 0, -65551, 0, 0, -65550, 0, 0, -65549, 0, 0, -65548, 0, 0, -65547, 0, 0, -10, 0, 0 )
 
 [node name="Tierra" parent="." instance=ExtResource( 5 )]
+position = Vector2( -849, -68 )
+scale = Vector2( 2, 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 9 )
