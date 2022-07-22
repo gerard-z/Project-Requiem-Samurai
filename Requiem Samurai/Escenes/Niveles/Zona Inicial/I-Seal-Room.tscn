@@ -106,21 +106,6 @@ targetPath = NodePath("../Samurai")
 trailLenght = 10
 Grid = 40
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="00" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/00"]
-visible = false
-modulate = Color( 0.12549, 0, 0.172549, 1 )
-position = Vector2( 151, -389 )
-scale = Vector2( 2, 1.5 )
-texture = ExtResource( 6 )
-
 [node name="toT1" parent="." instance=ExtResource( 8 )]
 position = Vector2( -635, -97 )
 escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Safe-Room.tscn"
@@ -149,3 +134,8 @@ __meta__ = {
 modulate = Color( 0, 0, 0, 1 )
 scale = Vector2( 2, 1.5 )
 texture = ExtResource( 6 )
+
+[node name="toT4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 419, -1458 )
+scale = Vector2( 2, 1 )
+escena_objetivo = "res://Escenes/Niveles/DASIHI ROOM.tscn"
