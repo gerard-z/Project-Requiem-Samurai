@@ -516,7 +516,7 @@ radius = 11.0
 radius = 12.0
 
 [sub_resource type="CircleShape2D" id=24]
-radius = 327.024
+radius = 203.089
 
 [sub_resource type="CircleShape2D" id=26]
 radius = 13.0384
@@ -599,9 +599,15 @@ __meta__ = {
 collision_layer = 0
 collision_mask = 2
 monitorable = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detectingArea"]
 shape = SubResource( 24 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="rays" type="Node2D" parent="."]
 __meta__ = {
