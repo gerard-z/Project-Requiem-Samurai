@@ -22,37 +22,55 @@ var lines := []
 
 var credits = [
 	[
-		"A game by Awesome Game Company"
+		"A game by Requiem Samurai"
 	],[
 		"Programming",
-		"Programmer Name",
-		"Programmer Name 2"
+		"Gerard Cathalifaud Salazar",
+		"Hugo Cortés Abarca",
+		"Matías Mancilla Lizana",
+		"Felipe Olivares E"
 	],[
 		"Art",
-		"Artist Name"
+		"Matías Mancilla L"
 	],[
 		"Music",
-		"Musician Name"
+		"Matías Mancilla L"
 	],[
 		"Sound Effects",
-		"SFX Name"
+		"---"
 	],[
-		"Testers",
-		"Name 1",
-		"Name 2",
-		"Name 3"
+		"Assets",
+		"Bosses",
+		"Ansimuz",
+		"Chierit",
+		"",
+		"Decoraciones y Fondo",
+		"Ankousse26",
+		"Lil Cthulhu",
+		"",
+		"Tilesets",
+		"Blackwolfdave",
+		"Enjl",
+		"NYKNCK",
+		"Trix Elized",
+		"SciGho",
+		"",
+		"Samurai",
+		"LuizMelo",
+		"",
+		"Enemigos",
+		"LuizMelo",
+		"CreativeKind"
 	],[
 		"Tools used",
 		"Developed with Godot Engine",
 		"https://godotengine.org/license",
 		"",
-		"Art created with My Favourite Art Program",
-		"https://myfavouriteartprogram.com"
+		"Art created with GIMP",
+		"https://www.gimp.org/"
 	],[
-		"Special thanks",
-		"My parents",
-		"My friends",
-		"My pet rabbit"
+		"Agradecimiento Especiales",
+		"Los amigos en el camino"
 	]
 ]
 
@@ -93,9 +111,8 @@ func _process(delta):
 func finish():
 	if not finished:
 		finished = true
-		# NOTE: This is called when the credits finish
-		# - Hook up your code to return to the relevant scene here, eg...
-		#get_tree().change_scene("res://scenes/MainMenu.tscn")
+		yield(get_tree().create_timer(10),"timeout")
+		get_tree().change_scene("res://Escenes/MainMenu.tscn")
 
 
 func add_line():

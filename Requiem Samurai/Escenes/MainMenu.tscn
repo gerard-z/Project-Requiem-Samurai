@@ -171,9 +171,8 @@ grow_vertical = 0
 alignment = 1
 
 [node name="Titulo" type="Label" parent="VBoxContainer"]
-margin_top = 3.0
 margin_right = 294.0
-margin_bottom = 44.0
+margin_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 0
 custom_fonts/font = SubResource( 1 )
@@ -181,22 +180,28 @@ text = "Requiem Samurai"
 align = 1
 
 [node name="Play" type="Button" parent="VBoxContainer"]
-margin_top = 48.0
+margin_top = 45.0
 margin_right = 294.0
-margin_bottom = 79.0
+margin_bottom = 76.0
 focus_neighbour_top = NodePath("../Exit")
 text = "Play"
 
 [node name="Options" type="Button" parent="VBoxContainer"]
-margin_top = 83.0
+margin_top = 80.0
 margin_right = 294.0
-margin_bottom = 114.0
+margin_bottom = 111.0
 text = "Options"
 
-[node name="Exit" type="Button" parent="VBoxContainer"]
-margin_top = 118.0
+[node name="Creditos" type="Button" parent="VBoxContainer"]
+margin_top = 115.0
 margin_right = 294.0
-margin_bottom = 149.0
+margin_bottom = 146.0
+text = "Creditos"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+margin_top = 150.0
+margin_right = 294.0
+margin_bottom = 181.0
 focus_neighbour_bottom = NodePath("../Play")
 text = "Exit"
 
