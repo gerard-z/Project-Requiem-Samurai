@@ -18,7 +18,9 @@ func _on_body_entered(body: Node):
 	if Global.actualBoss == "tierra": Global.M_Earth_Sword = 1
 	if Global.actualBoss == "agua": Global.M_Water_sword = 1
 	if Global.actualBoss == "gravity": Global.M_gravity = 1
-		
+	
+	if Global.actualBoss == "": Global.M_gravity = 1
+	
 	Global.actualBoss = ""
 	destroy()
 

@@ -55,7 +55,6 @@ func _physics_process(delta):
 		muere += 1
 		velocity.y += GRAVITY * delta
 		death()
-		
 	
 	else:
 		move_and_slide(velocity, Vector2.UP*Global.gravitychange)
@@ -64,45 +63,45 @@ func _physics_process(delta):
 		if _target != null:
 			var distance = _target.global_position - global_position
 			var dist = 300
-			
+
 			if move:
 				#límite exterior
 				if int(abs(distance.x)) > dist or is_on_wall():
 					move_input = (distance).normalized().x 
-				
+
 				if int(abs(distance.x)) == 0:
 					move_input = -1
 
 				# mov horizontal
 				velocity.x = move_toward(velocity.x, move_input*SPEED, ACCELERATION)
-				velocity.y = -velocity.x/2
-					
+				velocity.y = -velocity.x*2
+
 			else:
 				velocity.x = 0
 				velocity.y = 0
-			
-			if distance.x > 0:
-				pivote.scale.x = -1
-			elif distance.x < 0:
-				pivote.scale.x = 1
-				
-			
-			
+
 			if is_on_floor():
-				if abs(velocity.x) == 0 and int(abs(distance.x)) > dist:
-					pass
-				
-				elif int(abs(distance.x)) <= dist:
-					attack() 
-			
+				if int(abs(distance.x)) <= dist:
+					attack()
+
 			else:
 				playback.travel("idle")
 
+			if playback.get_current_node() == "attack":
+				pivote.scale.x *= -1
+
+			else:
+				if distance.x > 0:
+					pivote.scale.x = -1
+				elif distance.x < 0:
+					pivote.scale.x = 1
+
 func attack():
 	move = false
-	playback.travel("attack")	
-	yield(get_tree().create_timer(1.1), "timeout")
+	playback.travel("figura")	
+	yield(get_tree().create_timer(3.0), "timeout")
 	move = true
+
 
 
 
@@ -155,16 +154,10 @@ func _on_body_entered(body : Node):
 
 
 
-# daño por combos
+# daño por fuego
 func _on_body_attacked(body : Node):
 	if body.has_method("take_damage"):
-		body.take_damage(10,self)
-
-
-
-func _on_body_attackedF(body : Node):
-	if body.has_method("take_damage"):
-		body.take_damage(20,self)
+		body.take_damage(30,self)
 
 
 
