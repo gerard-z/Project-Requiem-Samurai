@@ -44,6 +44,7 @@ var attack = 0
 func _ready():
 	detArea.connect("body_entered", self, "_on_body_entered")
 	attack1.connect("body_entered", self, "_on_body_attacked")
+	attack2.connect("body_entered", self, "_on_body_attackedF")
 	
 	anim_tree.active = true
 	playback.start("idle")
@@ -139,10 +140,14 @@ func death():
 func _on_body_entered(body : Node):
 	_target = body
 
-# daño por espada
+# daño por combos
 func _on_body_attacked(body : Node):
 	if body.has_method("take_damage"):
-		body.take_damage(5,self)
+		body.take_damage(10,self)
+
+func _on_body_attackedF(body : Node):
+	if body.has_method("take_damage"):
+		body.take_damage(20,self)
 
 #choque corporal
 func _on_DoDamagePlayer_body_entered(body):

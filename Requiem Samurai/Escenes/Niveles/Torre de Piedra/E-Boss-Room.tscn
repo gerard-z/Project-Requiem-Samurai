@@ -83,6 +83,12 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 2/z_index = 0
 
+[sub_resource type="CanvasItemMaterial" id=10]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=11]
+colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
+
 [sub_resource type="Environment" id=9]
 background_mode = 4
 glow_enabled = true
@@ -96,12 +102,6 @@ glow_high_quality = true
 adjustment_enabled = true
 adjustment_contrast = 1.08
 adjustment_saturation = 1.07
-
-[sub_resource type="CanvasItemMaterial" id=10]
-blend_mode = 1
-
-[sub_resource type="Gradient" id=11]
-colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -143,9 +143,6 @@ tile_data = PoolIntArray( -196624, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 
 position = Vector2( -849, -68 )
 scale = Vector2( 2, 2 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 9 )
-
 [node name="Traza" parent="." instance=ExtResource( 6 )]
 modulate = Color( 3, 3, 3, 1 )
 material = SubResource( 10 )
@@ -169,3 +166,6 @@ toEnd = true
 
 [node name="spawnpoint" parent="." instance=ExtResource( 7 )]
 position = Vector2( 226, -103 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 9 )
