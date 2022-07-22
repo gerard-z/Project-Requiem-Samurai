@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/Cuadrados/DarkDungeon.tres" type="TileSet" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://assets/Pueblo/white.jpg" type="Texture" id=6]
 [ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/Doors/I-Seal-Room.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 758, 653 )
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -30,6 +34,7 @@ blend_mode = 1
 colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 9 )
 
 [node name="Samurai" parent="." instance=ExtResource( 1 )]
 position = Vector2( -377, -51 )
@@ -64,13 +69,23 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( -393195, 2, 0, -393194, 0, 0, -393193, 2, 0, -393192, 2, 0, -393191, 2, 0, -393190, 0, 0, -393189, 2, 0, -327660, 0, 0, -327659, 0, 0, -327658, 0, 0, -327657, 0, 0, -327656, 0, 0, -327655, 0, 0, -327654, 0, 0, -327653, 0, 0, -262124, 1, 0, -262123, 0, 0, -262122, 1, 0, -262121, 0, 0, -262120, 0, 0, -262119, 0, 0, -262118, 1, 0, -262117, 0, 0, 20, 0, 0, 21, 1, 0, 22, 0, 0, 23, 0, 0, 24, 1, 0, 25, 1, 0, 26, 0, 0, 27, 0, 0, 65557, 2, 0, 65558, 0, 0, 65559, 1, 0, 65560, 2, 0, 65561, 2, 0, 65562, 0, 0, 65563, 1, 0, 589902, 0, 0 )
 
-[node name="desbloquear" type="TileMap" parent="tilemaps" groups=["agarrables"]]
-modulate = Color( 0.568627, 0.921569, 0.615686, 1 )
+[node name="desbloquear" type="TileMap" parent="tilemaps"]
+modulate = Color( 0.419608, 0.556863, 0.384314, 1 )
 scale = Vector2( 4, 4 )
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 16, 16 )
+collision_layer = 0
+collision_mask = 0
 format = 1
 tile_data = PoolIntArray( -1245180, 0, 0, -1245179, 0, 0, -1245178, 0, 0, -1245177, 0, 0, -1245176, 0, 0, -1179644, 0, 0, -1179643, 0, 0, -1179642, 0, 0, -1179641, 0, 0, -1179640, 0, 0, -1114108, 0, 0, -1114107, 0, 0, -1114106, 0, 0, -1114105, 0, 0, -1114104, 0, 0, -1048572, 0, 0, -1048571, 0, 0, -1048570, 0, 0, -1048569, 0, 0, -1048568, 0, 0, -983036, 0, 0, -983035, 0, 0, -983034, 0, 0, -983033, 0, 0, -983032, 0, 0, -917500, 0, 0, -917499, 0, 0, -917498, 0, 0, -917497, 0, 0, -917496, 0, 0 )
+
+[node name="door" type="StaticBody2D" parent="tilemaps"]
+position = Vector2( -338, 1040 )
+z_index = 25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tilemaps/door"]
+position = Vector2( 892, -2524 )
+shape = SubResource( 5 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
