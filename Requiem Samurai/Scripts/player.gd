@@ -1,11 +1,13 @@
 extends KinematicBody2D
 
-export var SPEED = 200 # 83 -> 400
+export var SPEED = 325 # 83 -> 400
+export var SPEEDY = 200
 export var ACCELERATION = 700 # 233 -> 700
 export var gravity_effect = 3000 #1000 -> 3000
 export var DIR = 1
 export var AERIAL_COEFICIENT = -3 # Reduccion altura del salto -4 -> -3 #no está en la versión development
 export var rebote = 1000
+export(NodePath) var spawPointFinal = null
 var GRAVITY=gravity_effect
 
 var dirTraz = Vector2(0,0)
@@ -45,7 +47,7 @@ var golpefps = 100
 
 
 #vida
-var health = 100 setget _set_health
+var health setget _set_health
 var max_health= 100
 onready var progress_bar = $CanvasLayer/ProgressBar
 
@@ -78,6 +80,9 @@ var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
 
+var cd_time1_dash= 0
+var cd_time2_dash = 0
+
 var dash = 1000
 var dashsentido = 1
 var dirdash = 1
@@ -94,13 +99,18 @@ var agarre=0
 
 var fire = false
 	
-	
+#pa q no explote en locura saltando
+var usoelmarcarpuntos = 0
 	
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
+	health = Global.health
 	
 	meleArea.connect("body_entered", self, "_on_body_entered")
+	if Global.spawnFinal:
+		spawPointFinal = get_node(spawPointFinal)
+		global_position = spawPointFinal.global_position
 
 
 
@@ -133,8 +143,9 @@ func _physics_process(delta): # por frame
 	var move_input = Input.get_axis("move_left", "move_right")
 	
 	#Animation fosa
-	if Global.inFosa:
+	if Global.inFosa or Global.deathBoss:
 		velocity.y += GRAVITY * delta * DIR
+		velocity.x = 0
 		fall_jump()
 		if.is_on_floor():
 			playback.travel("death")
@@ -174,7 +185,7 @@ func _physics_process(delta): # por frame
 				jump=0
 				# salto
 				if Input.is_action_just_pressed("jump"):
-					velocity.y = -jump_air_y * SPEED *Global.gravitychange
+					velocity.y = -jump_air_y * SPEEDY *Global.gravitychange
 			
 		# MURO
 
@@ -211,10 +222,17 @@ func _physics_process(delta): # por frame
 
 
 		####################################################################################################
+			
+			if Global.conteopuntos>4:
+				usoelmarcarpuntos=1
+			if Global.conteopuntos<=4 and is_on_floor():
+				usoelmarcarpuntos=0
 
+			
 			# NEW TRAZADO
-			if Global.seactivaeltrazado:
-				var move = Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_down")
+			if Global.seactivaeltrazado and usoelmarcarpuntos!=1:
+				#var move = Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("move_up") or Input.is_action_just_pressed("move_down")
+				
 				
 				if Input.is_action_just_pressed("vertice"):
 					dirTraz = Vector2(0,0)
@@ -223,6 +241,7 @@ func _physics_process(delta): # por frame
 					flecha.position.x = 0
 					flecha.position.y = 41
 					flecha.rotation_degrees = 90
+				
 				
 				
 				if Input.is_action_pressed("vertice") and traz:
@@ -269,7 +288,7 @@ func _physics_process(delta): # por frame
 						flecha.position.y = 41
 						flecha.rotation_degrees = 90
 					
-					if dt>0.5:				
+					if dt>0.92:				
 						#direccion
 						timeTrz0 = Global.fpscount						
 						dirTraz = dirTraz.normalized()
@@ -284,13 +303,14 @@ func _physics_process(delta): # por frame
 			
 			#Time for the Dash:
 			cd_time2_stamina=Global.fpscount
-			if cd_time2_stamina-cd_time1_stamina>52:
+			cd_time2_dash=Global.fpscount
+			if cd_time2_dash-cd_time1_dash>52:
 				youcandothedash=0
 
 			sprint(move_input)
 			
 			#dash
-			if Input.is_action_just_pressed("dash"):			
+			if Input.is_action_just_pressed("dash") :			
 				dash()
 			en_dash()
 			
@@ -313,7 +333,7 @@ func mecInnovadora():
 	
 	set_hydro()
 
-	set_wind()
+	set_earth()
 	
 	#if Global.elementalsword == 1 :
 	#	NodeSprite.modulate= Color(1,1,1)
@@ -325,7 +345,7 @@ func mecInnovadora():
 	#	NodeSprite.modulate= Color(0.2,0.8,3)
 		
 		
-	if Global.ataqpyro<=0 and Global.ataqhydro<=0 and Global.ataqwind<=0 :
+	if Global.ataqpyro<=0 and Global.ataqhydro<=0 and Global.ataqearth<=0 :
 		dmg =1
 		NodeSprite.visible = false
 		AirSprite.visible = true	
@@ -368,9 +388,9 @@ func set_hydro():
 
 		pass
 
-func set_wind():
-	if Global.ataqwind > 0:
-		dmg=10
+func set_earth():
+	if Global.ataqearth > 0:
+		dmg=20
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true
@@ -388,7 +408,7 @@ func sprint(move_input):
 		else:
 			dirdash = abs(dirdash)
 			
-		velocity.x =   SPEED*2.0*move_input
+		velocity.x =   SPEED*1.5*move_input
 		time1 = Global.fpscount
 		take_stamina(0.3)		
 
@@ -398,10 +418,10 @@ func sprint(move_input):
 #animaciones principales
 func animations():
 	#el ataque
-	if hasAttacked and playback.get_current_node() != "attack 1":
+	if hasAttacked and playback.get_current_node() != "attack 1" and playback.get_current_node() != "attack water"  and playback.get_current_node() != "attack earth":
 		attack()
 	else:
-		if playback.get_current_node() != "attack 1":
+		if playback.get_current_node() != "attack 1" and playback.get_current_node() != "attack water"  and playback.get_current_node() != "attack earth":
 			if is_on_wall() and agarre:
 				playback.travel("idle wall")
 				if velocity.y > 100:
@@ -424,6 +444,7 @@ func dash():
 	if stamina>=20 and youcandothedash==0:
 		youcandothedash=1
 		cd_time1_stamina = Global.fpscount
+		cd_time1_dash = Global.fpscount
 		if pivote.scale.x < 0:
 			dirdash = -abs(dirdash)
 		else:
@@ -439,16 +460,17 @@ func dash():
 
 
 
-#en el dash
+#en el das
 func en_dash():
+
 	#en el dash
-	if cd_time2_stamina-cd_time1_stamina<10 and youcandothedash==1:
+	if cd_time2_dash-cd_time1_dash<10 and youcandothedash==1:
 		velocity.x =  dash * dirdash #dash
 		velocity.y=0
 		#aiuda pa implementar una animacion de dash uwu
 		#playback.travel("dash")
 	#luego de terminarlo
-	if cd_time2_stamina-cd_time1_stamina<11 and 9<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
+	if cd_time2_dash-cd_time1_dash<11 and 9<cd_time2_dash-cd_time1_dash and youcandothedash==1:
 		#playback.travel("dash")
 		velocity.x/= 2
 
@@ -457,18 +479,19 @@ func double_jump(move_input):
 	if Input.is_action_just_pressed("jump") and not is_on_wall() and not is_on_floor() and maxjumps>jump:
 		jump+=1
 		velocity.x = SPEED *move_input + abs(velocity.x)*move_input #dash
-		velocity.y = -jump_air_y * SPEED * Global.gravitychange #coef del level
+		velocity.y = -jump_air_y * SPEEDY * Global.gravitychange #coef del level
 
 
 
 
-func en_dashTR(dirTraz, dt):
+func en_dashTR(d, dt):
 	#en el dash
-	if dt < 10:
-		velocity= 1000 * dirTraz #dash
+	#velocity.y = 0
+	if dt < 12:
+		velocity= dash *d *0.8 #dash
 		playback.travel("dash")
 	#luego de terminarlo
-	if dt < 10 and 9 < dt:
+	if dt < 12 and 8 < dt:
 		playback.travel("dash")
 		velocity /= 2
 
@@ -478,7 +501,7 @@ func en_dashTR(dirTraz, dt):
 # wall move
 func wall():
 	#WALLse mantiene
-	if Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down"):
+	if (Input.is_action_pressed("move_up") and not Input.is_action_just_pressed("move_down")):
 		velocity.y = 0
 		up_down = 0
 		
@@ -486,7 +509,7 @@ func wall():
 	elif Input.is_action_pressed("move_down") and not Input.is_action_just_pressed("move_up"):
 		up_down = SPEED
 	elif velocity.y >0:
-		up_down = SPEED/3
+		up_down = SPEEDY/3
 		
 	velocity.y = up_down
 
@@ -495,41 +518,51 @@ func wall():
 	if Input.is_action_just_pressed("jump"):
 		up_down = 1
 		if pivote.scale.x<0:
-			fwall = SPEED/2
+			fwall = SPEEDY/2
 		else:
-			fwall = -SPEED/2			
+			fwall = -SPEEDY/2			
 		velocity.x =  fwall
-		velocity.y = -jump_air_y * SPEED # level tenia el coeff
+		velocity.y = -jump_air_y * SPEEDY # level tenia el coeff
 
 
 
 
 ### ATAQUE 1
 func attack():
-	playback.travel("attack 1")
-	yield(get_tree().create_timer(0.4), "timeout")
+
 	if Global.elementalsword==1:
+		playback.travel("attack 1")
+		yield(get_tree().create_timer(0.4), "timeout")
 		if Global.ataqpyro<=0:
 			Global.ataqpyro = 0
-
 		else: 
 			Global.ataqpyro -= 1
 			print("attackpyro = ", Global.ataqpyro)
 
 
 	if Global.elementalsword==2:
-		
+
+		playback.travel("attack water")
+		yield(get_tree().create_timer(0.4), "timeout")
+
 		if Global.ataqhydro<=0:
 			Global.ataqhydro = 0
 
 		else: Global.ataqhydro -= 1
 
 	if Global.elementalsword==3:
-		
-		if Global.ataqwind<=0:
-			Global.ataqwind = 0
 
-		else: Global.ataqwind -= 1
+		playback.travel("attack earth")
+		yield(get_tree().create_timer(0.4), "timeout")
+
+		if Global.ataqearth<=0:
+			Global.ataqearth = 0
+
+		else: Global.ataqearth -= 1
+
+	if Global.elementalsword==0:
+		playback.travel("attack 1")
+		yield(get_tree().create_timer(0.4), "timeout")
 
 # fall y jump animations
 func fall_jump():
@@ -571,7 +604,7 @@ func take_damage(value,body=null):
 
 	#para simular un golpe
 	if value>0 and health > 0:
-		velocity.y = -jump_air_y * SPEED*3/4 * Global.gravitychange
+		velocity.y = -jump_air_y * SPEEDY*3/4 * Global.gravitychange
 		velocity.x = (-global_position.direction_to(body.global_position) * rebote).x
 		golpefps=0
 	#muere
@@ -588,7 +621,13 @@ func take_damage(value,body=null):
 
 #para hacerle daño
 func _on_body_entered(body: Node2D):
+
+		
 	body.take_damage(dmg)
+	
+	if Global.elementalsword==3:
+		
+		body.stuneado=2
 	
 	if Global.elementalsword==2:
 		self.take_damage(-20)

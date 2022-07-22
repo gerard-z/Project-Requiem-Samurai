@@ -13,9 +13,6 @@ export var gravity_effect = 17
 var ACCELERATION = 200
 var SPEED = 50
 
-var time1 = 0
-var time2 = 0
-
 var velocity = Vector2()
 
 #ataque
@@ -31,14 +28,38 @@ var moveToRight = true
 export var attacking = false
 export var canmove = true
 export var shilding = false
+export var spawnleft = false
+
+
 
 func _ready():
 	anim_tree.active = true
 	playback.start("idle")
+	if spawnleft == true:
+		pivote.scale.x = -1
+		moveToRight = false
 
-	
+#se agrega esto para el stun
+var stuneado = 0 #stun
+var stuneadot1= 0
+var stuneadot2= 0
+
 func _physics_process(delta):
-	if health == 0:
+	#stun
+	if stuneado==2:
+		stuneadot1=Global.fpscount
+		stuneadot2=Global.fpscount
+		stuneado=1
+		
+	if stuneado==1: 
+		print("stuneado")
+		playback.start("idle")
+		stuneadot2=Global.fpscount
+		if stuneadot2-stuneadot1>=50*3:
+			stuneado=0
+		return 1 
+	
+	if health <= 0:
 		death()
 	else:
 		movimiento()
@@ -108,12 +129,6 @@ func take_damage(dmg,body=null):
 		escudo()
 
 #para hacerle daño al samurai
-
-func _on_body_entered(body : Node):
-	if body.has_method("take_damage"):
-		body.take_damage(5)
-
-
 func _on_DoDamage_body_entered(body):
 	if body.has_method("take_damage"):
 		body.take_damage(5,self)

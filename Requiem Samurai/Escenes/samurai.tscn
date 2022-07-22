@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=2]
+[gd_scene load_steps=164 format=2]
 
 [ext_resource path="res://assets/Samurai/Fall.png" type="Texture" id=1]
 [ext_resource path="res://assets/Samurai/Run-2.png" type="Texture" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://assets/Samurai/arrow/1_2.png" type="Texture" id=16]
 [ext_resource path="res://assets/Samurai/arrow/1_3.png" type="Texture" id=17]
 [ext_resource path="res://assets/Samurai/arrow/1_1.png" type="Texture" id=18]
+[ext_resource path="res://Escenes/Efectos/Rayo.tscn" type="PackedScene" id=19]
 
 [sub_resource type="RectangleShape2D" id=67]
 extents = Vector2( 4, 8.5 )
@@ -1140,6 +1141,18 @@ tracks/16/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/17/type = "value"
+tracks/17/path = NodePath("../SpriteAttackBasic:visible")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=78]
 resource_name = "dash"
@@ -1372,6 +1385,18 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("../SpriteAttackBasic:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -2458,7 +2483,7 @@ states/run/node = SubResource( 8 )
 states/run/position = Vector2( -234.323, 150.333 )
 transitions = [ "idle", "run", SubResource( 9 ), "run", "idle", SubResource( 10 ), "run", "attack 1", SubResource( 13 ), "idle", "attack 1", SubResource( 14 ), "attack 1", "run", SubResource( 15 ), "attack 1", "idle", SubResource( 16 ), "run", "jump", SubResource( 22 ), "idle", "jump", SubResource( 23 ), "jump", "fall", SubResource( 24 ), "fall", "idle", SubResource( 25 ), "attack 1", "jump", SubResource( 26 ), "attack 1", "fall", SubResource( 27 ), "jump", "attack 1", SubResource( 28 ), "jump", "idle", SubResource( 29 ), "fall", "jump", SubResource( 30 ), "idle", "fall", SubResource( 31 ), "fall", "attack 1", SubResource( 32 ), "jump", "fall wall", SubResource( 37 ), "fall wall", "jump", SubResource( 38 ), "fall wall", "idle", SubResource( 39 ), "idle", "fall wall", SubResource( 40 ), "fall", "fall wall", SubResource( 41 ), "fall wall", "fall", SubResource( 42 ), "attack 1", "fall wall", SubResource( 43 ), "run", "fall wall", SubResource( 44 ), "idle wall", "idle", SubResource( 45 ), "idle", "idle wall", SubResource( 46 ), "jump", "idle wall", SubResource( 47 ), "idle wall", "jump", SubResource( 48 ), "idle wall", "attack 1", SubResource( 49 ), "attack 1", "idle wall", SubResource( 50 ), "fall wall", "attack 1", SubResource( 51 ), "fall wall", "run", SubResource( 52 ), "idle wall", "fall", SubResource( 53 ), "fall", "idle wall", SubResource( 54 ), "idle wall", "fall wall", SubResource( 55 ), "fall wall", "idle wall", SubResource( 56 ), "run", "fall", SubResource( 57 ), "fall", "run", SubResource( 58 ), "jump", "run", SubResource( 60 ), "idle wall", "run", SubResource( 61 ), "run", "idle wall", SubResource( 62 ), "run", "death", SubResource( 72 ), "attack 1", "death", SubResource( 73 ), "jump", "death", SubResource( 74 ), "fall wall", "death", SubResource( 75 ), "fall", "death", SubResource( 76 ), "idle wall", "death", SubResource( 77 ), "run", "dash", SubResource( 80 ), "dash", "run", SubResource( 81 ), "jump", "dash", SubResource( 82 ), "dash", "jump", SubResource( 83 ), "dash", "attack 1", SubResource( 84 ), "attack 1", "dash", SubResource( 85 ), "dash", "death", SubResource( 86 ), "dash", "fall wall", SubResource( 87 ), "fall wall", "dash", SubResource( 88 ), "dash", "idle wall", SubResource( 89 ), "idle wall", "dash", SubResource( 90 ), "dash", "idle", SubResource( 91 ), "idle", "dash", SubResource( 92 ), "jump", "attack earth", SubResource( 99 ), "dash", "attack water", SubResource( 100 ), "dash", "attack earth", SubResource( 101 ), "jump", "attack water", SubResource( 102 ), "jump", "attack wind", SubResource( 103 ), "dash", "attack wind", SubResource( 104 ), "attack wind", "dash", SubResource( 105 ), "attack water", "dash", SubResource( 106 ), "attack earth", "dash", SubResource( 107 ), "run", "attack earth", SubResource( 108 ), "run", "attack water", SubResource( 109 ), "run", "attack wind", SubResource( 110 ), "idle", "attack earth", SubResource( 111 ), "idle", "attack water", SubResource( 112 ), "idle", "attack wind", SubResource( 113 ), "death", "attack wind", SubResource( 114 ), "death", "attack water", SubResource( 115 ), "death", "attack earth", SubResource( 116 ), "fall", "attack wind", SubResource( 117 ), "fall", "attack earth", SubResource( 118 ), "fall", "attack water", SubResource( 119 ), "idle wall", "attack wind", SubResource( 120 ), "idle wall", "attack water", SubResource( 121 ), "idle wall", "attack earth", SubResource( 122 ), "fall wall", "attack earth", SubResource( 123 ), "fall wall", "attack water", SubResource( 124 ), "fall wall", "attack wind", SubResource( 125 ), "attack earth", "jump", SubResource( 126 ), "attack water", "jump", SubResource( 127 ), "attack wind", "jump", SubResource( 128 ), "attack earth", "idle", SubResource( 129 ), "attack water", "idle", SubResource( 130 ), "attack wind", "idle", SubResource( 131 ), "attack earth", "death", SubResource( 132 ), "attack water", "fall", SubResource( 133 ), "attack wind", "idle wall", SubResource( 134 ), "attack wind", "fall", SubResource( 135 ), "attack wind", "death", SubResource( 136 ), "attack earth", "fall", SubResource( 137 ), "attack earth", "idle wall", SubResource( 138 ), "attack water", "death", SubResource( 139 ), "attack water", "idle wall", SubResource( 140 ), "attack earth", "fall wall", SubResource( 141 ), "attack water", "fall wall", SubResource( 142 ), "attack wind", "fall wall", SubResource( 143 ), "death", "revive", SubResource( 146 ), "revive", "idle", SubResource( 147 ) ]
 start_node = "idle"
-graph_offset = Vector2( -1123.44, -26.575 )
+graph_offset = Vector2( -645.44, -55.575 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=6]
 
@@ -2526,6 +2551,10 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Rayo" parent="Pivot" instance=ExtResource( 19 )]
+position = Vector2( -4, 55 )
+z_index = 20
+
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 shape = SubResource( 18 )
 __meta__ = {
@@ -2556,9 +2585,11 @@ parameters/playback = SubResource( 6 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -80 )
+offset = Vector2( 0, 20 )
 current = true
-zoom = Vector2( 0.6, 0.6 )
+zoom = Vector2( 0.8, 0.8 )
 process_mode = 0
+offset_v = 0.1
 __meta__ = {
 "_edit_lock_": true
 }

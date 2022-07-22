@@ -9,7 +9,8 @@ func _ready():
 	playback.start("nada")
 
 func _physics_process(delta):
-	if Global.revive:
+	if Global.revive or Global.deathBoss:
 		playback.travel("rayo")
 		yield(get_tree().create_timer(1.0), "timeout")
 		Global.revive = false
+		Global.deathBoss = false

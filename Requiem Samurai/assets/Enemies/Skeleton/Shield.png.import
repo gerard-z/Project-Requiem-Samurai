@@ -14,7 +14,7 @@ dest_files=[ "res://.import/Shield.png-5d540ab886dc531d4520c1a55d2be351.stex" ]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

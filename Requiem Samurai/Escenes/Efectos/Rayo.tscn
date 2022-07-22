@@ -222,18 +222,18 @@ transitions = [ "nada", "rayo", SubResource( 8 ), "rayo", "nada", SubResource( 9
 [node name="Rayo" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Sprite2" type="Sprite" parent="."]
+modulate = Color( 1, 2, 3, 1 )
+position = Vector2( 0, -993.5 )
+scale = Vector2( 1, 35.8333 )
+texture = ExtResource( 6 )
+vframes = 4
+
 [node name="Sprite" type="Sprite" parent="."]
 modulate = Color( 1, 2, 3, 1 )
 position = Vector2( 0, -128 )
 texture = ExtResource( 1 )
 hframes = 13
-
-[node name="Sprite2" type="Sprite" parent="."]
-modulate = Color( 1, 2, 3, 1 )
-position = Vector2( 0, -1007.5 )
-scale = Vector2( 1, 35.8333 )
-texture = ExtResource( 6 )
-vframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
