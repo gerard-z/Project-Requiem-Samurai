@@ -47,7 +47,7 @@ var golpefps = 100
 
 
 #vida
-var health = 100 setget _set_health
+var health setget _set_health
 var max_health= 100
 onready var progress_bar = $CanvasLayer/ProgressBar
 
@@ -101,6 +101,7 @@ var fire = false
 func _ready(): # cuando inicia el juego
 	anim_tree.active = true
 	playback.start("idle")
+	health = Global.health
 	
 	meleArea.connect("body_entered", self, "_on_body_entered")
 	if Global.spawnFinal:

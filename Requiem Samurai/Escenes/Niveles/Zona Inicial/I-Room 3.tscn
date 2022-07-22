@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/Cuadrados/DeepCave.tres" type="TileSet" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/Fosa/prllx/red_L4.png" type="Texture" id=7]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Escenes/enemigos/wizzard.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -207,3 +208,6 @@ Grid = 40
 position = Vector2( 1501, 210 )
 escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Room 2.tscn"
 toEnd = true
+
+[node name="wizzard" parent="." instance=ExtResource( 10 )]
+position = Vector2( 508, -115 )

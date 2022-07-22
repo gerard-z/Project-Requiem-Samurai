@@ -18,6 +18,7 @@ var deathBoss = false
 var figure = 0
 var type_figure = 0 #subvariante de la figura
 var area = 0
+var health = 100
 
 var lvlskill = 4 #habilidades desbloqueadas
 

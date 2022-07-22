@@ -9,6 +9,8 @@ onready var pivote = $pivote
 onready var rayview = $pivote/view
 onready var spawnpoint = $pivote/spawnpoint
 onready var timer = $shootCooldown
+onready var rayfloor1 = $pivote/rayfloor1
+onready var rayfloor2 = $pivote/rayfloor2
 
 var wizzardfire = preload("res://Escenes/Efectos/wizzardfire.tscn")
 
@@ -103,6 +105,11 @@ func detect_around():
 					pivote.scale.x *= -1
 				else:
 					canmove = false
+		elif not rayfloor1.is_colliding():
+			if rayfloor2.is_colliding():
+				velocity.y = -SPEEDUP
+			else:
+				canmove = false
 
 
 func _set_health(value):

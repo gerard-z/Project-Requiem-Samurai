@@ -845,6 +845,16 @@ position = Vector2( 76, -42 )
 position = Vector2( 76, -42 )
 enabled = true
 
+[node name="rayfloor1" type="RayCast2D" parent="pivote"]
+position = Vector2( 21, 28 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+
+[node name="rayfloor2" type="RayCast2D" parent="pivote"]
+position = Vector2( 50, 28 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+
 [node name="shootCooldown" type="Timer" parent="."]
 wait_time = 2.8
 
