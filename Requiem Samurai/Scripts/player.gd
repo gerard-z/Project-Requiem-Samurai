@@ -80,6 +80,9 @@ var youcandothedash= 0
 var cd_time1_stamina = 0
 var cd_time2_stamina = 0
 
+var cd_time1_dash= 0
+var cd_time2_dash = 0
+
 var dash = 1000
 var dashsentido = 1
 var dirdash = 1
@@ -291,13 +294,14 @@ func _physics_process(delta): # por frame
 			
 			#Time for the Dash:
 			cd_time2_stamina=Global.fpscount
-			if cd_time2_stamina-cd_time1_stamina>52:
+			cd_time2_dash=Global.fpscount
+			if cd_time2_dash-cd_time1_dash>52:
 				youcandothedash=0
 
 			sprint(move_input)
 			
 			#dash
-			if Input.is_action_just_pressed("dash"):			
+			if Input.is_action_just_pressed("dash") :			
 				dash()
 			en_dash()
 			
@@ -431,6 +435,7 @@ func dash():
 	if stamina>=20 and youcandothedash==0:
 		youcandothedash=1
 		cd_time1_stamina = Global.fpscount
+		cd_time1_dash = Global.fpscount
 		if pivote.scale.x < 0:
 			dirdash = -abs(dirdash)
 		else:
@@ -448,14 +453,15 @@ func dash():
 
 #en el das
 func en_dash():
+
 	#en el dash
-	if cd_time2_stamina-cd_time1_stamina<10 and youcandothedash==1:
+	if cd_time2_dash-cd_time1_dash<10 and youcandothedash==1:
 		velocity.x =  dash * dirdash #dash
 		velocity.y=0
 		#aiuda pa implementar una animacion de dash uwu
 		#playback.travel("dash")
 	#luego de terminarlo
-	if cd_time2_stamina-cd_time1_stamina<11 and 9<cd_time2_stamina-cd_time1_stamina and youcandothedash==1:
+	if cd_time2_dash-cd_time1_dash<11 and 9<cd_time2_dash-cd_time1_dash and youcandothedash==1:
 		#playback.travel("dash")
 		velocity.x/= 2
 
