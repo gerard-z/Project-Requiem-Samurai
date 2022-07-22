@@ -32,6 +32,10 @@ export var shilding = false
 
 export var spawnleft = false
 
+var stuneado = 0 #stun
+var stuneadot1= 0
+var stuneadot2= 0
+
 func _ready():
 	anim_tree.active = true
 	playback.start("idle")

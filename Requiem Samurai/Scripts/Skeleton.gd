@@ -19,8 +19,8 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-var health = 50 setget _set_health
-var max_health= 50
+var health = 80 setget _set_health
+var max_health= 80
 
 #IA
 var target: Node2D = null #distancia del área: 226
@@ -45,22 +45,25 @@ var stuneadot1= 0
 var stuneadot2= 0
 
 func _physics_process(delta):
+	
+	if health <= 0:
+		death()
 	#stun
 	if stuneado==2:
 		stuneadot1=Global.fpscount
 		stuneadot2=Global.fpscount
 		stuneado=1
 		
-	if stuneado==1: 
+	elif stuneado==1: 
 		print("stuneado")
-		playback.start("idle")
+		anim_tree.active = false
+		sprite.modulate = Color(0.65, 0.2, 0.2, 1)
 		stuneadot2=Global.fpscount
-		if stuneadot2-stuneadot1>=50*3:
+		if stuneadot2-stuneadot1>=50*2:
+			anim_tree.active = true
 			stuneado=0
-		return 1 
-	
-	if health <= 0:
-		death()
+			sprite.modulate = Color.white
+		return 1
 	else:
 		movimiento()
 		animacion()

@@ -11,6 +11,8 @@ onready var spawnpoint = $pivote/spawnpoint
 onready var timer = $shootCooldown
 onready var rayfloor1 = $pivote/rayfloor1
 onready var rayfloor2 = $pivote/rayfloor2
+onready var timer2 = $attackCooldown
+onready var deteck = $pivote/detectMelee
 
 var wizzardfire = preload("res://Escenes/Efectos/wizzardfire.tscn")
 
@@ -26,7 +28,7 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-export var max_health= 150
+export var max_health= 60
 var health = max_health setget _set_health
 
 #IA
@@ -36,9 +38,14 @@ export var attacking = false
 export var canmove = true
 export var shilding = false
 var COOLDOWN = false
+var COOLDOWNA = false
 export var spawnleft = false
 
 export var timeCooldown = 2.8
+
+var stuneado = 0 #stun
+var stuneadot1= 0
+var stuneadot2= 0
 
 func _ready():
 	anim_tree.active = true
@@ -52,6 +59,21 @@ func _ready():
 func _physics_process(delta):
 	if health <= 0:
 		death()
+	if stuneado==2:
+		stuneadot1=Global.fpscount
+		stuneadot2=Global.fpscount
+		stuneado=1
+		
+	elif stuneado==1: 
+		print("stuneado")
+		anim_tree.active = false
+		sprite.modulate = Color(0.65, 0.2, 0.2, 1)
+		stuneadot2=Global.fpscount
+		if stuneadot2-stuneadot1>=50*2:
+			anim_tree.active = true
+			stuneado=0
+			sprite.modulate = Color.white
+		return 1
 	else:
 		movimiento()
 		if target != null and target.global_position.distance_to(global_position) > 1000:
@@ -165,8 +187,11 @@ func _on_detectingArea_body_entered(body: Node2D):
 	target = body
 
 func _on_detectMelee_body_entered(body):
-	if not shilding:
+	if not shilding and not COOLDOWNA:
 		attacking = true
+		COOLDOWNA = true
+		timer2.start()
+		
 		
 func spawn_batifire():
 	var fire = wizzardfire.instance()
@@ -182,3 +207,9 @@ func shoot():
 	
 func _on_shootCooldown_timeout():
 	COOLDOWN = false
+
+
+func _on_attackCooldown_timeout():
+	COOLDOWNA = false
+	deteck.monitoring = false
+	deteck.monitoring = true

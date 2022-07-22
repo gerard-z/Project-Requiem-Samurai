@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/Pueblo/white.jpg" type="Texture" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Escenes/enemigos/wizzard.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Escenes/enemigos/Skeleton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Escenes/enemigos/nightboner.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -89,3 +92,12 @@ toEnd = true
 [node name="toT2" parent="." instance=ExtResource( 6 )]
 position = Vector2( -1632, -1432 )
 escena_objetivo = "res://Escenes/Niveles/Torre de Agua/W-Room 2.tscn"
+
+[node name="nightBoner" parent="." instance=ExtResource( 9 )]
+position = Vector2( -651, -324 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 8 )]
+position = Vector2( 411, -60 )
+
+[node name="wizzard" parent="." instance=ExtResource( 7 )]
+position = Vector2( -1256, -575 )

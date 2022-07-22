@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/Fosa/prllx/red_L2.png" type="Texture" id=1]
 [ext_resource path="res://resources/Cuadrados/DeepCave.tres" type="TileSet" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Escenes/enemigos/wizzard.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Escenes/enemigos/Skeleton.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Escenes/enemigos/batiojo.tscn" type="PackedScene" id=13]
 
 [sub_resource type="CanvasItemMaterial" id=2]
 blend_mode = 1
@@ -216,3 +219,17 @@ escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Safe-Room.tscn"
 
 [node name="spawnpoint" parent="." instance=ExtResource( 9 )]
 position = Vector2( -1112, -2205 )
+
+[node name="batiojo" parent="." instance=ExtResource( 13 )]
+position = Vector2( -154, -652 )
+
+[node name="Skeleton" parent="." instance=ExtResource( 12 )]
+position = Vector2( 652, -823 )
+spawnleft = true
+
+[node name="wizzard" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1132, -1093 )
+spawnleft = true
+
+[node name="batiojo2" parent="." instance=ExtResource( 13 )]
+position = Vector2( -651, -1469 )

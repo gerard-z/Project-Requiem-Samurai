@@ -369,7 +369,7 @@ func mecInnovadora():
 
 func set_pyro():
 	if Global.ataqpyro > 0:
-		dmg=30
+		dmg=20
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true
@@ -394,7 +394,7 @@ func set_hydro():
 
 func set_earth():
 	if Global.ataqearth > 0:
-		dmg=20
+		dmg=15
 		NodeSprite.visible = true
 		AirSprite.visible = false
 		fire = true

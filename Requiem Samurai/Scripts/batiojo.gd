@@ -22,7 +22,7 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-export var max_health= 50
+export var max_health= 30
 var health = max_health setget _set_health
 
 #IA
@@ -37,6 +37,10 @@ export var distanceAttack = false
 var COOLDOWN = false
 
 export var spawnleft = false
+
+var stuneado = 0 #stun
+var stuneadot1= 0
+var stuneadot2= 0
 
 func _ready():
 	anim_tree.active = true

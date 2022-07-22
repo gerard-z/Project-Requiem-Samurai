@@ -214,7 +214,7 @@ position = Vector2( 1134, -408 )
 spawnleft = true
 
 [node name="batiojo" parent="." instance=ExtResource( 11 )]
-position = Vector2( 1697, -686 )
+position = Vector2( 1343, -860 )
 
 [node name="Skeleton" parent="." instance=ExtResource( 12 )]
 position = Vector2( -368, 79 )

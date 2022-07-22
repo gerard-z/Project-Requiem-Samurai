@@ -61,7 +61,8 @@ var credits = [
 		"https://www.gimp.org/"
 	],[
 		"Agradecimiento Especiales",
-		"Los amigos en el camino"
+		"Los amigos en el camino",
+		"y Equipo docente"
 	]
 ]
 

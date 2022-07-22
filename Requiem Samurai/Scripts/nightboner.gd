@@ -20,7 +20,7 @@ var velocity = Vector2()
 var dmg =  10
 
 #vida
-export var max_health= 150
+export var max_health= 100
 var health = max_health setget _set_health
 
 #IA
@@ -31,6 +31,10 @@ export var canmove = true
 export var shilding = false
 
 export var spawnleft = false
+
+var stuneado = 0 #stun
+var stuneadot1= 0
+var stuneadot2= 0
 
 func _ready():
 	anim_tree.active = true
@@ -43,6 +47,22 @@ func _ready():
 func _physics_process(delta):
 	if health <= 0:
 		death()
+		
+	if stuneado==2:
+		stuneadot1=Global.fpscount
+		stuneadot2=Global.fpscount
+		stuneado=1
+		
+	elif stuneado==1: 
+		print("stuneado")
+		anim_tree.active = false
+		sprite.modulate = Color(0.65, 0.2, 0.2, 1)
+		stuneadot2=Global.fpscount
+		if stuneadot2-stuneadot1>=50*1:
+			anim_tree.active = true
+			stuneado=0
+			sprite.modulate = Color.white
+		return 1
 	else:
 		movimiento()
 		if target != null and target.global_position.distance_to(global_position) > 1000:

@@ -516,7 +516,7 @@ radius = 11.0
 radius = 12.0
 
 [sub_resource type="CircleShape2D" id=24]
-radius = 226.0
+radius = 324.039
 
 [sub_resource type="CircleShape2D" id=26]
 radius = 13.0384

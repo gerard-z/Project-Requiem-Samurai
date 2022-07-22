@@ -851,7 +851,11 @@ cast_to = Vector2( 0, 20 )
 [node name="shootCooldown" type="Timer" parent="."]
 wait_time = 2.8
 
+[node name="attackCooldown" type="Timer" parent="."]
+wait_time = 1.5
+
 [connection signal="body_entered" from="pivote/detectingArea" to="." method="_on_detectingArea_body_entered"]
 [connection signal="body_entered" from="pivote/DoDamage" to="." method="_on_DoDamage_body_entered"]
 [connection signal="body_entered" from="pivote/detectMelee" to="." method="_on_detectMelee_body_entered"]
 [connection signal="timeout" from="shootCooldown" to="." method="_on_shootCooldown_timeout"]
+[connection signal="timeout" from="attackCooldown" to="." method="_on_attackCooldown_timeout"]

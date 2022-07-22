@@ -58,6 +58,7 @@ var seactivaeltrazado=false
 func _process(delta): #tiempo => frames
 	area = round(area)
 
+	_debugmode()
 	_gravity_time_power()
 	daishi_sword()
 	
@@ -160,3 +161,28 @@ func load_game():
 	get_tree().change_scene(ruta)
 	yield(get_tree().create_timer(0.5),"timeout")
 	Global.spawnFinal = saveSpawnfinal
+	seactivaeltrazado = true
+
+func _debugmode():
+	if Input.is_action_just_pressed("cero"):
+		M_Water_sword = 0
+		M_Earth_Sword = 0
+		M_daishi = 0
+		M_gravity = 0
+	elif Input.is_action_just_pressed("uno"):
+		M_Water_sword = 1
+	elif Input.is_action_just_pressed("dos"):
+		M_Earth_Sword = 1
+	elif Input.is_action_just_pressed("tre"):
+		M_daishi = 1
+	elif Input.is_action_just_pressed("cuatro"):
+		M_gravity = 1
+	elif Input.is_action_just_pressed("cinco"):
+		M_Water_sword = 1
+		M_Earth_Sword = 1
+		M_daishi = 1
+		M_gravity = 1
+	elif Input.is_action_just_pressed("siete"):
+		seactivaeltrazado=false
+	elif Input.is_action_just_pressed("ocho"):
+		seactivaeltrazado=true
