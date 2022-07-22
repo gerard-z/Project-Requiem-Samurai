@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/Pueblo/white.jpg" type="Texture" id=1]
 [ext_resource path="res://Escenes/samurai.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/Cuadrados/WaterTower.tres" type="TileSet" id=3]
 [ext_resource path="res://Escenes/traced.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Escenes/toScenes/spawnfinalpoint.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Escenes/toScenes/toT1.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -28,8 +30,12 @@ colors = PoolColorArray( 0, 1, 0.796078, 1, 0, 1, 0.796078, 1 )
 [node name="Node2D" type="Node2D"]
 
 [node name="Samurai" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1242, -90 )
+position = Vector2( 925, -72 )
 z_index = 19
+spawPointFinal = NodePath("spawnpoint")
+
+[node name="spawnpoint" parent="Samurai" instance=ExtResource( 5 )]
+position = Vector2( -2564, -1146 )
 
 [node name="tilemaps" type="Position2D" parent="."]
 modulate = Color( 0.368627, 0.72549, 0.560784, 1 )
@@ -52,6 +58,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/00"]
+visible = false
 modulate = Color( 0, 0.0666667, 0.172549, 1 )
 scale = Vector2( 2, 1.5 )
 texture = ExtResource( 1 )
@@ -74,3 +81,12 @@ end_cap_mode = 2
 targetPath = NodePath("../Samurai")
 trailLenght = 10
 Grid = 40
+
+[node name="toT1" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1246, -96 )
+escena_objetivo = "res://Escenes/Niveles/Zona Inicial/I-Seal-Room.tscn"
+toEnd = true
+
+[node name="toT2" parent="." instance=ExtResource( 6 )]
+position = Vector2( -1632, -1432 )
+escena_objetivo = "res://Escenes/Niveles/Torre de Agua/W-Room 2.tscn"
