@@ -196,10 +196,11 @@ func _on_detectMelee_body_entered(body):
 		
 		
 func spawn_batifire():
-	var fire = wizzardfire.instance()
-	get_parent().add_child(fire)
-	fire.global_position = spawnpoint.global_position
-	fire.rotation = Vector2(1,0).angle_to(target.global_position- spawnpoint.global_position)
+	if target != null:
+		var fire = wizzardfire.instance()
+		get_parent().add_child(fire)
+		fire.global_position = spawnpoint.global_position
+		fire.rotation = Vector2(1,0).angle_to(target.global_position- spawnpoint.global_position)
 
 func shoot():
 	COOLDOWN = true
