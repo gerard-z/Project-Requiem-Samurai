@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/Pueblo/pasto.png" type="Texture" id=1]
+
+[node name="grass" type="Node2D"]
+position = Vector2( -2088, 531 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="Node2D2" type="Node2D" parent="."]
+position = Vector2( 2982.86, -758.572 )
+scale = Vector2( 1.42857, 1.42857 )
+
+[node name="Sprite" type="Sprite" parent="Node2D2"]
+position = Vector2( -2090, 531 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )
+
+[node name="Node2D3" type="Node2D" parent="."]
+position = Vector2( 2982.86, -758.572 )
+scale = Vector2( 1.42857, 1.42857 )
+
+[node name="Sprite" type="Sprite" parent="Node2D3"]
+position = Vector2( -1866, 531 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )
+
+[node name="Node2D4" type="Node2D" parent="."]
+position = Vector2( 2982.86, -758.572 )
+scale = Vector2( 1.42857, 1.42857 )
+
+[node name="Sprite" type="Sprite" parent="Node2D4"]
+position = Vector2( -1642, 531 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )
+
+[node name="Node2D5" type="Node2D" parent="."]
+position = Vector2( 2982.86, -758.572 )
+scale = Vector2( 1.42857, 1.42857 )
+
+[node name="Sprite" type="Sprite" parent="Node2D5"]
+position = Vector2( -1418, 531 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )
+
+[node name="Node2D6" type="Node2D" parent="."]
+position = Vector2( 2982.86, -758.572 )
+scale = Vector2( 1.42857, 1.42857 )
+
+[node name="Sprite" type="Sprite" parent="Node2D6"]
+position = Vector2( -1194, 531 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )
+
+[node name="Node2D7" type="Node2D" parent="."]
+position = Vector2( 2982.86, -758.572 )
+scale = Vector2( 1.42857, 1.42857 )
+
+[node name="Sprite" type="Sprite" parent="Node2D7"]
+position = Vector2( -970, 531 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )
+
+[node name="Node2D8" type="Node2D" parent="."]
+position = Vector2( 2982.86, -758.572 )
+scale = Vector2( 1.42857, 1.42857 )
+
+[node name="Sprite" type="Sprite" parent="Node2D8"]
+position = Vector2( -746, 531 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )

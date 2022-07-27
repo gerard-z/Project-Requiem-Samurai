@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Pueblo.ogg-f269b2bb281a413b429eb0c621010240.oggstr"
+
+[deps]
+
+source_file="res://Music/Pueblo.ogg"
+dest_files=[ "res://.import/Pueblo.ogg-f269b2bb281a413b429eb0c621010240.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
